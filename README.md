@@ -1,4 +1,4 @@
-# BlacklabelOps/DockerJenkins
+# BlacklabelOps/Jenkins
 
 Docker container with Jenkins Continuous Integration and Delivery server on CentOS.
 
