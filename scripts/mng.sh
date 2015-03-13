@@ -35,10 +35,10 @@ success() {
 #------------------
 
 printf '%b\n' ":: Searching for "$CONTAINER_NAME" container..."
-CONTAINER_ID=$(docker ps -q --filter="name="$CONTAINER_NAME"")
+CONTAINER_ID=$(docker ps -qa --filter="name="$CONTAINER_NAME"")
 
 if [ -z "$CONTAINER_ID" ]; then
-  err ""$CONTAINER_NAME" not running"
+  err ""$CONTAINER_NAME" not found"
 fi
 
 docker run -it --volumes-from ${CONTAINER_NAME} ${UTILITY_IMAGE} /bin/bash
