@@ -4,7 +4,7 @@ Docker container with Jenkins Continuous Integration and Delivery server on Cent
 
 ### Instant Usage
 
-    docker run -d -p 8090:8090 --name="dockerjenkins_jenkins_1" blacklabelops/jenkins
+    docker run -d -p 8090:8090 --name="jenkins_jenkins_1" blacklabelops/jenkins
 
 > This will pull the container and start the latest jenkins on port 8090
 
