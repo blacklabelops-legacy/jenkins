@@ -164,7 +164,7 @@ $ ./scripts/backup.sh
 $ scripts/backup.sh
 :: Searching for jenkins docker container...
 
-[ERROR] dockerjenkins_jenkins_1 container is not found
+[ERROR] jenkins_jenkins_1 container is not found
 ~~~~
 
 #### Success example
