@@ -10,13 +10,13 @@ RUN yum install -y \
     yum clean all && rm -rf /var/cache/yum/*
 
 # install java
-ENV JAVA_VERSION=1.8.0_40
-ENV JAVA_TARBALL=server-jre-8u40-linux-x64.tar.gz
+ENV JAVA_VERSION=1.8.0_45
+ENV JAVA_TARBALL=server-jre-8u45-linux-x64.tar.gz
 ENV JAVA_HOME=/opt/java/jdk${JAVA_VERSION}
 
 RUN wget --no-check-certificate --directory-prefix=/tmp \
          --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" \
-         http://download.oracle.com/otn-pub/java/jdk/8u40-b26/${JAVA_TARBALL} && \
+         http://download.oracle.com/otn-pub/java/jdk/8u45-b14/${JAVA_TARBALL} && \
     mkdir -p /opt/java && \
     tar -xzf /tmp/${JAVA_TARBALL} -C /opt/java/ && \
     alternatives --install /usr/bin/java java /opt/java/jdk${JAVA_VERSION}/bin/java 100 && \
