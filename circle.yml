@@ -1,0 +1,14 @@
+machine:
+  services:
+    - docker
+
+dependencies:
+  override:
+    - docker version
+    - docker info
+    - docker build -t="blacklabelops/jenkins" .
+
+test:
+  override:
+    - docker run -d -p 8090:8090 --name="jenkins_jenkins_1" blacklabelops/jenkins
+    - curl --retry 10 --retry-delay 5 -v http://localhost:8090
