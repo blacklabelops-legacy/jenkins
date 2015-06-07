@@ -1,4 +1,4 @@
-# BlacklabelOps/Jenkins
+# BlacklabelOps/Jenkins [![Circle CI](https://circleci.com/gh/blacklabelops/jenkins/tree/master.svg?style=svg)](https://circleci.com/gh/blacklabelops/jenkins/tree/master)
 
 Docker container with Jenkins Continuous Integration and Delivery server on CentOS.
 
