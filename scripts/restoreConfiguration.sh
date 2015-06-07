@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Restore docker volume from a data container.
+# Restore jenkins configuration from a backup archive.
 #
 
 set -o pipefail   # return the exit status of the last command in the pipe
