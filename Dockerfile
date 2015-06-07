@@ -23,7 +23,7 @@ RUN wget --no-check-certificate --directory-prefix=/tmp \
     rm -rf /tmp/* && rm -rf /var/log/*
 
 # install jenkins
-ENV JENKINS_VERSION=1.601
+ENV JENKINS_VERSION=latest
 ENV JENKINS_HOME=/jenkins
 
 RUN mkdir -p /opt/jenkins && \
