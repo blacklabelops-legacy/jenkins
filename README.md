@@ -26,7 +26,7 @@ Container has the following features:
 ## What's Included
 
 Following centos packages are included: `git`, `tar`, `wget` and `zip`. The
-image contains Java Server JRE (8u31) and per default the latest Jenkins CI
+image contains Oracle Java JRE 8 and per default the latest Jenkins CI
 version.
 
 ## Usage
