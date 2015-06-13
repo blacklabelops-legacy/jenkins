@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Remove 'blacklabelops/jenkins' Docker image
+# Remove Docker image
 #
 
 set -o errexit    # abort script at first error
