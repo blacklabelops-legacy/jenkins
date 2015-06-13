@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Download a log file from Docker container
+# Run Docker container
 #
 
 set -o errexit    # abort script at first error

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Stop from Docker container
+# Stop Docker container
 #
 
 set -o errexit    # abort script at first error
