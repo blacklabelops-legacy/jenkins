@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Build 'blacklabelops/jenkins' Docker image
+# Build Docker image
 #
 
 set -o errexit    # abort script at first error
