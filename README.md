@@ -6,28 +6,64 @@ Docker container with Jenkins Continuous Integration and Delivery server on Cent
 
 ### Instant Usage
 
-    docker run -d -p 8090:8090 --name="jenkins_jenkins_1" blacklabelops/jenkins
+~~~~
+docker run -d -p 8090:8090 --name="jenkins_jenkins_1" blacklabelops/jenkins
+~~~~
 
 > This will pull the container and start the latest jenkins on port 8090
+
+### Running Multiple Containers
+
+Every Jenkins container needs its own unique volume! Overwrite the default JENKINS_HOME variable and Docker volume:
+
+~~~~
+docker run -d -p 8090:8090 -e JENKINS_HOME=/jenkins_custom -v /jenkins_custom --name="jenkins_jenkins_1" blacklabelops/jenkins
+~~~~
+
+> Note: JENKINS_HOME must point to the Docker volume!
 
 ## Features
 
 Container has the following features:
 
-* Install latest jenkins.
-* Set the jenkins version number.
-* Container writes data to docker volume.
-* Scripts for backup of jenkins data.
-* Scripts for restore of jenkins data.
-* Configuration file for managing multiple containers.
-* Supports the docker-compose tool.
+* Install latest Jenkins.
+* Set the Jenkins version number.
+* Container writes data to Docker volume.
+* Scripts for backup of Jenkins data.
+* Scripts for restore of Jenkins data.
+* Supports the Docker-Compose tool.
 * Includes several convenient cli wrapper scripts around docker.
 
 ## What's Included
 
-Following centos packages are included: `git`, `tar`, `wget` and `zip`. The
-image contains Oracle Java JRE 8 and per default the latest Jenkins CI
-version.
+* Jenkins Latest
+* CentOS 7.1.1503
+* Java 8
+
+## Works with
+
+* Docker 1.6.0, 1.6.2
+* Docker-Compose 1.2.0, 1.3.0
+
+## Vagrant
+
+Vagrant is fabulous tool for pulling and spinning up virtual machines like docker with containers. I can configure my development and test environment and simply pull it online. And so can you! Install Vagrant and Virtualbox and spin it up. Change into the project folder and build the project on the spot!
+
+~~~~
+$ vagrant up
+$ vagrant ssh
+[vagrant@localhost ~]$ cd /vagrant
+[vagrant@localhost ~]$ docker-compose up
+~~~~
+
+> Jenkins will be available on localhost:9200 on the host machine.
+
+Vagrant does not leave any docker artifacts on your beloved desktop and the vagrant image can simply be destroyed and repulled if anything goes wrong. Test my project to your heart's content!
+
+First install:
+
+* [Vagrant](https://www.vagrantup.com/)
+* [Virtualbox](https://www.virtualbox.org/)
 
 ## Usage
 
@@ -37,21 +73,21 @@ This container includes all the required scripts for container management. Simpl
 
 ### Project Usage
 
-This project can be used from the command line, by bash scripts and the docker-compose tool. It's recommended to use the scripts for container management.
+This project can be used from the command line, by bash scripts and the Docker-Compose tool. It's recommended to use the scripts for container management.
 
 #### Run Recommended
 
 ~~~~
 $ ./scripts/run.sh
-~~~~    
+~~~~
 
 > This will run the container with the configuration scripts/container.cfg
 
 #### Run Docker-Composite
 
 ~~~~
-$ docker-composite -d up
-~~~~    
+$ docker-compose -d up
+~~~~
 
 > This will run the container detached with the configuration docker-composite.yml
 
@@ -67,16 +103,16 @@ $ docker run -d -p 8090:8090 --name="jenkins_jenkins_1" blacklabelops/jenkins
 
 ~~~~
 $ ./scripts/build.sh
-~~~~    
+~~~~
 
 > This will build the container from scratch with all required parameters.
 
 #### Build Docker-Composite
 
 ~~~~
-docker-composite build
+docker-compose build
 ~~~~
-    
+
 > This will build the container according to the docker-composite.yml file.
 
 #### Build Docker Command Line
@@ -101,7 +137,7 @@ rm.sh             | Kill all running containers and remove it.
 rmi.sh            | Delete container image.
 mng.sh            | Manage the docker volume from another container.
 
-> Simply invoke the commands in the project's folder. 
+> Simply invoke the commands in the project's folder.
 
 ## Feature Scripts
 
@@ -236,11 +272,11 @@ $ ./scripts/restore.sh ./backups/JenkinsBackup-2015-03-08-16-28-40.tar
 
 ~~~~
 
-## Managing Multiple Containers
+## Managing Containers
 
 The scripts can be configured for the support of different containers on the same host manchine. Just copy and paste the project and folder and adjust the configuration file scripts/container.cfg
 
-Name              | Description 
+Name              | Description
 ----------------- | ------------
 CONTAINER_NAME    | The name of the docker container.
 IMAGE_NAME         | The name of the docker image.
@@ -250,6 +286,8 @@ LOGFILE_DIRECTORY | Change the logs download directory.
 FILE_TIMESTAMP | Timestamp format for logs and backups.
 
 > Note: CONTAINER_VOLUME can't be changed. It is defined inside the Dockerfile.
+
+> Note: If you want to start multiple containers on the same host machine then you have to choose a unique DOCKER HOME and JENKINS HOME for each container.
 
 ## Setting the Jenkins Version
 
@@ -278,8 +316,8 @@ This project supports docker-compose. The configuration is inside the docker-com
 Example:
 
 ~~~~
-$ docker-composite -d up
-~~~~   
+$ docker-compose -d up
+~~~~
 
 > Starts a detached docker container.
 
