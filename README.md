@@ -291,3 +291,5 @@ Consult the [docker-compose](https://docs.docker.com/compose/) manual for specif
 * [Docker Homepage](https://www.docker.com/)
 * [Docker Compose](https://docs.docker.com/compose/)
 * [Docker Userguide](https://docs.docker.com/userguide/)
+* [Official CentOS Container](https://registry.hub.docker.com/_/centos/)
+* [Oracle Java8](https://java.com/de/download/)

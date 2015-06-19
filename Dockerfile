@@ -1,4 +1,4 @@
-FROM centos:7
+FROM centos:7.1.1503
 MAINTAINER Steffen Bleul <blacklabelops@itbleul.de>
 
 # install dev tools
@@ -23,12 +23,12 @@ RUN wget --no-check-certificate --directory-prefix=/tmp \
     rm -rf /tmp/* && rm -rf /var/log/*
 
 # install jenkins
-ENV JENKINS_VERSION=latest
+ENV JENKINS_VERSION=1.609.1
 ENV JENKINS_HOME=/jenkins
 
 RUN mkdir -p /opt/jenkins && \
     wget --directory-prefix=/opt/jenkins \
-         http://mirrors.jenkins-ci.org/war/${JENKINS_VERSION}/jenkins.war && \
+         http://mirrors.jenkins-ci.org/war-stable/${JENKINS_VERSION}/jenkins.war && \
     chmod 644 /opt/jenkins/jenkins.war
 
 # forward jenkins log to docker log collector
@@ -40,4 +40,3 @@ EXPOSE 8090
 COPY imagescripts/docker-entrypoint.sh /opt/jenkins/docker-entrypoint.sh
 ENTRYPOINT ["/opt/jenkins/docker-entrypoint.sh"]
 CMD ["jenkins"]
-
