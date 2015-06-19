@@ -12,16 +12,6 @@ docker run -d -p 8090:8090 --name="jenkins_jenkins_1" blacklabelops/jenkins
 
 > This will pull the container and start the latest jenkins on port 8090
 
-### Running Multiple Containers
-
-Every Jenkins container needs its own unique volume! Overwrite the default JENKINS_HOME variable and Docker volume:
-
-~~~~
-docker run -d -p 8090:8090 -e JENKINS_HOME=/jenkins_custom -v /jenkins_custom --name="jenkins_jenkins_1" blacklabelops/jenkins
-~~~~
-
-> Note: JENKINS_HOME must point to the Docker volume!
-
 ## Features
 
 Container has the following features:
@@ -272,7 +262,7 @@ $ ./scripts/restore.sh ./backups/JenkinsBackup-2015-03-08-16-28-40.tar
 
 ~~~~
 
-## Managing Containers
+## Managing Multiple Containers
 
 The scripts can be configured for the support of different containers on the same host manchine. Just copy and paste the project and folder and adjust the configuration file scripts/container.cfg
 
@@ -285,9 +275,7 @@ BACKUP_DIRECTORY | Change the backup directory.
 LOGFILE_DIRECTORY | Change the logs download directory.
 FILE_TIMESTAMP | Timestamp format for logs and backups.
 
-> Note: CONTAINER_VOLUME can't be changed. It is defined inside the Dockerfile.
-
-> Note: If you want to start multiple containers on the same host machine then you have to choose a unique DOCKER HOME and JENKINS HOME for each container.
+> Note: CONTAINER_VOLUME must not be changed.
 
 ## Setting the Jenkins Version
 
