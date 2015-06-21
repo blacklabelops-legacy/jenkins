@@ -1,4 +1,4 @@
-# BlacklabelOps/Jenkins
+# BlackLabelOps/Jenkins
 
 [![Circle CI](https://circleci.com/gh/blacklabelops/jenkins/tree/master.svg?style=svg)](https://circleci.com/gh/blacklabelops/jenkins/tree/master)
 
