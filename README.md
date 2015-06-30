@@ -1,5 +1,3 @@
-# BlackLabelOps/Jenkins
-
 [![Docker Hub Info](http://dockeri.co/image/blacklabelops/jenkins)](https://registry.hub.docker.com/u/blacklabelops/jenkins)
 
 [![Docker Build Status](http://hubstatus.container42.com/blacklabelops/jenkins)](https://registry.hub.docker.com/u/blacklabelops/jenkins)
