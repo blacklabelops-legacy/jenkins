@@ -1,4 +1,4 @@
-FROM centos:7.1.1503
+FROM blacklabelops/centos
 MAINTAINER Steffen Bleul <blacklabelops@itbleul.de>
 
 # install dev tools
