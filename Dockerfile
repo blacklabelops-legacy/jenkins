@@ -1,4 +1,4 @@
-FROM blacklabelops/centos
+FROM blacklabelops/centos:7.1
 MAINTAINER Steffen Bleul <blacklabelops@itbleul.de>
 
 # install dev tools
@@ -23,7 +23,7 @@ RUN wget --no-check-certificate --directory-prefix=/tmp \
     rm -rf /tmp/* && rm -rf /var/log/*
 
 # install jenkins
-ENV JENKINS_VERSION=latest
+ENV JENKINS_VERSION=1.618
 ENV JENKINS_HOME=/jenkins
 
 RUN mkdir -p /opt/jenkins && \
