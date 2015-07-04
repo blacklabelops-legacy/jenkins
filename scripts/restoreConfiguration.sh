@@ -99,7 +99,7 @@ cleaningBusybox
 
 printf '%b\n' ":: Starting restore..."
 
-docker run --name=""$RESTORE_CONTAINER"" --rm --volumes-from ${CONTAINER_NAME} -v $(pwd)/${backup_file}:/backup.tar busybox tar xfv /backup.tar jenkins/jobs jenkins/userContent jenkins/fingerprints jenkins/plugins jenkins/secrets jenkins/users jenkins/logs jenkins/secret.* jenkins/*.xml
+docker run --name=""$RESTORE_CONTAINER"" --rm --volumes-from ${CONTAINER_NAME} -v $(pwd)/${backup_file}:/backup.tar busybox tar xf /backup.tar jenkins/jobs jenkins/userContent jenkins/fingerprints jenkins/plugins jenkins/secrets jenkins/users jenkins/logs jenkins/secret.* jenkins/*.xml
 
 printf '%b\n' " backup imported into "$CONTAINER_NAME" container"
 printf '%b\n' ""
@@ -112,4 +112,3 @@ fi
 cleaningBusybox
 
 success "Restoring of backups complete successfull."
-
