@@ -54,7 +54,7 @@ printf '%b\n' ""
 printf '%b\n' ":: Removing container..."
 
 # remove container
-stopped=$(docker rm ${CONTAINER_NAME})
+stopped=$(docker rm -v ${CONTAINER_NAME})
 if [[ "$?" -ne 0 ]]; then
   err "Could not remove "$CONTAINER_NAME" container"
 fi
