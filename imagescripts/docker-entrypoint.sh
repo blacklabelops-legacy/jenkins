@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 #
 # A helper script for ENTRYPOINT.
 #
@@ -9,10 +9,14 @@
 
 set -e
 
+SECURITY_OPTS=""
+
+if [ -n "${JENKINS_ADMIN_USER}" ] && [ -n "${JENKINS_ADMIN_PASSWORD}" ]; then
+    SECURITY_OPTS="--argumentsRealm.passwd.${JENKINS_ADMIN_USER}=${JENKINS_ADMIN_PASSWORD} --argumentsRealm.roles.${JENKINS_ADMIN_USER}=admin"
+fi
 
 if [ "$1" = 'jenkins' ]; then
-  exec java -jar /opt/jenkins/jenkins.war --httpPort=8090  "$@" > /var/log/jenkins.log 2>&1
+  exec java -jar /opt/jenkins/jenkins.war ${SECURITY_OPTS} --httpPort=8090  "$@" > /var/log/jenkins.log 2>&1
 fi
 
 exec "$@"
-

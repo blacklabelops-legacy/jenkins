@@ -1,6 +1,5 @@
-[![Docker Hub Info](http://dockeri.co/image/blacklabelops/jenkins)](https://registry.hub.docker.com/u/blacklabelops/jenkins)
+# BlackLabelOps/Jenkins
 
-[![Docker Build Status](http://hubstatus.container42.com/blacklabelops/jenkins)](https://registry.hub.docker.com/u/blacklabelops/jenkins)
 [![Circle CI](https://circleci.com/gh/blacklabelops/jenkins/tree/master.svg?style=svg)](https://circleci.com/gh/blacklabelops/jenkins/tree/master)
 
 Docker container with Jenkins Continuous Integration and Delivery server on CentOS.
@@ -8,7 +7,7 @@ Docker container with Jenkins Continuous Integration and Delivery server on Cent
 ### Instant Usage
 
 ~~~~
-docker run -d -p 8090:8090 --name="jenkins_jenkins_1" blacklabelops/jenkins
+docker run -d -p 8090:8090 --name jenkins_jenkins_1 blacklabelops/jenkins
 ~~~~
 
 > This will pull the container and start the latest jenkins on port 8090
@@ -311,6 +310,23 @@ $ docker-compose -d up
 > Starts a detached docker container.
 
 Consult the [docker-compose](https://docs.docker.com/compose/) manual for specifics.
+
+## Jenkins Quick & Simple Security
+
+The container supports [Jenkins Quick & Simple Security setup](https://wiki.jenkins-ci.org/display/JENKINS/Quick+and+Simple+Security).
+You can define an administrative user at startup and use it after you manually activate the security.
+This is good for servers where you only need one administrative account.
+
+~~~~
+docker run --name jenkins_jenkins_1 \
+	-e "JENKINS_ADMIN_USER=jenkins" \
+	-e "JENKINS_ADMIN_PASSWORD=swordfish"  \
+	-p 8090:8090 \
+	blacklabelops/jenkins
+~~~~
+
+> This will enable the administrative account for user jenkins with password swordfish. Note:
+This only works when the users are adminsitrated by the servlet container (see security setup).
 
 ## References
 
