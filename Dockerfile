@@ -11,7 +11,7 @@ RUN yum install -y \
 
 # install java
 ENV JAVA_VERSION=1.8.0_51
-ENV JAVA_TARBALL=server-jre-8u45-linux-x64.tar.gz
+ENV JAVA_TARBALL=server-jre-8u51-linux-x64.tar.gz
 ENV JAVA_HOME=/opt/java/jdk${JAVA_VERSION}
 
 RUN wget --no-check-certificate --directory-prefix=/tmp \
