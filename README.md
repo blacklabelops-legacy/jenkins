@@ -51,7 +51,31 @@ docker run -d --name jenkins_jenkins_1 \
 	blacklabelops/jenkins
 ~~~~
 
-> Note: The password will only be set once at initial setup, not at each restart.
+## Jenkins Command Line Parameters
+
+You can define command line parameters. The list of parameters can be found [here](https://wiki.jenkins-ci.org/display/JENKINS/Starting+and+Accessing+Jenkins).
+
+~~~~
+docker run -d --name jenkins_jenkins_1 \
+	-e "JENKINS_PARAMETERS=--httpPort=8090" \
+	-p 8090:8090 \
+	blacklabelops/jenkins
+~~~~
+
+> Starts Jenkins with internal port 8090 rather default port 8080.
+
+## Java-VM Parameters
+
+You can define start up parameters for the Java Virtual Machine, e.g. setting the memory size.
+
+~~~~
+docker run -d --name jenkins_jenkins_1 \
+	-e "JAVA_VM_PARAMETERS=-Xmx512m -Xms256m" \
+	-p 8090:8080 \
+	blacklabelops/jenkins
+~~~~
+
+> You will have to use Java 8 parameters.
 
 ## Vagrant
 

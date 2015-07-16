@@ -9,8 +9,8 @@
 
 set -e
 
-java_vm_parameters=""
-jenkins_parameters=""
+java_vm_parameters="-Xmx512m -Xms256m"
+jenkins_parameters="--httpPort=8080"
 
 chown -R jenkins:jenkins ${JENKINS_HOME}
 
@@ -43,9 +43,9 @@ _EOF_
   cat ${JENKINS_HOME}/init.groovy
 fi
 
-
 if [ "$1" = 'jenkins' ]; then
-  runuser -l jenkins -c 'java '${java_vm_parameters}' -jar /opt/jenkins/jenkins.war '${jenkins_parameters}' 2>&1'
+  jenkins_command='java '${java_vm_parameters}' -jar /opt/jenkins/jenkins.war '${jenkins_parameters} 2>&1
+  runuser -l jenkins -c "${jenkins_command}"
 fi
 
 exec "$@"
