@@ -4,3 +4,6 @@ jenkins:
    - "8090:8080"
   volumes:
    - /jenkins
+  environment:
+    - 'JENKINS_ADMIN_USER=jenkins'
+    - 'JENKINS_ADMIN_PASSWORD=swordfish'

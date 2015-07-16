@@ -4,7 +4,7 @@ import hudson.security.*
 def instance = Jenkins.getInstance()
 
 def hudsonRealm = new HudsonPrivateSecurityRealm(false)
-createAccount("jenkins", "swordfish")
+hudsonRealm.createAccount("jenkins", "swordfish")
 instance.setSecurityRealm(hudsonRealm)
 
 def strategy = new GlobalMatrixAuthorizationStrategy()

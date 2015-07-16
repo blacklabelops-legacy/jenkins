@@ -7,7 +7,7 @@ Docker container with Jenkins Continuous Integration and Delivery server on Cent
 ### Instant Usage
 
 ~~~~
-docker run -d -p 8090:8090 --name jenkins_jenkins_1 blacklabelops/jenkins
+docker run -d -p 8090:8080 --name jenkins_jenkins_1 blacklabelops/jenkins
 ~~~~
 
 > This will pull the container and start the latest jenkins on port 8090
@@ -17,6 +17,7 @@ docker run -d -p 8090:8090 --name jenkins_jenkins_1 blacklabelops/jenkins
 Container has the following features:
 
 * Install latest Jenkins.
+* Enable security over docker envs.
 * Set the Jenkins version number.
 * Container writes data to Docker volume.
 * Scripts for backup of Jenkins data.
@@ -34,6 +35,23 @@ Container has the following features:
 
 * Docker 1.6.0, 1.6.2
 * Docker-Compose 1.2.0, 1.3.0
+
+## Jenkins Security
+
+This container support matrix enabled user security and admin account at startup. Jenkins
+will be locked up and only allows the defined admin user. Afterwards users and rights
+can be configured as usual. The admin password can be changed any time. I use this for starting
+the container up inside cloud environments.
+
+~~~~
+docker run -d --name jenkins_jenkins_1 \
+	-e "JENKINS_ADMIN_USER=jenkins" \
+	-e "JENKINS_ADMIN_PASSWORD=swordfish"  \
+	-p 8090:8080 \
+	blacklabelops/jenkins
+~~~~
+
+> Note: The password will only be set once at initial setup, not at each restart.
 
 ## Vagrant
 
@@ -84,7 +102,7 @@ $ docker-compose -d up
 #### Run Command Line
 
 ~~~~
-$ docker run -d -p 8090:8090 --name="jenkins_jenkins_1" blacklabelops/jenkins
+$ docker run -d -p 8090:8080 --name="jenkins_jenkins_1" blacklabelops/jenkins
 ~~~~
 
 > This will run the jenkins on default settings and port 8090
