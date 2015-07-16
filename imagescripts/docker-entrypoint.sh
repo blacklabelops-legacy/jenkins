@@ -9,14 +9,41 @@
 
 set -e
 
-SECURITY_OPTS=""
+java_vm_parameters=""
+jenkins_parameters=""
+
+chown -R jenkins:jenkins ${JENKINS_HOME}
+
+if [ -n "${JAVA_VM_PARAMETERS}" ]; then
+  java_vm_parameters=${JAVA_VM_PARAMETERS}
+fi
+
+if [ -n "${JENKINS_PARAMETERS}" ]; then
+  jenkins_parameters=${JENKINS_PARAMETERS}
+fi
 
 if [ -n "${JENKINS_ADMIN_USER}" ] && [ -n "${JENKINS_ADMIN_PASSWORD}" ]; then
-    SECURITY_OPTS="--argumentsRealm.passwd.${JENKINS_ADMIN_USER}=${JENKINS_ADMIN_PASSWORD} --argumentsRealm.roles.${JENKINS_ADMIN_USER}=admin"
+  cat > ${JENKINS_HOME}/init.groovy <<_EOF_
+import jenkins.model.*
+import hudson.security.*
+
+def instance = Jenkins.getInstance()
+
+def hudsonRealm = new HudsonPrivateSecurityRealm(false)
+createAccount("${JENKINS_ADMIN_USER}", "${JENKINS_ADMIN_PASSWORD}")
+instance.setSecurityRealm(hudsonRealm)
+
+def strategy = new GlobalMatrixAuthorizationStrategy()
+strategy.add(Jenkins.ADMINISTER, "${JENKINS_ADMIN_USER}")
+instance.setAuthorizationStrategy(strategy)
+
+instance.save()
+_EOF_
+  cat ${JENKINS_HOME}/init.groovy
 fi
 
 if [ "$1" = 'jenkins' ]; then
-  exec java -jar /opt/jenkins/jenkins.war ${SECURITY_OPTS} --httpPort=8090  "$@" > /var/log/jenkins.log 2>&1
+  runuser -l jenkins -c 'java ${java_vm_parameters} -jar /opt/jenkins/jenkins.war --httpPort=8090  "$@" 2>&1'
 fi
 
 exec "$@"

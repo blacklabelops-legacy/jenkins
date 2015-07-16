@@ -6,6 +6,7 @@ RUN yum install -y \
     git \
     tar \
     wget \
+    unzip \
     zip && \
     yum clean all && rm -rf /var/cache/yum/*
 
@@ -33,10 +34,10 @@ ENV JENKINS_HOME=/jenkins
 RUN mkdir -p /opt/jenkins && \
     wget --directory-prefix=/opt/jenkins \
          http://mirrors.jenkins-ci.org/war/${JENKINS_VERSION}/jenkins.war && \
-    chmod 644 /opt/jenkins/jenkins.war
-
-# forward jenkins log to docker log collector
-RUN ln -sf /dev/stdout /var/log/jenkins.log
+    chmod 644 /opt/jenkins/jenkins.war && \
+    /usr/sbin/groupadd jenkins && \
+    /usr/sbin/useradd -g jenkins --shell /bin/bash jenkins && \
+    chown -R jenkins:jenkins /opt/jenkins
 
 VOLUME ["/jenkins"]
 EXPOSE 8090
