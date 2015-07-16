@@ -311,20 +311,6 @@ $ docker-compose -d up
 
 Consult the [docker-compose](https://docs.docker.com/compose/) manual for specifics.
 
-## Jenkins Quick & Simple Security
-
-The container supports [Jenkins Quick & Simple Security setup](https://wiki.jenkins-ci.org/display/JENKINS/Quick+and+Simple+Security).
-You can define an administrative user at startup and use it after you manually activate the security.
-This is good for servers where you only need one administrative account.
-
-~~~~
-docker run --name jenkins_jenkins_1 \
-	-e "JENKINS_ADMIN_USER=jenkins" \
-	-e "JENKINS_ADMIN_PASSWORD=swordfish"  \
-	-p 8090:8090 \
-	blacklabelops/jenkins
-~~~~
-
 > This will enable the administrative account for user jenkins with password swordfish. Note:
 This only works when the users are adminsitrated by the servlet container (see security setup).
 
