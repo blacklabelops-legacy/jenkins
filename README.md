@@ -53,6 +53,23 @@ docker run -d --name jenkins_jenkins_1 \
 	blacklabelops/jenkins
 ~~~~
 
+### Jenkins Installing Plugins
+
+PREVIEW! CURRENTLY NOT WORKING!
+
+You can define a set of plugins that will be installed during initialization. Very good
+for testing out new plugins. Also adding default plugins like swarm. You have to define a list
+of plugin-ids seperated by a whitespace.
+
+~~~~
+docker run --name jenkins_jenkins_1 \
+  -e "JENKINS_PLUGINS=gitlab-plugin hipchat swarm" \
+  -p 8090:8080 \
+  blacklabelops/jenkins
+~~~~
+
+> This will install the plugins gitlab-plugin hipchat swarm once during post-inistialization.
+
 ### Jenkins Master Number of Executors
 
 Jenkins jobs should be executed on slaves therefore it's good to be able to limit

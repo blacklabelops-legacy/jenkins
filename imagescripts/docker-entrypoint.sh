@@ -11,9 +11,14 @@ set -e
 
 java_vm_parameters="-Xmx512m -Xms256m"
 jenkins_parameters="--httpPort=8080"
+jenkins_plugins="swarm"
 
 if [ ! -d "${JENKINS_HOME}/init.groovy.d" ]; then
   mkdir ${JENKINS_HOME}/init.groovy.d
+fi
+
+if [ ! -d "${JENKINS_HOME}/run.groovy.d" ]; then
+  mkdir ${JENKINS_HOME}/run.groovy.d
 fi
 
 if [ -n "${JAVA_VM_PARAMETERS}" ]; then
@@ -68,6 +73,40 @@ instance.save()
 _EOF_
   cat ${JENKINS_HOME}/init.groovy.d/initAdmin.groovy
 fi
+
+if [ -n "${JENKINS_PLUGINS}" ]; then
+  jenkins_plugins=${JENKINS_PLUGINS}
+fi
+
+cat > ${JENKINS_HOME}/run.groovy.d/loadPlugins.groovy <<_EOF_
+import jenkins.model.*
+
+def pluginParameter="${jenkins_plugins}"
+def plugins = pluginParameter.split()
+println(plugins)
+def instance = Jenkins.getInstance()
+def pm = instance.getPluginManager()
+def uc = instance.getUpdateCenter()
+def installed = false
+
+plugins.each {
+  println("Checking " + it)
+  if (!pm.getPlugin(it)) {
+    println("Looking UpdateCenter for " + it)
+    def plugin = uc.getPlugin(it)
+    if (plugin) {
+      println("Installing " + it)
+      plugin.deploy()
+      installed = true
+    }
+  }
+}
+
+instance.save()
+if (installed)
+instance.doSafeRestart()
+_EOF_
+cat ${JENKINS_HOME}/run.groovy.d/loadPlugins.groovy
 
 chown -R jenkins:jenkins ${JENKINS_HOME}
 
