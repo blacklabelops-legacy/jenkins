@@ -34,13 +34,14 @@ ENV JENKINS_HOME=/jenkins
 RUN mkdir -p /opt/jenkins && \
     wget --directory-prefix=/opt/jenkins \
          http://mirrors.jenkins-ci.org/war/${JENKINS_VERSION}/jenkins.war && \
-    chmod 644 /opt/jenkins/jenkins.war && \
     /usr/sbin/groupadd jenkins && \
     /usr/sbin/useradd -g jenkins --shell /bin/bash jenkins && \
-    chown -R jenkins:jenkins /opt/jenkins
+    chown -R jenkins:jenkins /opt/jenkins && \
+    echo "export JENKINS_HOME='${JENKINS_HOME}'" >> /etc/profile
 
+WORKDIR /jenkins
 VOLUME ["/jenkins"]
-EXPOSE 8090
+EXPOSE 8080
 
 COPY imagescripts/docker-entrypoint.sh /opt/jenkins/docker-entrypoint.sh
 ENTRYPOINT ["/opt/jenkins/docker-entrypoint.sh"]

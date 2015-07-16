@@ -42,8 +42,9 @@ _EOF_
   cat ${JENKINS_HOME}/init.groovy
 fi
 
+
 if [ "$1" = 'jenkins' ]; then
-  runuser -l jenkins -c 'java ${java_vm_parameters} -jar /opt/jenkins/jenkins.war --httpPort=8090  "$@" 2>&1'
+  runuser -l jenkins -c 'java '${java_vm_parameters}' -jar /opt/jenkins/jenkins.war '${jenkins_parameters}' 2>&1'
 fi
 
 exec "$@"
