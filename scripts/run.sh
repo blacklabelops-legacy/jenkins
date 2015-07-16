@@ -45,7 +45,7 @@ fi
 printf '%b\n' ""
 printf '%b\n' ":: Run container..."
 
-run=$(docker run -d -p ${HOST_PORT}:8090 --name=""$CONTAINER_NAME"" ${IMAGE_NAME})
+run=$(docker run -d -p ${HOST_PORT}:8080 --name=""$CONTAINER_NAME"" ${IMAGE_NAME})
 if [[ "$?" -ne 0 ]]; then
   err "Could not start "$CONTAINER_NAME" container"
 fi
@@ -59,7 +59,3 @@ fi
 
 printf '%b\n' " container found"
 success "Container running successful."
-
-
-
-
