@@ -41,6 +41,6 @@ if [ -z "$CONTAINER_ID" ]; then
   err ""$CONTAINER_NAME" not found"
 fi
 
-docker run -it --volumes-from ${CONTAINER_NAME} ${UTILITY_IMAGE} /bin/bash
+docker run -it --rm --volumes-from ${CONTAINER_NAME} ${UTILITY_IMAGE} /bin/bash
 
 success "Container manage successful."
