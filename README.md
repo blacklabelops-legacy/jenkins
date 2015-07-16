@@ -17,7 +17,7 @@ docker run -d -p 8090:8080 --name jenkins_jenkins_1 blacklabelops/jenkins
 Container has the following features:
 
 * Install latest Jenkins.
-* Enable security over docker envs.
+* Enable security with docker envs.
 * Set the Jenkins version number.
 * Container writes data to Docker volume.
 * Scripts for backup of Jenkins data.
@@ -36,7 +36,9 @@ Container has the following features:
 * Docker 1.6.0, 1.6.2
 * Docker-Compose 1.2.0, 1.3.0
 
-## Jenkins Security
+## Configuration
+
+### Jenkins Security
 
 This container support matrix enabled user security and admin account at startup. Jenkins
 will be locked up and only allows the defined admin user. Afterwards users and rights
@@ -51,7 +53,33 @@ docker run -d --name jenkins_jenkins_1 \
 	blacklabelops/jenkins
 ~~~~
 
-## Jenkins Command Line Parameters
+### Jenkins Master Number of Executors
+
+Jenkins jobs should be executed on slaves therefore it's good to be able to limit
+the executors on the master.
+
+~~~~
+docker run --name jenkins_jenkins_1 \
+  -e "JENKINS_MASTER_EXECUTORS=0" \
+  -p 8090:8080 \
+  blacklabelops/jenkins
+~~~~
+
+### Jenkins Slave Port
+
+The slave port enables the automatic connection of jenkins slaves. The port can be configured as follows.
+
+~~~~
+docker run --name jenkins_jenkins_1 \
+  -e "JENKINS_SLAVEPORT=50000" \
+  -p 8090:8080 \
+  -p 50000:50000 \
+  blacklabelops/jenkins
+~~~~
+
+> Slaves can connect on port 50000.
+
+### Jenkins Command Line Parameters
 
 You can define command line parameters. The list of parameters can be found [here](https://wiki.jenkins-ci.org/display/JENKINS/Starting+and+Accessing+Jenkins).
 
@@ -64,7 +92,7 @@ docker run -d --name jenkins_jenkins_1 \
 
 > Starts Jenkins with internal port 8090 rather default port 8080.
 
-## Java-VM Parameters
+### Java-VM Parameters
 
 You can define start up parameters for the Java Virtual Machine, e.g. setting the memory size.
 
