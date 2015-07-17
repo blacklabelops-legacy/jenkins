@@ -17,10 +17,6 @@ if [ ! -d "${JENKINS_HOME}/init.groovy.d" ]; then
   mkdir ${JENKINS_HOME}/init.groovy.d
 fi
 
-if [ ! -d "${JENKINS_HOME}/run.groovy.d" ]; then
-  mkdir ${JENKINS_HOME}/run.groovy.d
-fi
-
 if [ -n "${JAVA_VM_PARAMETERS}" ]; then
   java_vm_parameters=${JAVA_VM_PARAMETERS}
 fi
@@ -78,7 +74,11 @@ if [ -n "${JENKINS_PLUGINS}" ]; then
   jenkins_plugins=${JENKINS_PLUGINS}
 fi
 
-cat > ${JENKINS_HOME}/run.groovy.d/loadPlugins.groovy <<_EOF_
+if [ ! -d "${JENKINS_HOME}/init.groovy.d" ]; then
+  mkdir ${JENKINS_HOME}/init.groovy.d
+fi
+
+cat > ${JENKINS_HOME}/init.groovy.d/loadPlugins.groovy <<_EOF_
 import jenkins.model.*
 
 def pluginParameter="${jenkins_plugins}"
@@ -106,7 +106,7 @@ instance.save()
 if (installed)
 instance.doSafeRestart()
 _EOF_
-cat ${JENKINS_HOME}/run.groovy.d/loadPlugins.groovy
+cat ${JENKINS_HOME}/init.groovy.d/loadPlugins.groovy
 
 chown -R jenkins:jenkins ${JENKINS_HOME}
 
