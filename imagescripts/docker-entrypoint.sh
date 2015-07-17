@@ -74,37 +74,44 @@ if [ -n "${JENKINS_PLUGINS}" ]; then
   jenkins_plugins=${JENKINS_PLUGINS}
 fi
 
-if [ ! -d "${JENKINS_HOME}/init.groovy.d" ]; then
-  mkdir ${JENKINS_HOME}/init.groovy.d
-fi
-
 cat > ${JENKINS_HOME}/init.groovy.d/loadPlugins.groovy <<_EOF_
 import jenkins.model.*
+import java.util.logging.Logger
+
+def logger = Logger.getLogger("")
+def installed = false
+def initialized = false
 
 def pluginParameter="${jenkins_plugins}"
 def plugins = pluginParameter.split()
-println(plugins)
+logger.info("" + plugins)
 def instance = Jenkins.getInstance()
 def pm = instance.getPluginManager()
 def uc = instance.getUpdateCenter()
-def installed = false
+uc.updateAllSites()
 
 plugins.each {
-  println("Checking " + it)
+  logger.info("Checking " + it)
   if (!pm.getPlugin(it)) {
-    println("Looking UpdateCenter for " + it)
+    logger.info("Looking UpdateCenter for " + it)
+    if (!initialized) {
+      uc.updateAllSites()
+      initialized = true
+    }
     def plugin = uc.getPlugin(it)
     if (plugin) {
-      println("Installing " + it)
-      plugin.deploy()
+      logger.info("Installing " + it)
+    	plugin.deploy()
       installed = true
     }
   }
 }
 
-instance.save()
-if (installed)
-instance.doSafeRestart()
+if (installed) {
+  logger.info("Plugins installed, initializing a restart!")
+  instance.save()
+  instance.doSafeRestart()
+}
 _EOF_
 cat ${JENKINS_HOME}/init.groovy.d/loadPlugins.groovy
 

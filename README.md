@@ -56,9 +56,9 @@ docker run -d --name jenkins_jenkins_1 \
 
 ### Jenkins Installing Plugins
 
-PREVIEW! CURRENTLY NOT WORKING!
+Finally got this working:
 
-You can define a set of plugins that will be installed during initialization. Very good
+You can define a set of plugins that will be installed, if necessary, during initialization. Very good
 for testing out new plugins. Also adding default plugins like swarm. You have to define a list
 of plugin-ids seperated by a whitespace.
 
