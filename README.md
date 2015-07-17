@@ -18,7 +18,7 @@ docker run -d -p 8090:8080 --name jenkins_jenkins_1 blacklabelops/jenkins
 Container has the following features:
 
 * Install latest Jenkins.
-* Enable security with docker envs.
+* Enable security, install plugins, set swarm port with docker envs.
 * Set the Jenkins version number.
 * Container writes data to Docker volume.
 * Scripts for backup of Jenkins data.
