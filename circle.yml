@@ -6,7 +6,6 @@ dependencies:
   override:
     - docker version
     - docker info
-    - docker-compose -v
     - docker build -t="blacklabelops/jenkins" .
 
 test:
