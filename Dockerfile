@@ -18,7 +18,7 @@ ENV JAVA_BUILD_NUMER=16
 ENV JAVA_VERSION=1.${JAVA_MAJOR_VERSION}.0_${JAVA_UPDATE_VERSION}
 ENV JAVA_TARBALL=server-jre-${JAVA_MAJOR_VERSION}u${JAVA_UPDATE_VERSION}-linux-x64.tar.gz
 ENV JAVA_HOME=/opt/java/jdk${JAVA_VERSION}
-ENV JAVA_VM_PARAMETERS=
+ENV JAVA_VM_PARAMETERS=-Xmx512m
 
 RUN wget --no-check-certificate --directory-prefix=/tmp \
          --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" \
@@ -31,6 +31,12 @@ RUN wget --no-check-certificate --directory-prefix=/tmp \
 # install jenkins
 ENV JENKINS_VERSION=1.620
 ENV JENKINS_HOME=/jenkins
+ENV JENKINS_PARAMETERS=--httpPort=8080
+ENV JENKINS_MASTER_EXECUTORS=
+ENV JENKINS_SLAVEPORT=
+ENV JENKINS_ADMIN_USER=
+ENV JENKINS_ADMIN_PASSWORD=
+ENV JENKINS_PLUGINS=swarm
 
 RUN mkdir -p /opt/jenkins && \
     wget --directory-prefix=/opt/jenkins \

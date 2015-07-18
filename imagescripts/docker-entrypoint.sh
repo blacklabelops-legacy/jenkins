@@ -9,9 +9,9 @@
 
 set -e
 
-java_vm_parameters="-Xmx512m -Xms256m"
-jenkins_parameters="--httpPort=8080"
-jenkins_plugins="swarm"
+java_vm_parameters=""
+jenkins_parameters=""
+jenkins_plugins=""
 
 if [ ! -d "${JENKINS_HOME}/init.groovy.d" ]; then
   mkdir ${JENKINS_HOME}/init.groovy.d
