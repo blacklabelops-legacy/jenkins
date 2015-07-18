@@ -126,7 +126,7 @@ cat ${JENKINS_HOME}/init.groovy.d/loadPlugins.groovy
 chown -R jenkins:jenkins ${JENKINS_HOME}
 
 if [ "$1" = 'jenkins' ]; then
-  jenkins_command='java '${java_vm_parameters}' -jar /opt/jenkins/jenkins.war '${jenkins_parameters} 2>&1
+  jenkins_command='java '${java_vm_parameters}' -jar /opt/jenkins/jenkins.war '${jenkins_parameters} $@ 2>&1
   runuser -l jenkins -c "${jenkins_command}"
 fi
 
