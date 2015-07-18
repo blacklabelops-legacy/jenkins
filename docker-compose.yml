@@ -5,6 +5,6 @@ jenkins:
   volumes:
    - /jenkins
   environment:
-     - 'JAVA_VM_PARAMETERS=-Xmx512m'
+     - 'JAVA_VM_PARAMETERS=-Xmx512m -Xms256m'
      - 'JENKINS_MASTER_EXECUTORS=2'
-     - 'JENKINS_PLUGINS=swarm'
+     - 'JENKINS_PLUGINS=swarm git'
