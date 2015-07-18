@@ -5,8 +5,6 @@ jenkins:
   volumes:
    - /jenkins
   environment:
-     - 'JENKINS_ADMIN_USER=jenkins'
-     - 'JENKINS_ADMIN_PASSWORD=swordfish'
      - 'JAVA_VM_PARAMETERS=-Xmx512m'
      - 'JENKINS_MASTER_EXECUTORS=2'
      - 'JENKINS_PLUGINS=swarm'
