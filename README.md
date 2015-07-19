@@ -1,7 +1,7 @@
 [![Docker Hub Info](http://dockeri.co/image/blacklabelops/jenkins)](https://registry.hub.docker.com/u/blacklabelops/jenkins)
 
 [![Docker Build Status](http://hubstatus.container42.com/blacklabelops/jenkins)](https://registry.hub.docker.com/u/blacklabelops/jenkins)
-[![Circle CI](https://circleci.com/gh/blacklabelops/jenkins/tree/master.svg?style=svg)](https://circleci.com/gh/blacklabelops/jenkins/tree/master)
+[![Circle CI](https://circleci.com/gh/blacklabelops/jenkins/tree/master.svg?style=shield)](https://circleci.com/gh/blacklabelops/jenkins/tree/master)
 [![Image Layers](https://badge.imagelayers.io/blacklabelops/jenkins:latest.svg)](https://imagelayers.io/?images=blacklabelops/jenkins:latest 'Get your own badge on imagelayers.io')
 
 Docker container with Jenkins Continuous Integration and Delivery server on CentOS.
