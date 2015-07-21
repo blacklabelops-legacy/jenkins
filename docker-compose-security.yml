@@ -7,6 +7,8 @@ jenkins:
   environment:
     - 'JENKINS_ADMIN_USER=jenkins'
     - 'JENKINS_ADMIN_PASSWORD=swordfish'
-    - 'JAVA_VM_PARAMETERS=-Xmx512m -Xms256m'
+    - 'JAVA_VM_PARAMETERS=-Xmx1024m -Xms512m'
     - 'JENKINS_MASTER_EXECUTORS=2'
     - 'JENKINS_PLUGINS=swarm git'
+    - 'JENKINS_KEYSTORE_PASSWORD=keystoreswordfish'
+    - 'JENKINS_CERTIFICATE_DNAME=CN=SBleul,OU=Blacklabelops,O=blacklabelops.net,L=Munich,S=Bavaria,C=DE'

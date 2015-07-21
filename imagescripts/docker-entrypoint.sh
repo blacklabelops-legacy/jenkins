@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 #
 # A helper script for ENTRYPOINT.
 #
@@ -122,6 +122,14 @@ if (installed) {
 }
 _EOF_
 cat ${JENKINS_HOME}/init.groovy.d/loadPlugins.groovy
+
+if [ -n "${JENKINS_KEYSTORE_PASSWORD}" ] && [ -n "${JENKINS_CERTIFICATE_DNAME}" ]; then
+  if [ ! -f "${JENKINS_HOME}/jenkins_keystore.jks" ]; then
+    ${JAVA_HOME}/bin/keytool -genkey -alias jenkins_master -keyalg RSA -keystore ${JENKINS_HOME}/jenkins_keystore.jks -storepass ${JENKINS_KEYSTORE_PASSWORD} -keypass ${JENKINS_KEYSTORE_PASSWORD} --dname "${JENKINS_CERTIFICATE_DNAME}"
+    chown jenkins:jenkins ${JENKINS_HOME}/jenkins_keystore.jks
+  fi
+  jenkins_parameters=${jenkins_parameters}' --httpPort=-1 --httpsPort=8080 --httpsKeyStore='${JENKINS_HOME}'/jenkins_keystore.jks --httpsKeyStorePassword='${JENKINS_KEYSTORE_PASSWORD}
+fi
 
 chown -R jenkins:jenkins ${JENKINS_HOME}
 
