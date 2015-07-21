@@ -411,3 +411,7 @@ This only works when the users are adminsitrated by the servlet container (see s
 * [Docker Userguide](https://docs.docker.com/userguide/)
 * [Official CentOS Container](https://registry.hub.docker.com/_/centos/)
 * [Oracle Java8](https://java.com/de/download/)
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/blacklabelops/jenkins/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
