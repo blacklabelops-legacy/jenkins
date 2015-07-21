@@ -66,7 +66,7 @@ Now start your container with additional parameters for starting jenkins with ht
 docker run --name jenkins_jenkins_1 \
 	-e "JENKINS_KEYSTORE_PASSWORD=swordfish" \
 	-e "JENKINS_CERTIFICATE_DNAME=CN=SBleul,OU=Blacklabelops,O=blacklabelops.net,L=Munich,S=Bavaria,C=DE" \
-	-p 443:8443 \
+	-p 443:8080 \
 	blacklabelops/jenkins
 ~~~~
 

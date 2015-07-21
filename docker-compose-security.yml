@@ -1,7 +1,7 @@
 jenkins:
   image: blacklabelops/jenkins
   ports:
-   - "8090:8080"
+   - "8080:8080"
   volumes:
    - /jenkins
   environment:
