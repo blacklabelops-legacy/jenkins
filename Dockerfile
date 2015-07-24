@@ -18,6 +18,8 @@ RUN mkdir -p /opt/jenkins && \
     /usr/sbin/groupadd jenkins && \
     /usr/sbin/useradd -g jenkins --shell /bin/bash jenkins && \
     chown -R jenkins:jenkins /opt/jenkins && \
+    touch /var/log/jenkins.log && \
+    chown jenkins:jenkins /var/log/jenkins.log && \
     echo "export JENKINS_HOME='${JENKINS_HOME}'" >> /etc/profile
 
 # env variables for the console or child containers to override
