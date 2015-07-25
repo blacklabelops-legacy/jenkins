@@ -123,6 +123,63 @@ if (installed) {
 _EOF_
 cat ${JENKINS_HOME}/init.groovy.d/loadPlugins.groovy
 
+smtp_replyto_address="dummy@example.com"
+smtp_use_ssl="true"
+smtp_charset="UTF-8"
+
+if [ -n "${SMTP_REPLYTO_ADDRESS}" ]; then
+  smtp_replyto_address=${SMTP_REPLYTO_ADDRESS}
+fi
+
+if [ -n "${SMTP_USE_SSL}" ]; then
+  smtp_use_ssl=${SMTP_USE_SSL}
+fi
+
+if [ -n "${SMTP_CHARSET}" ]; then
+  smtp_charset=${SMTP_CHARSET}
+fi
+
+if [ -n "${SMTP_USER_NAME}" ] && [ -n "${SMTP_USER_PASS}" ] && [ -n "${SMTP_HOST}" ] && [ -n "${SMTP_PORT}" ]; then
+  smtp_user_name=${SMTP_USER_NAME}
+  smtp_user_pass=${SMTP_USER_PASS}
+  smtp_host=${SMTP_HOST}
+  smtp_port=${SMTP_PORT}
+
+  cat > ${JENKINS_HOME}/init.groovy.d/initSMTP.groovy <<_EOF_
+import jenkins.model.*
+
+def inst = Jenkins.getInstance()
+def desc = inst.getDescriptor("hudson.tasks.Mailer")
+
+desc.setSmtpAuth("${smtp_user_name}", "${smtp_user_pass}")
+desc.setReplyToAddress("${smtp_replyto_address}")
+desc.setSmtpHost("${smtp_host}")
+desc.setUseSsl(${smtp_use_ssl})
+desc.setSmtpPort("${smtp_port}")
+desc.setCharset("${smtp_charset}")
+
+desc.save()
+inst.save()
+_EOF_
+  cat ${JENKINS_HOME}/init.groovy.d/initSMTP.groovy
+fi
+
+if [ -n "${JENKINS_ADMIN_EMAIL}" ]; then
+  cat > ${JENKINS_HOME}/init.groovy.d/initAdminEMail.groovy <<_EOF_
+import jenkins.model.*
+import java.util.logging.Logger
+
+def instance = Jenkins.getInstance()
+def jenkinsLocationConfiguration = JenkinsLocationConfiguration.get()
+
+jenkinsLocationConfiguration.setAdminAddress("${JENKINS_ADMIN_EMAIL}")
+
+jenkinsLocationConfiguration.save()
+instance.save()
+_EOF_
+  cat ${JENKINS_HOME}/init.groovy.d/initAdminEMail.groovy
+fi
+
 if [ -n "${JENKINS_KEYSTORE_PASSWORD}" ] && [ -n "${JENKINS_CERTIFICATE_DNAME}" ]; then
   if [ ! -f "${JENKINS_HOME}/jenkins_keystore.jks" ]; then
     ${JAVA_HOME}/bin/keytool -genkey -alias jenkins_master -keyalg RSA -keystore ${JENKINS_HOME}/jenkins_keystore.jks -storepass ${JENKINS_KEYSTORE_PASSWORD} -keypass ${JENKINS_KEYSTORE_PASSWORD} --dname "${JENKINS_CERTIFICATE_DNAME}"
@@ -134,7 +191,7 @@ fi
 chown -R jenkins:jenkins ${JENKINS_HOME}
 
 if [ "$1" = 'jenkins' ]; then
-  jenkins_command='java '${java_vm_parameters}' -jar /opt/jenkins/jenkins.war '${jenkins_parameters}' 2>&1 | tee /var/log/jenkins.log'
+  jenkins_command='java -Dfile.encoding=UTF-8 '${java_vm_parameters}' -jar /opt/jenkins/jenkins.war '${jenkins_parameters}' 2>&1 | tee /var/log/jenkins.log'
   runuser -l jenkins -c "${jenkins_command}"
 fi
 

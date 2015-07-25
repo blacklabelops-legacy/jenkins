@@ -63,7 +63,7 @@ CN=SBleul,OU=Blacklabelops,O=blacklabelops.net,L=Munich,S=Bavaria,C=DE
 Now start your container with additional parameters for starting jenkins with https and a keystore password.
 
 ~~~~
-docker run --name jenkins_jenkins_1 \
+$ docker run --name jenkins_jenkins_1 \
 	-e "JENKINS_KEYSTORE_PASSWORD=swordfish" \
 	-e "JENKINS_CERTIFICATE_DNAME=CN=SBleul,OU=Blacklabelops,O=blacklabelops.net,L=Munich,S=Bavaria,C=DE" \
 	-p 443:8080 \
@@ -80,7 +80,7 @@ can be configured as usual. The admin password can be changed any time. I use th
 the container up inside cloud environments.
 
 ~~~~
-docker run -d --name jenkins_jenkins_1 \
+$ docker run -d --name jenkins_jenkins_1 \
 	-e "JENKINS_ADMIN_USER=jenkins" \
 	-e "JENKINS_ADMIN_PASSWORD=swordfish"  \
 	-p 8090:8080 \
@@ -96,7 +96,7 @@ for testing out new plugins. Also adding default plugins like swarm. You have to
 of plugin-ids seperated by a whitespace.
 
 ~~~~
-docker run --name jenkins_jenkins_1 \
+$ docker run --name jenkins_jenkins_1 \
   -e "JENKINS_PLUGINS=gitlab-plugin hipchat swarm" \
   -p 8090:8080 \
   blacklabelops/jenkins
@@ -110,9 +110,54 @@ Jenkins jobs should be executed on slaves therefore it's good to be able to limi
 the executors on the master.
 
 ~~~~
-docker run --name jenkins_jenkins_1 \
+$ docker run --name jenkins_jenkins_1 \
   -e "JENKINS_MASTER_EXECUTORS=0" \
   -p 8090:8080 \
+  blacklabelops/jenkins
+~~~~
+
+### Jenkins Administrator Address
+
+Setting the Administrators EMail Address. Has the form:
+"Administrator Name <mail@example.com>"
+
+~~~~
+$ docker run --name jenkins_jenkins_1 \
+  -e "JENKINS_ADMIN_EMAIL=Blacklabelops <blacklabelops@itbleul.de>" \
+  -p 8090:8080 \
+  blacklabelops/jenkins
+~~~~
+
+### Jenkins Mail SMTP
+
+The following parameters enable the servers mail settings.
+
+Minimum example:
+
+~~~~
+$ docker run --name jenkins_jenkins_1 \
+  -e "SMTP_USER_NAME=jenkins" \
+  -e "SMTP_USER_PASS=swordfish" \
+  -e "SMTP_HOST=smtp.mailservice.com" \
+  -e "SMTP_PORT=2525" \
+  -p 8090:8080 \
+  -p 50000:50000 \
+  blacklabelops/jenkins
+~~~~
+
+Full example:
+
+~~~~
+$ docker run --name jenkins_jenkins_1 \
+  -e "SMTP_USER_NAME=jenkins" \
+  -e "SMTP_USER_PASS=swordfish" \
+  -e "SMTP_HOST=smtp.mailservice.com" \
+  -e "SMTP_PORT=2525" \
+  -e "SMTP_REPLYTO_ADDRESS=dummy@example.com" \
+  -e "SMTP_USE_SSL=true" \
+  -e "SMTP_CHARSET=UTF-8" \
+  -p 8090:8080 \
+  -p 50000:50000 \
   blacklabelops/jenkins
 ~~~~
 
@@ -121,7 +166,7 @@ docker run --name jenkins_jenkins_1 \
 The slave port enables the automatic connection of jenkins slaves. The port can be configured as follows.
 
 ~~~~
-docker run --name jenkins_jenkins_1 \
+$ docker run --name jenkins_jenkins_1 \
   -e "JENKINS_SLAVEPORT=50000" \
   -p 8090:8080 \
   -p 50000:50000 \
