@@ -6,6 +6,8 @@
 
 Docker container with Jenkins Continuous Integration and Delivery server on CentOS.
 
+Build Slaves can be found here: [blacklabelops/swarm](https://github.com/blacklabelops/jenkins-swarm)
+
 ### Instant Usage
 
 ~~~~
