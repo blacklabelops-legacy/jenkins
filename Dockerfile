@@ -9,7 +9,7 @@ RUN yum install -y \
     yum clean all && rm -rf /var/cache/yum/*
 
 # install jenkins
-ENV JENKINS_VERSION=1.622
+ENV JENKINS_VERSION=1.623
 ENV JENKINS_HOME=/jenkins
 
 RUN mkdir -p /opt/jenkins && \
