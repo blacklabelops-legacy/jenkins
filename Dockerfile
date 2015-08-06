@@ -9,12 +9,12 @@ RUN yum install -y \
     yum clean all && rm -rf /var/cache/yum/*
 
 # install jenkins
-ENV JENKINS_VERSION=1.623
+ENV JENKINS_VERSION=1.609.2
 ENV JENKINS_HOME=/jenkins
 
 RUN mkdir -p /opt/jenkins && \
     wget --directory-prefix=/opt/jenkins \
-         http://mirrors.jenkins-ci.org/war/${JENKINS_VERSION}/jenkins.war && \
+         http://mirrors.jenkins-ci.org/war-stable/${JENKINS_VERSION}/jenkins.war && \
     /usr/sbin/groupadd jenkins && \
     /usr/sbin/useradd -g jenkins --shell /bin/bash jenkins && \
     chown -R jenkins:jenkins /opt/jenkins && \
