@@ -191,7 +191,7 @@ fi
 chown -R jenkins:jenkins ${JENKINS_HOME}
 
 if [ "$1" = 'jenkins' ]; then
-  jenkins_command='java -Dfile.encoding=UTF-8 '${java_vm_parameters}' -jar /opt/jenkins/jenkins.war '${jenkins_parameters}' 2>&1 | tee /var/log/jenkins.log'
+  jenkins_command='java -Dfile.encoding=UTF-8 '${java_vm_parameters}' -jar /opt/jenkins/jenkins.war '${jenkins_parameters}' 2>&1 | tee -a /var/log/jenkins.log'
   runuser -l jenkins -c "${jenkins_command}"
 fi
 
