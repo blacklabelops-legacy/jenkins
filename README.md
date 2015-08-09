@@ -11,7 +11,7 @@ Build Slaves can be found here: [blacklabelops/swarm](https://github.com/blackla
 ### Instant Usage
 
 ~~~~
-docker run -d -p 8090:8080 --name jenkins_jenkins_1 blacklabelops/jenkins
+$ docker run -d -p 8090:8080 --name jenkins_jenkins_1 blacklabelops/jenkins
 ~~~~
 
 > This will pull the container and start the latest jenkins on port 8090
@@ -202,6 +202,100 @@ docker run -d --name jenkins_jenkins_1 \
 ~~~~
 
 > You will have to use Java 8 parameters.
+
+### Jenkins Logging
+
+This container does not write a logfile by default. It's considered bad practise as logs
+should be accessed by the command `docker logs`. There are use case where you want to
+have additional log files, e.g. my use case is to relay log to Loggly [Loggly Homepage](https://www.loggly.com/).
+I have added a routine for logging and it's activated by defining a logfile.
+
+Environment Variable: LOG_FILE
+
+Example for a separate volume with a logfile:
+
+~~~~
+$ docker run -d -p 8090:8080 \
+  -v $(pwd)/logs:/jenkinslogs \
+  -e "LOG_FILE=/jenkinslogs/jenkins.log" \
+  --name jenkins_jenkins_1 \
+  blacklabelops/jenkins
+~~~~
+
+> You can watch the log by typing `cat ./logs/jenkins.log`.
+
+Now lets hook up the container with my Loggly side-car container and relay the log to Loggly! The Full
+documentation of the loggly container can be found here: [blacklabelops/loggly](https://github.com/blacklabelops/fluentd/tree/master/fluentd-loggly)
+
+~~~~
+$ docker run -d \
+  --volumes-from jenkins_jenkins_1 \
+  -e "LOGS_DIRECTORIES=/jenkinslogs" \
+	-e "LOGGLY_TOKEN=3ere-23kkke-23j3oj-mmkme-343" \
+  -e "LOGGLY_TAG=jenkinslog" \
+  --name jenkinsloggly \
+  blacklabelops/loggly
+~~~~
+
+> Note: You need a valid Loggly Customer Key in order to log to Loggly.
+
+### Jenkins Backups with rsnapshot
+
+You can create automatic backups using [blacklabelops/rsnapshotd](https://github.com/blacklabelops/rsnapshot/tree/master/rsnapshot-cron).
+This side-car container uses rsnapshot to create snapshots of your jenkins volume periodically.
+
+Full documentation can be found here:  [blacklabelops/rsnapshotd](https://github.com/blacklabelops/rsnapshot/tree/master/rsnapshot-cron)
+
+First fire up the Jenkins master:
+
+~~~~
+$ docker run -d -p 8090:8080 --name jenkins_jenkins_1 blacklabelops/jenkins
+~~~~
+
+Then start and attach the side-car backup container:
+
+~~~~
+$ docker run -d \
+  --volumes-from jenkins_jenkins_1 \
+	-v $(pwd)/snapshots/:/snapshots \
+  -e "CRON_HOURLY=* * * * *" \
+	-e "BACKUP_DIRECTORIES=/jenkins/ jenkins_jenkins_1/" \
+	blacklabelops/rsnapshotd
+~~~~
+
+> Mounts all volumes from the running container and snapshots the volume /jenkins inside the local
+snapshot directory under `jenkins_jenkins_1/`. Note: If you use Windows then you will have to replace $(pwd)
+with an abolute path.
+
+### Jenkins Backups in Google Storage Buckets
+
+You can periodically create backups and upload them to your [Google Storage Bucket](https://cloud.google.com/storage/).
+
+Full documentation of the backup container can be found hee: [blacklabelops/gcloud](https://github.com/blacklabelops/gcloud)
+
+First fire up the Jenkins master:
+
+~~~~
+$ docker run -d -p 8090:8080 --name jenkins_jenkins_1 blacklabelops/jenkins
+~~~~
+
+Then start and attach the [blacklabelops/gcloud](https://github.com/blacklabelops/gcloud) container!
+
+The required example crontab can be found here: [example-crontab-backup.txt](https://github.com/blacklabelops/gcloud/blob/master/example-crontab-backup.txt)
+
+~~~~
+$ docker run \
+  --volumes-from jenkins_jenkins_1 \
+  -v $(pwd)/backups/:/backups \
+  -v $(pwd)/logs/:/logs \
+  -e "GCLOUD_ACCOUNT=$(base64 auth.json)" \
+  -e "GCLOUD_CRON=$(base64 example-crontab-backup.txt)" \
+  blacklabelops/gcloud
+~~~~
+
+> Uses the authentication file auth.json and executed the crontab th°°at uploads archives to the specified cloud bucket. Logs and
+backups are available locally.
+
 
 ## Vagrant
 
