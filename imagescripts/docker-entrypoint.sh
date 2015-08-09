@@ -190,10 +190,16 @@ fi
 
 chown -R jenkins:jenkins ${JENKINS_HOME}
 
+log_command=""
+
+if [ -n "${LOG_FILE}" ]; then
+  log_command=" 2>&1 | tee -a "${LOG_FILE}
+fi
+
 if [ "$1" = 'jenkins' ]; then
   size=$((100*1024*1024))
-  jenkins_command='java -Dfile.encoding=UTF-8 '${java_vm_parameters}' -jar /opt/jenkins/jenkins.war '${jenkins_parameters}' 2>&1 | tee -a /var/log/jenkins.log'
-  runuser -l jenkins -c "${jenkins_command}"
+  jenkins_command='java -Dfile.encoding=UTF-8 '${java_vm_parameters}' -jar /opt/jenkins/jenkins.war '${jenkins_parameters}''
+  runuser -l jenkins -c "${jenkins_command}${log_command}"
 fi
 
 exec "$@"
