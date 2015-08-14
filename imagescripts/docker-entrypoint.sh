@@ -193,7 +193,7 @@ chown -R jenkins:jenkins ${JENKINS_HOME}
 log_command=""
 
 if [ -n "${LOG_FILE}" ]; then
-  log_command=" | tee -a "${LOG_FILE}
+  log_command="2>&1 | tee -a "${LOG_FILE}
 fi
 
 if [ "$1" = 'jenkins' ]; then
