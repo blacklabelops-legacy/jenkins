@@ -190,16 +190,26 @@ fi
 
 chown -R jenkins:jenkins ${JENKINS_HOME}
 
-log_command=""
+log_parameter=""
 
 if [ -n "${LOG_FILE}" ]; then
-  log_command="2>&1 | tee -a "${LOG_FILE}
+  log_dir=$(dirname ${LOG_FILE})
+  log_file=$(basename ${LOG_FILE})
+  if [ ! -d "${log_dir}" ]; then
+    mkdir -p ${log_dir}
+    chown jenkins:jenkins ${log_dir}
+  fi
+  if [ ! -f "${LOG_FILE}" ]; then
+    touch ${LOG_FILE}
+    chown jenkins:jenkins ${LOG_FILE}
+  fi
+  log_parameter=" --logfile="${LOG_FILE}
 fi
 
 if [ "$1" = 'jenkins' ]; then
   size=$((100*1024*1024))
-  jenkins_command='java -Dfile.encoding=UTF-8 '${java_vm_parameters}' -jar /opt/jenkins/jenkins.war '${jenkins_parameters}''
-  runuser -l jenkins -c "${jenkins_command}${log_command}"
+  jenkins_command='java -Dfile.encoding=UTF-8 '${java_vm_parameters}' -jar /opt/jenkins/jenkins.war '${jenkins_parameters}${log_parameter}''
+  runuser -l jenkins -c "${jenkins_command}"
 fi
 
 exec "$@"
