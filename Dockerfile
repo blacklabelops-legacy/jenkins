@@ -1,4 +1,4 @@
-FROM blacklabelops/java-jdk-8
+FROM blacklabelops/java-jdk-8:8.51.16
 MAINTAINER Steffen Bleul <blacklabelops@itbleul.de>
 
 # install dev tools
@@ -9,7 +9,7 @@ RUN yum install -y \
     yum clean all && rm -rf /var/cache/yum/*
 
 # install jenkins
-ENV JENKINS_VERSION=latest
+ENV JENKINS_VERSION=1.624
 ENV JENKINS_HOME=/jenkins
 
 RUN mkdir -p /opt/jenkins && \
