@@ -1,5 +1,6 @@
 jenkins:
   image: blacklabelops/jenkins
+  container_name: jenkins
   ports:
    - "8090:8080"
   volumes:
