@@ -13,10 +13,6 @@ java_vm_parameters=""
 jenkins_parameters=""
 jenkins_plugins=""
 
-if [ ! -d "${JENKINS_HOME}/init.groovy.d" ]; then
-  mkdir ${JENKINS_HOME}/init.groovy.d
-fi
-
 if [ -n "${JAVA_VM_PARAMETERS}" ]; then
   java_vm_parameters=${JAVA_VM_PARAMETERS}
 fi
@@ -26,6 +22,9 @@ if [ -n "${JENKINS_PARAMETERS}" ]; then
 fi
 
 if [ -n "${JENKINS_MASTER_EXECUTORS}" ]; then
+  if [ ! -d "${JENKINS_HOME}/init.groovy.d" ]; then
+    mkdir ${JENKINS_HOME}/init.groovy.d
+  fi
   cat > ${JENKINS_HOME}/init.groovy.d/setExecutors.groovy <<_EOF_
 import jenkins.model.*
 import hudson.security.*
@@ -38,6 +37,9 @@ _EOF_
 fi
 
 if [ -n "${JENKINS_SLAVEPORT}" ]; then
+  if [ ! -d "${JENKINS_HOME}/init.groovy.d" ]; then
+    mkdir ${JENKINS_HOME}/init.groovy.d
+  fi
   cat > ${JENKINS_HOME}/init.groovy.d/setSlaveport.groovy <<_EOF_
 import jenkins.model.*
 import java.util.logging.Logger
@@ -58,6 +60,9 @@ _EOF_
 fi
 
 if [ -n "${JENKINS_ADMIN_USER}" ] && [ -n "${JENKINS_ADMIN_PASSWORD}" ]; then
+  if [ ! -d "${JENKINS_HOME}/init.groovy.d" ]; then
+    mkdir ${JENKINS_HOME}/init.groovy.d
+  fi
   cat > ${JENKINS_HOME}/init.groovy.d/initAdmin.groovy <<_EOF_
 import jenkins.model.*
 import hudson.security.*
@@ -79,49 +84,51 @@ _EOF_
 fi
 
 if [ -n "${JENKINS_PLUGINS}" ]; then
+  if [ ! -d "${JENKINS_HOME}/init.groovy.d" ]; then
+    mkdir ${JENKINS_HOME}/init.groovy.d
+  fi
   jenkins_plugins=${JENKINS_PLUGINS}
-fi
+  cat > ${JENKINS_HOME}/init.groovy.d/loadPlugins.groovy <<_EOF_
+  import jenkins.model.*
+  import java.util.logging.Logger
 
-cat > ${JENKINS_HOME}/init.groovy.d/loadPlugins.groovy <<_EOF_
-import jenkins.model.*
-import java.util.logging.Logger
+  def logger = Logger.getLogger("")
+  def installed = false
+  def initialized = false
 
-def logger = Logger.getLogger("")
-def installed = false
-def initialized = false
+  def pluginParameter="${jenkins_plugins}"
+  def plugins = pluginParameter.split()
+  logger.info("" + plugins)
+  def instance = Jenkins.getInstance()
+  def pm = instance.getPluginManager()
+  def uc = instance.getUpdateCenter()
+  uc.updateAllSites()
 
-def pluginParameter="${jenkins_plugins}"
-def plugins = pluginParameter.split()
-logger.info("" + plugins)
-def instance = Jenkins.getInstance()
-def pm = instance.getPluginManager()
-def uc = instance.getUpdateCenter()
-uc.updateAllSites()
-
-plugins.each {
-  logger.info("Checking " + it)
-  if (!pm.getPlugin(it)) {
-    logger.info("Looking UpdateCenter for " + it)
-    if (!initialized) {
-      uc.updateAllSites()
-      initialized = true
-    }
-    def plugin = uc.getPlugin(it)
-    if (plugin) {
-      logger.info("Installing " + it)
-    	plugin.deploy()
-      installed = true
+  plugins.each {
+    logger.info("Checking " + it)
+    if (!pm.getPlugin(it)) {
+      logger.info("Looking UpdateCenter for " + it)
+      if (!initialized) {
+        uc.updateAllSites()
+        initialized = true
+      }
+      def plugin = uc.getPlugin(it)
+      if (plugin) {
+        logger.info("Installing " + it)
+      	plugin.deploy()
+        installed = true
+      }
     }
   }
-}
 
-if (installed) {
-  logger.info("Plugins installed, initializing a restart!")
-  instance.save()
-  instance.doSafeRestart()
-}
+  if (installed) {
+    logger.info("Plugins installed, initializing a restart!")
+    instance.save()
+    instance.doSafeRestart()
+  }
 _EOF_
-cat ${JENKINS_HOME}/init.groovy.d/loadPlugins.groovy
+  cat ${JENKINS_HOME}/init.groovy.d/loadPlugins.groovy
+fi
 
 smtp_replyto_address="dummy@example.com"
 smtp_use_ssl="true"
@@ -140,6 +147,9 @@ if [ -n "${SMTP_CHARSET}" ]; then
 fi
 
 if [ -n "${SMTP_USER_NAME}" ] && [ -n "${SMTP_USER_PASS}" ] && [ -n "${SMTP_HOST}" ] && [ -n "${SMTP_PORT}" ]; then
+  if [ ! -d "${JENKINS_HOME}/init.groovy.d" ]; then
+    mkdir ${JENKINS_HOME}/init.groovy.d
+  fi
   smtp_user_name=${SMTP_USER_NAME}
   smtp_user_pass=${SMTP_USER_PASS}
   smtp_host=${SMTP_HOST}
@@ -165,6 +175,9 @@ _EOF_
 fi
 
 if [ -n "${JENKINS_ADMIN_EMAIL}" ]; then
+  if [ ! -d "${JENKINS_HOME}/init.groovy.d" ]; then
+    mkdir ${JENKINS_HOME}/init.groovy.d
+  fi
   cat > ${JENKINS_HOME}/init.groovy.d/initAdminEMail.groovy <<_EOF_
 import jenkins.model.*
 import java.util.logging.Logger
@@ -183,12 +196,9 @@ fi
 if [ -n "${JENKINS_KEYSTORE_PASSWORD}" ] && [ -n "${JENKINS_CERTIFICATE_DNAME}" ]; then
   if [ ! -f "${JENKINS_HOME}/jenkins_keystore.jks" ]; then
     ${JAVA_HOME}/bin/keytool -genkey -alias jenkins_master -keyalg RSA -keystore ${JENKINS_HOME}/jenkins_keystore.jks -storepass ${JENKINS_KEYSTORE_PASSWORD} -keypass ${JENKINS_KEYSTORE_PASSWORD} --dname "${JENKINS_CERTIFICATE_DNAME}"
-    chown jenkins:jenkins ${JENKINS_HOME}/jenkins_keystore.jks
   fi
   jenkins_parameters=${jenkins_parameters}' --httpPort=-1 --httpsPort=8080 --httpsKeyStore='${JENKINS_HOME}'/jenkins_keystore.jks --httpsKeyStorePassword='${JENKINS_KEYSTORE_PASSWORD}
 fi
-
-chown -R jenkins:jenkins ${JENKINS_HOME}
 
 log_parameter=""
 
@@ -197,19 +207,15 @@ if [ -n "${LOG_FILE}" ]; then
   log_file=$(basename ${LOG_FILE})
   if [ ! -d "${log_dir}" ]; then
     mkdir -p ${log_dir}
-    chown jenkins:jenkins ${log_dir}
   fi
   if [ ! -f "${LOG_FILE}" ]; then
     touch ${LOG_FILE}
-    chown jenkins:jenkins ${LOG_FILE}
   fi
   log_parameter=" --logfile="${LOG_FILE}
 fi
 
 if [ "$1" = 'jenkins' ]; then
-  size=$((100*1024*1024))
-  jenkins_command='java -Dfile.encoding=UTF-8 '${java_vm_parameters}' -jar /opt/jenkins/jenkins.war '${jenkins_parameters}${log_parameter}''
-  runuser -l jenkins -c "${jenkins_command}"
+  /usr/bin/java -Dfile.encoding=UTF-8 ${java_vm_parameters} -jar /usr/bin/jenkins/jenkins.war ${jenkins_parameters}${log_parameter}
 fi
 
 exec "$@"

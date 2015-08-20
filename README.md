@@ -6,6 +6,8 @@
 
 Docker container with Jenkins Continuous Integration and Delivery server on CentOS.
 
+Security Info: This container has rooted out root! Safely running sorely inside userspace!
+
 Build Slaves can be found here: [blacklabelops/swarm](https://github.com/blacklabelops/jenkins-swarm)
 
 ### Instant Usage
