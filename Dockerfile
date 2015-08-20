@@ -33,7 +33,7 @@ RUN mkdir -p /usr/bin/jenkins && \
 # env variables for the console or child containers to override
 ENV JAVA_VM_PARAMETERS=-Xmx512m
 ENV JENKINS_MASTER_EXECUTORS=
-ENV JENKINS_SLAVEPORT=
+ENV JENKINS_SLAVEPORT=50000
 ENV JENKINS_ADMIN_USER=
 ENV JENKINS_ADMIN_PASSWORD=
 ENV JENKINS_PLUGINS=swarm
@@ -44,7 +44,7 @@ ENV JENKINS_CERTIFICATE_DNAME=
 
 WORKDIR $VOLUME_DIRECTORY
 VOLUME ["${VOLUME_DIRECTORY}"]
-EXPOSE 8080
+EXPOSE 8080 50000
 
 USER $CONTAINER_UID
 COPY imagescripts/docker-entrypoint.sh /usr/bin/jenkins/docker-entrypoint.sh
