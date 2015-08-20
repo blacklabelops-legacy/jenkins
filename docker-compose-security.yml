@@ -1,9 +1,10 @@
 jenkins:
   image: blacklabelops/jenkins
+  container_name: jenkins
   ports:
    - "8080:8080"
   volumes:
-   - /jenkins
+    - /jenkins
   environment:
     - 'JENKINS_ADMIN_USER=jenkins'
     - 'JENKINS_ADMIN_PASSWORD=swordfish'
