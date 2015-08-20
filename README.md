@@ -6,7 +6,7 @@
 
 Docker container with Jenkins Continuous Integration and Delivery server on CentOS.
 
-Security Info: This container has rooted out root! Safely running sorely inside userspace!
+Good news! This container has rooted out root! Safely running inside userspace!
 
 Build Slaves can be found here: [blacklabelops/swarm](https://github.com/blacklabelops/jenkins-swarm)
 
@@ -17,6 +17,14 @@ $ docker run -d -p 8090:8080 --name jenkins blacklabelops/jenkins
 ~~~~
 
 > This will pull the container and start the latest jenkins on port 8090
+
+Using docker-compose:
+
+~~~~
+$ docker-compose up -d
+~~~~
+
+> docker-compose.xml contains a full list of environment variables.
 
 ## Features
 
