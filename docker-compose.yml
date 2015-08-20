@@ -3,9 +3,27 @@ jenkins:
   container_name: jenkins
   ports:
    - "8090:8080"
+   - "50000:50000"
   volumes:
    - /jenkins
   environment:
-     - 'JAVA_VM_PARAMETERS=-Xmx512m -Xms256m'
+     - 'JENKINS_ADMIN_USER='
+     - 'JENKINS_ADMIN_PASSWORD='
+     - 'JAVA_VM_PARAMETERS=-Xmx1024m -Xms512m'
      - 'JENKINS_MASTER_EXECUTORS=2'
-     - 'JENKINS_PLUGINS=swarm git'
+     - 'JENKINS_PLUGINS=swarm'
+     - 'JENKINS_KEYSTORE_PASSWORD='
+     - 'JENKINS_CERTIFICATE_DNAME='
+     - 'JENKINS_SLAVEPORT=50000'
+     - 'JENKINS_PARAMETERS='
+     - 'SMTP_USER_NAME='
+     - 'SMTP_USER_PASS='
+     - 'SMTP_HOST='
+     - 'SMTP_PORT='
+     - 'SMTP_REPLYTO_ADDRESS='
+     - 'SMTP_USE_SSL='
+     - 'SMTP_CHARSET='
+     - 'LOG_FILE='
+  labels:
+    com.blacklabelops.description: "Jenkins Continuous Integration System"
+    com.blacklabelops.service: "jenkins-master"
