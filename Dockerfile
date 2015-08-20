@@ -46,6 +46,7 @@ WORKDIR $VOLUME_DIRECTORY
 VOLUME ["${VOLUME_DIRECTORY}"]
 EXPOSE 8080
 
+USER $CONTAINER_UID
 COPY imagescripts/docker-entrypoint.sh /usr/bin/jenkins/docker-entrypoint.sh
 ENTRYPOINT ["/usr/bin/jenkins/docker-entrypoint.sh"]
 CMD ["jenkins"]
