@@ -13,7 +13,7 @@ Build Slaves can be found here: [blacklabelops/swarm](https://github.com/blackla
 ### Instant Usage
 
 ~~~~
-$ docker run -d -p 8090:8080 --name jenkins_jenkins_1 blacklabelops/jenkins
+$ docker run -d -p 8090:8080 --name jenkins blacklabelops/jenkins
 ~~~~
 
 > This will pull the container and start the latest jenkins on port 8090
@@ -67,7 +67,7 @@ CN=SBleul,OU=Blacklabelops,O=blacklabelops.net,L=Munich,S=Bavaria,C=DE
 Now start your container with additional parameters for starting jenkins with https and a keystore password.
 
 ~~~~
-$ docker run --name jenkins_jenkins_1 \
+$ docker run --name jenkins \
 	-e "JENKINS_KEYSTORE_PASSWORD=swordfish" \
 	-e "JENKINS_CERTIFICATE_DNAME=CN=SBleul,OU=Blacklabelops,O=blacklabelops.net,L=Munich,S=Bavaria,C=DE" \
 	-p 443:8080 \
@@ -84,7 +84,7 @@ can be configured as usual. The admin password can be changed any time. I use th
 the container up inside cloud environments.
 
 ~~~~
-$ docker run -d --name jenkins_jenkins_1 \
+$ docker run -d --name jenkins \
 	-e "JENKINS_ADMIN_USER=jenkins" \
 	-e "JENKINS_ADMIN_PASSWORD=swordfish"  \
 	-p 8090:8080 \
@@ -100,7 +100,7 @@ for testing out new plugins. Also adding default plugins like swarm. You have to
 of plugin-ids seperated by a whitespace.
 
 ~~~~
-$ docker run --name jenkins_jenkins_1 \
+$ docker run --name jenkins \
   -e "JENKINS_PLUGINS=gitlab-plugin hipchat swarm" \
   -p 8090:8080 \
   blacklabelops/jenkins
@@ -114,7 +114,7 @@ Jenkins jobs should be executed on slaves therefore it's good to be able to limi
 the executors on the master.
 
 ~~~~
-$ docker run --name jenkins_jenkins_1 \
+$ docker run --name jenkins \
   -e "JENKINS_MASTER_EXECUTORS=0" \
   -p 8090:8080 \
   blacklabelops/jenkins
@@ -126,7 +126,7 @@ Setting the Administrators EMail Address. Has the form:
 "Administrator Name <mail@example.com>"
 
 ~~~~
-$ docker run --name jenkins_jenkins_1 \
+$ docker run --name jenkins \
   -e "JENKINS_ADMIN_EMAIL=Blacklabelops <blacklabelops@itbleul.de>" \
   -p 8090:8080 \
   blacklabelops/jenkins
@@ -139,7 +139,7 @@ The following parameters enable the servers mail settings.
 Minimum example:
 
 ~~~~
-$ docker run --name jenkins_jenkins_1 \
+$ docker run --name jenkins \
   -e "SMTP_USER_NAME=jenkins" \
   -e "SMTP_USER_PASS=swordfish" \
   -e "SMTP_HOST=smtp.mailservice.com" \
@@ -152,7 +152,7 @@ $ docker run --name jenkins_jenkins_1 \
 Full example:
 
 ~~~~
-$ docker run --name jenkins_jenkins_1 \
+$ docker run --name jenkins \
   -e "SMTP_USER_NAME=jenkins" \
   -e "SMTP_USER_PASS=swordfish" \
   -e "SMTP_HOST=smtp.mailservice.com" \
@@ -170,7 +170,7 @@ $ docker run --name jenkins_jenkins_1 \
 The slave port enables the automatic connection of jenkins slaves. The port can be configured as follows.
 
 ~~~~
-$ docker run --name jenkins_jenkins_1 \
+$ docker run --name jenkins \
   -e "JENKINS_SLAVEPORT=50000" \
   -p 8090:8080 \
   -p 50000:50000 \
@@ -184,7 +184,7 @@ $ docker run --name jenkins_jenkins_1 \
 You can define command line parameters. The list of parameters can be found [here](https://wiki.jenkins-ci.org/display/JENKINS/Starting+and+Accessing+Jenkins).
 
 ~~~~
-docker run -d --name jenkins_jenkins_1 \
+docker run -d --name jenkins \
 	-e "JENKINS_PARAMETERS=--httpPort=8090" \
 	-p 8090:8090 \
 	blacklabelops/jenkins
@@ -197,7 +197,7 @@ docker run -d --name jenkins_jenkins_1 \
 You can define start up parameters for the Java Virtual Machine, e.g. setting the memory size.
 
 ~~~~
-docker run -d --name jenkins_jenkins_1 \
+docker run -d --name jenkins \
 	-e "JAVA_VM_PARAMETERS=-Xmx512m -Xms256m" \
 	-p 8090:8080 \
 	blacklabelops/jenkins
@@ -220,7 +220,7 @@ Example for a separate volume with a logfile:
 $ docker run -d -p 8090:8080 \
   -v $(pwd)/logs:/jenkinslogs \
   -e "LOG_FILE=/jenkinslogs/jenkins.log" \
-  --name jenkins_jenkins_1 \
+  --name jenkins \
   blacklabelops/jenkins
 ~~~~
 
@@ -231,7 +231,7 @@ documentation of the loggly container can be found here: [blacklabelops/loggly](
 
 ~~~~
 $ docker run -d \
-  --volumes-from jenkins_jenkins_1 \
+  --volumes-from jenkins \
   -e "LOGS_DIRECTORIES=/jenkinslogs" \
 	-e "LOGGLY_TOKEN=3ere-23kkke-23j3oj-mmkme-343" \
   -e "LOGGLY_TAG=jenkinslog" \
@@ -251,22 +251,22 @@ Full documentation can be found here:  [blacklabelops/rsnapshotd](https://github
 First fire up the Jenkins master:
 
 ~~~~
-$ docker run -d -p 8090:8080 --name jenkins_jenkins_1 blacklabelops/jenkins
+$ docker run -d -p 8090:8080 --name jenkins blacklabelops/jenkins
 ~~~~
 
 Then start and attach the side-car backup container:
 
 ~~~~
 $ docker run -d \
-  --volumes-from jenkins_jenkins_1 \
+  --volumes-from jenkins \
 	-v $(pwd)/snapshots/:/snapshots \
   -e "CRON_HOURLY=* * * * *" \
-	-e "BACKUP_DIRECTORIES=/jenkins/ jenkins_jenkins_1/" \
+	-e "BACKUP_DIRECTORIES=/jenkins/ jenkins/" \
 	blacklabelops/rsnapshotd
 ~~~~
 
 > Mounts all volumes from the running container and snapshots the volume /jenkins inside the local
-snapshot directory under `jenkins_jenkins_1/`. Note: If you use Windows then you will have to replace $(pwd)
+snapshot directory under `jenkins/`. Note: If you use Windows then you will have to replace $(pwd)
 with an abolute path.
 
 ### Jenkins Backups in Google Storage Buckets
@@ -278,7 +278,7 @@ Full documentation of the backup container can be found hee: [blacklabelops/gclo
 First fire up the Jenkins master:
 
 ~~~~
-$ docker run -d -p 8090:8080 --name jenkins_jenkins_1 blacklabelops/jenkins
+$ docker run -d -p 8090:8080 --name jenkins blacklabelops/jenkins
 ~~~~
 
 Then start and attach the [blacklabelops/gcloud](https://github.com/blacklabelops/gcloud) container!
@@ -287,7 +287,7 @@ The required example crontab can be found here: [example-crontab-backup.txt](htt
 
 ~~~~
 $ docker run \
-  --volumes-from jenkins_jenkins_1 \
+  --volumes-from jenkins \
   -v $(pwd)/backups/:/backups \
   -v $(pwd)/logs/:/logs \
   -e "GCLOUD_ACCOUNT=$(base64 auth.json)" \
@@ -340,7 +340,7 @@ $ ./scripts/run.sh
 #### Run Docker-Composite
 
 ~~~~
-$ docker-compose -d up
+$ docker-compose up -d
 ~~~~
 
 > This will run the container detached with the configuration docker-composite.yml
@@ -348,7 +348,7 @@ $ docker-compose -d up
 #### Run Command Line
 
 ~~~~
-$ docker run -d -p 8090:8080 --name="jenkins_jenkins_1" blacklabelops/jenkins
+$ docker run -d -p 8090:8080 --name="jenkins" blacklabelops/jenkins
 ~~~~
 
 > This will run the jenkins on default settings and port 8090
@@ -421,9 +421,9 @@ $ ./scripts/logs.sh
 
 ~~~~
 $ ./scripts/logs.sh
-:: Searching for jenkins_jenkins_1 docker container...
+:: Searching for jenkins docker container...
 
-[ERROR] jenkins_jenkins_1 container is not found
+[ERROR] jenkins container is not found
 ~~~~
 
 #### Success example
@@ -432,7 +432,7 @@ $ ./scripts/logs.sh
 $ scripts/logs.sh
 :: Reading scrips config....
 :: Reading container config....
-:: Searching for jenkins_jenkins_1 docker container...
+:: Searching for jenkins docker container...
  container is found
 
 :: Downloading logs from container...
@@ -456,7 +456,7 @@ $ ./scripts/backup.sh
 $ scripts/backup.sh
 :: Searching for jenkins docker container...
 
-[ERROR] jenkins_jenkins_1 container is not found
+[ERROR] jenkins container is not found
 ~~~~
 
 #### Success example
@@ -465,7 +465,7 @@ $ scripts/backup.sh
 $ scripts/backup.sh
 :: Reading scrips config....
 :: Reading container config....
-:: Searching for jenkins_jenkins_1 docker container...
+:: Searching for jenkins docker container...
  container found
 
 :: Backuping /jenkins folder from container...
@@ -509,17 +509,17 @@ $ ./scripts/restore.sh ./backups/JenkinsBackup-2015-03-08-16-28-40.tar
 :: Searching for backup file...
  backup archive exists
 
-:: Searching for jenkins_jenkins_1 container
+:: Searching for jenkins container
  container found
 
-:: Restoring /jenkins_jenkins_1 folder into container...
+:: Restoring /jenkins folder into container...
  stop container if running
 :: Searching for running restore container...
 :: Searching for restore container...
 :: Starting restore...
- backup imported into jenkins_jenkins_1 container
+ backup imported into jenkins container
 
-:: Starting jenkins_jenkins_1 with restored data again...
+:: Starting jenkins with restored data again...
 :: Searching for restore container...
 
 [SUCCESS] Restoring of backups complete successfull.
@@ -568,7 +568,7 @@ This project supports docker-compose. The configuration is inside the docker-com
 Example:
 
 ~~~~
-$ docker-compose -d up
+$ docker-compose up -d
 ~~~~
 
 > Starts a detached docker container.
