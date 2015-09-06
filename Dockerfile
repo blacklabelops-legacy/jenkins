@@ -20,12 +20,12 @@ RUN yum install -y \
     yum clean all && rm -rf /var/cache/yum/*
 
 # install jenkins
-ENV JENKINS_VERSION=1.609.3
+ENV JENKINS_VERSION=1.627
 ENV JENKINS_HOME=/jenkins
 
 RUN mkdir -p /usr/bin/jenkins && \
     wget --directory-prefix=/usr/bin/jenkins \
-         http://mirrors.jenkins-ci.org/war-stable/${JENKINS_VERSION}/jenkins.war && \
+         http://mirrors.jenkins-ci.org/war/${JENKINS_VERSION}/jenkins.war && \
     chown -R $CONTAINER_UID:$CONTAINER_GID /usr/bin/jenkins && \
     chmod ug+x /usr/bin/jenkins/jenkins.war && \
     echo "export JENKINS_HOME='${JENKINS_HOME}'" >> /etc/profile
