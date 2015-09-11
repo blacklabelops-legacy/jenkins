@@ -1,5 +1,3 @@
-[![Docker Hub Info](http://dockeri.co/image/blacklabelops/jenkins)](https://registry.hub.docker.com/u/blacklabelops/jenkins)
-
 [![Circle CI](https://circleci.com/gh/blacklabelops/jenkins/tree/master.svg?style=shield)](https://circleci.com/gh/blacklabelops/jenkins/tree/master)
 [![Image Layers](https://badge.imagelayers.io/blacklabelops/jenkins:latest.svg)](https://imagelayers.io/?images=blacklabelops/jenkins:latest 'Get your own badge on imagelayers.io')
 
@@ -8,6 +6,8 @@ Docker container with Jenkins Continuous Integration and Delivery server on Cent
 Good news! This container has rooted out root! Safely running inside userspace!
 
 Build Slaves can be found here: [blacklabelops/swarm](https://github.com/blacklabelops/jenkins-swarm)
+
+How-To run this container inside the Google Container Engine (GCE): [blacklabelops/gce-jenkins](https://github.com/blacklabelops/gce-jenkins)
 
 ### Instant Usage
 
