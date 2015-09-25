@@ -20,10 +20,19 @@ $ docker run -d -p 8090:8080 --name jenkins blacklabelops/jenkins
 Using docker-compose:
 
 ~~~~
+$ curl -O https://raw.githubusercontent.com/blacklabelops/jenkins/master/docker-compose.yml
 $ docker-compose up -d
 ~~~~
 
-> docker-compose.xml contains a full list of environment variables.
+> [docker-compose.xml](https://github.com/blacklabelops/jenkins/blob/master/docker-compose.yml) contains a full list of environment variables.
+
+Scaling jenkins slaves:
+
+~~~~
+$ docker-compose scale slave=3
+~~~~
+
+> Starts three java JDK-8 slaves.
 
 ## Features
 

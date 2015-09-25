@@ -1,16 +1,17 @@
+# Jenkins Master
 jenkins:
   image: blacklabelops/jenkins
   container_name: jenkins
   ports:
    - "8090:8080"
    - "50000:50000"
-  volumes:
-   - /jenkins
+  volumes_from:
+    - volumes
   environment:
      - 'JENKINS_ADMIN_USER='
      - 'JENKINS_ADMIN_PASSWORD='
      - 'JAVA_VM_PARAMETERS=-Xmx1024m -Xms512m'
-     - 'JENKINS_MASTER_EXECUTORS=2'
+     - 'JENKINS_MASTER_EXECUTORS=0'
      - 'JENKINS_PLUGINS=swarm'
      - 'JENKINS_KEYSTORE_PASSWORD='
      - 'JENKINS_CERTIFICATE_DNAME='
@@ -27,3 +28,22 @@ jenkins:
   labels:
     com.blacklabelops.description: "Jenkins Continuous Integration System"
     com.blacklabelops.service: "jenkins-master"
+# Global volume container
+volumes:
+  image: blacklabelops/centos
+  container_name: jenkins_data
+  volumes:
+    # Logging volumes
+    - /var/log
+    # Jenkins volume
+    - /jenkins
+  command: chown -R 1000:1000 /var/log /jenkins
+# Jenkins Slave
+slave:
+  image: blacklabelops/swarm-jdk8
+  links:
+    - jenkins:jenkins
+  labels:
+    com.blacklabelops.description: "Jenkins Swarm JDK-8 Slave"
+    com.blacklabelops.service: "slave"
+    com.blacklabelops.applications: "java maven gradle"
