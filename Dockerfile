@@ -1,5 +1,5 @@
 FROM blacklabelops/java-jdk-8
-MAINTAINER Steffen Bleul <blacklabelops@itbleul.de>
+MAINTAINER Steffen Bleul <sbl@blacklabelops.com>
 
 # Propert permissions
 ENV CONTAINER_USER jenkins
