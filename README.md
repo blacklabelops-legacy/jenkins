@@ -17,7 +17,8 @@ $ docker run -d -p 8090:8080 --name jenkins blacklabelops/jenkins
 
 > This will pull the container and start the latest jenkins on port 8090
 
-Using docker-compose:
+Recommended: Docker-Compose! Just curl the files and modify the environment-variables inside
+the .env-files.
 
 ~~~~
 $ curl -O https://raw.githubusercontent.com/blacklabelops/jenkins/master/docker-compose.yml
@@ -26,7 +27,7 @@ $ curl -O https://raw.githubusercontent.com/blacklabelops/jenkins/master/jenkins
 $ docker-compose up -d
 ~~~~
 
-> [docker-compose.xml](https://github.com/blacklabelops/jenkins/blob/master/docker-compose.yml) contains a full list of environment variables.
+> [jenkins-master.env](https://github.com/blacklabelops/jenkins/blob/master/jenkins-master.env) contains a full list of environment variables.
 
 Scaling jenkins slaves:
 
@@ -58,8 +59,8 @@ Container has the following features:
 
 ## Works with
 
-* Docker 1.6.0, 1.6.2
-* Docker-Compose 1.2.0, 1.3.0
+* Docker Latest
+* Docker-Compose Latest
 
 ## Configuration
 
