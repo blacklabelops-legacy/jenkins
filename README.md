@@ -21,6 +21,8 @@ Using docker-compose:
 
 ~~~~
 $ curl -O https://raw.githubusercontent.com/blacklabelops/jenkins/master/docker-compose.yml
+$ curl -O https://raw.githubusercontent.com/blacklabelops/jenkins/master/jenkins-master.env
+$ curl -O https://raw.githubusercontent.com/blacklabelops/jenkins/master/jenkins-slave.env
 $ docker-compose up -d
 ~~~~
 
