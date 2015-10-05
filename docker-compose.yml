@@ -22,6 +22,10 @@ volumes:
     # Jenkins volume
     - /jenkins
   command: chown -R 1000:1000 /var/log /jenkins
+  labels:
+    com.blacklabelops.description: "Jenkins Docker Data Container"
+    com.blacklabelops.service: "volumes"
+    com.blacklabelops.applications: "centos jenkins-user"
 # Jenkins Slave
 slave:
   image: blacklabelops/swarm-jdk8
