@@ -1,4 +1,4 @@
-FROM blacklabelops/java-jdk-8
+FROM blacklabelops/java-jdk-8:8.60.27
 MAINTAINER Steffen Bleul <sbl@blacklabelops.com>
 
 # Propert permissions
@@ -20,7 +20,7 @@ RUN yum install -y \
     yum clean all && rm -rf /var/cache/yum/*
 
 # install jenkins
-ENV JENKINS_VERSION=latest
+ENV JENKINS_VERSION=1.634
 ENV JENKINS_HOME=/jenkins
 
 RUN mkdir -p /usr/bin/jenkins && \
