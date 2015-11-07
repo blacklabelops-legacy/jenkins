@@ -3,6 +3,8 @@
 
 Docker container with Jenkins Continuous Integration and Delivery server on CentOS.
 
+Discuss this Docker Image on Hipchat: [<img src="https://www.hipchat.com/img/image_src.png" width="45">](https://www.hipchat.com/geogBFvEM)
+
 Good news! This container has rooted out root! Safely running inside userspace!
 
 Build Slaves can be found here: [blacklabelops/swarm](https://github.com/blacklabelops/jenkins-swarm)
