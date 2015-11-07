@@ -1,0 +1,43 @@
+jenkins:
+  image: 'blacklabelops/jenkins:latest'
+  environment:
+    - 'JAVA_VM_PARAMETERS=-Xmx1024m -Xms512m'
+    - 'JENKINS_ADMIN_PASSWORD=**your.password.here**'
+    - JENKINS_ADMIN_USER=admin
+    - 'JENKINS_CERTIFICATE_DNAME=CN=SBleul,OU=Blacklabelops,O=blacklabelops.net,L=Munich,S=Bavaria,C=DE'
+    - 'JENKINS_KEYSTORE_PASSWORD=**your.password.here**'
+    - JENKINS_MASTER_EXECUTORS=0
+    - JENKINS_PARAMETERS=
+    - 'JENKINS_PLUGINS=swarm git'
+    - JENKINS_SLAVEPORT=50000
+    - LOG_FILE=
+    - SMTP_CHARSET=
+    - SMTP_HOST=
+    - SMTP_PORT=
+    - SMTP_REPLYTO_ADDRESS=
+    - SMTP_USER_NAME=
+    - SMTP_USER_PASS=
+    - SMTP_USE_SSL=
+  ports:
+    - '50000'
+    - '8090:8080'
+  volumes_from:
+    - volumes
+slave:
+  image: 'blacklabelops/swarm-jdk8:latest'
+  environment:
+    - JAVA_VM_PARAMETERS=
+    - 'JENKINS_MASTER_URL=https://jenkins:8080/'
+    - 'JENKINS_PASSWORD=**your.server.password.here**'
+    - JENKINS_USER=admin
+    - SWARM_CLIENT_EXECUTORS=4
+    - SWARM_CLIENT_LABELS=java
+    - SWARM_CLIENT_PARAMETERS=
+  links:
+    - jenkins
+volumes:
+  image: 'blacklabelops/centos:latest'
+  command: 'chown -R 1000:1000 /var/log /jenkins'
+  volumes:
+    - /var/log
+    - /jenkins
