@@ -3,7 +3,7 @@
 
 Docker container with Jenkins Continuous Integration and Delivery server on CentOS.
 
-Discuss this Docker Image on Hipchat: [blacklabelops/hipchat](https://www.hipchat.com/geogBFvEM)
+Leave a message and ask questions on Hipchat: [blacklabelops/hipchat](https://www.hipchat.com/geogBFvEM)
 
 Good news! This container has rooted out root! Safely running inside userspace!
 
