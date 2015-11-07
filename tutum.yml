@@ -52,6 +52,7 @@ slave:
     - SWARM_CLIENT_PARAMETERS=
   links:
     - jenkins
+  target_num_containers: 2
 # Separate Data Container for volumes
 volumes:
   image: 'blacklabelops/centos:latest'
