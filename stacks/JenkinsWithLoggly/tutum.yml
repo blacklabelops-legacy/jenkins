@@ -56,11 +56,20 @@ slave:
 # Separate Data Container for volumes
 volumes:
   image: 'blacklabelops/centos:latest'
-  command: 'chown -R 1000:1000 /var/log /jenkins /posfiles'
   volumes:
+    # All logs
     - /var/log
+    # Jenkins Data
     - /jenkins
+    # Loggly log position files
     - /posfiles
+    # Syslog volume
+    - /dev
+    # Logrotated files
+    - /logrotates
+    # Logrotate Data
+    - /logrotate-status
+  command: 'chown -R 1000:1000 /var/log /jenkins /posfiles /logrotates /logrotate-status'
 # Logging to Loggly
 loggly:
   image: blacklabelops/loggly
@@ -72,3 +81,21 @@ loggly:
     - 'LOGGLY_TOKEN=**your.loggly.token**'
     - 'LOGGLY_TAG=jenkins'
     - 'DELAYED_START=80'
+# Syslog container for loggin cron jobs by logrotate container
+rsyslog:
+  image: blacklabelops/rsyslogd
+  volumes_from:
+    - volumes
+# Log rotation
+logrotatetime:
+  image: blacklabelops/logrotate
+  volumes_from:
+    - volumes
+  environment:
+    - 'ALL_LOGS_DIRECTORIES=/var/log'
+    - 'LOGROTATE_CRONSCHEDULE=0 1 0 * * *'
+    - 'LOGROTATE_COPIES=30'
+    - 'LOGROTATE_COMPRESSION=compress'
+    - 'LOGROTATE_INTERVAL=daily'
+    - 'LOGROTATE_OLDDIR=/logrotates'
+    - 'DELAYED_START=60'
