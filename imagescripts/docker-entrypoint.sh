@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 #
 # A helper script for ENTRYPOINT.
 #
