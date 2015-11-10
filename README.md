@@ -8,7 +8,7 @@ Docker container with Jenkins Continuous Integration and Delivery server on Cent
 
 Leave a message and ask questions on Hipchat: [blacklabelops/hipchat](https://www.hipchat.com/geogBFvEM)
 
-Good news! This container has rooted out root! Safely running inside userspace!
+Already included: [Mitigating unauthenticated remote code execution 0-day in Jenkins CLI](https://jenkins-ci.org/content/mitigating-unauthenticated-remote-code-execution-0-day-jenkins-cli)
 
 Build Slaves can be found here: [blacklabelops/swarm](https://github.com/blacklabelops/jenkins-swarm)
 

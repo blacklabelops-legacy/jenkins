@@ -2,8 +2,7 @@
 #
 # A helper script for ENTRYPOINT.
 #
-# If first CMD argument is 'jenkins', then the script will bootrstrap Jenkins
-# on port 8090 and log stdout and stderr in /var/log/jenkins.log
+# If first CMD argument is 'jenkins', then the script will bootstrap Jenkins
 # If CMD argument is overriden and not 'jenkins', then the user wants to run
 # his own process.
 
@@ -13,7 +12,15 @@ java_vm_parameters=""
 jenkins_parameters=""
 jenkins_plugins=""
 
-zip -d /jenkins/war/WEB-INF/lib/commons-collections-3.2.1.jar org/apache/commons/collections/functors/InvokerTransformer.class || :
+# Scripts and commands for zero day security
+
+if [ -f "/jenkins/war/WEB-INF/lib/commons-collections-3.2.1.jar" ]; then
+  zip -d /jenkins/war/WEB-INF/lib/commons-collections-3.2.1.jar org/apache/commons/collections/functors/InvokerTransformer.class || :
+fi
+
+if [ ! -d "${JENKINS_HOME}/init.groovy.d" ]; then
+  mkdir ${JENKINS_HOME}/init.groovy.d
+fi
 
 cat > ${JENKINS_HOME}/init.groovy.d/cli-shutdown.groovy <<_EOF_
 import jenkins.*;
@@ -34,6 +41,8 @@ def j = Jenkins.instance;
 removal(j.getExtensionList(RootAction.class))
 removal(j.actions)
 _EOF_
+
+####################
 
 if [ -n "${JAVA_VM_PARAMETERS}" ]; then
   java_vm_parameters=${JAVA_VM_PARAMETERS}
