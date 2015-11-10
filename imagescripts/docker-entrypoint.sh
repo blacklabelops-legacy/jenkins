@@ -13,6 +13,8 @@ java_vm_parameters=""
 jenkins_parameters=""
 jenkins_plugins=""
 
+zip -d /jenkins/war/WEB-INF/lib/commons-collections-3.2.1.jar org/apache/commons/collections/functors/InvokerTransformer.class || :
+
 if [ -n "${JAVA_VM_PARAMETERS}" ]; then
   java_vm_parameters=${JAVA_VM_PARAMETERS}
 fi
