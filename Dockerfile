@@ -22,8 +22,6 @@ RUN export CONTAINER_USER=jenkins && \
     # Add user
     /usr/sbin/groupadd --gid $CONTAINER_GID jenkins && \
     /usr/sbin/useradd --uid $CONTAINER_UID --gid $CONTAINER_GID --create-home --shell /bin/bash jenkins && \
-    # Install latest updates
-    yum update -y && \
     # Install software
     yum install -y \
     git \
