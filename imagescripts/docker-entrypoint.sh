@@ -8,41 +8,17 @@
 
 set -e
 
+if [ -n "${DELAYED_START}" ]; then
+  sleep ${DELAYED_START}
+fi
+
+if [ -n "${JENKINS_ENV_FILE}" ]; then
+  source ${JENKINS_ENV_FILE}
+fi
+
 java_vm_parameters=""
 jenkins_parameters=""
 jenkins_plugins=""
-
-# Scripts and commands for zero day security
-
-if [ -f "/jenkins/war/WEB-INF/lib/commons-collections-3.2.1.jar" ]; then
-  zip -d /jenkins/war/WEB-INF/lib/commons-collections-3.2.1.jar org/apache/commons/collections/functors/InvokerTransformer.class || :
-fi
-
-if [ ! -d "${JENKINS_HOME}/init.groovy.d" ]; then
-  mkdir ${JENKINS_HOME}/init.groovy.d
-fi
-
-cat > ${JENKINS_HOME}/init.groovy.d/cli-shutdown.groovy <<_EOF_
-import jenkins.*;
-import jenkins.model.*;
-import hudson.model.*;
-
-// disabled CLI access over TCP listener (separate port)
-def p = AgentProtocol.all()
-p.each { x ->
-  if (x.name.contains("CLI")) p.remove(x)
-}
-
-// disable CLI access over /cli URL
-def removal = { lst ->
-  lst.each { x -> if (x.getClass().name.contains("CLIAction")) lst.remove(x) }
-}
-def j = Jenkins.instance;
-removal(j.getExtensionList(RootAction.class))
-removal(j.actions)
-_EOF_
-
-####################
 
 if [ -n "${JAVA_VM_PARAMETERS}" ]; then
   java_vm_parameters=${JAVA_VM_PARAMETERS}
@@ -64,7 +40,6 @@ def instance = Jenkins.getInstance()
 instance.setNumExecutors(${JENKINS_MASTER_EXECUTORS})
 instance.save()
 _EOF_
-  cat ${JENKINS_HOME}/init.groovy.d/setExecutors.groovy
 fi
 
 if [ -n "${JENKINS_SLAVEPORT}" ]; then
@@ -87,7 +62,6 @@ instance.save()
 instance.doSafeRestart()
 }
 _EOF_
-  cat ${JENKINS_HOME}/init.groovy.d/setSlaveport.groovy
 fi
 
 if [ -n "${JENKINS_ADMIN_USER}" ] && [ -n "${JENKINS_ADMIN_PASSWORD}" ]; then
@@ -111,7 +85,6 @@ instance.setAuthorizationStrategy(strategy)
 }
 instance.save()
 _EOF_
-  cat ${JENKINS_HOME}/init.groovy.d/initAdmin.groovy
 fi
 
 if [ -n "${JENKINS_PLUGINS}" ]; then
@@ -158,7 +131,6 @@ if [ -n "${JENKINS_PLUGINS}" ]; then
     instance.doSafeRestart()
   }
 _EOF_
-  cat ${JENKINS_HOME}/init.groovy.d/loadPlugins.groovy
 fi
 
 smtp_replyto_address="dummy@example.com"
@@ -202,7 +174,6 @@ desc.setCharset("${smtp_charset}")
 desc.save()
 inst.save()
 _EOF_
-  cat ${JENKINS_HOME}/init.groovy.d/initSMTP.groovy
 fi
 
 if [ -n "${JENKINS_ADMIN_EMAIL}" ]; then
@@ -221,7 +192,6 @@ jenkinsLocationConfiguration.setAdminAddress("${JENKINS_ADMIN_EMAIL}")
 jenkinsLocationConfiguration.save()
 instance.save()
 _EOF_
-  cat ${JENKINS_HOME}/init.groovy.d/initAdminEMail.groovy
 fi
 
 if [ -n "${JENKINS_KEYSTORE_PASSWORD}" ] && [ -n "${JENKINS_CERTIFICATE_DNAME}" ]; then

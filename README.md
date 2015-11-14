@@ -4,11 +4,9 @@
 
 [![Deploy to Tutum](https://s.tutum.co/deploy-to-tutum.svg)](https://dashboard.tutum.co/stack/deploy/)
 
-Docker container with Jenkins Continuous Integration and Delivery server on CentOS.
+Docker container with Jenkins Continuous Integration and Delivery Server.
 
 Leave a message and ask questions on Hipchat: [blacklabelops/hipchat](https://www.hipchat.com/geogBFvEM)
-
-Already included: [Mitigating unauthenticated remote code execution 0-day in Jenkins CLI](https://jenkins-ci.org/content/mitigating-unauthenticated-remote-code-execution-0-day-jenkins-cli)
 
 Build Slaves can be found here: [blacklabelops/swarm](https://github.com/blacklabelops/jenkins-swarm)
 
@@ -59,7 +57,7 @@ Container has the following features:
 ## What's Included
 
 * Jenkins Latest
-* CentOS 7.1.1503
+* CentOS 7.1.503
 * Java 8
 
 ## Works with
@@ -68,6 +66,17 @@ Container has the following features:
 * Docker-Compose Latest
 
 ## Configuration
+
+### Hiding Environment Variables
+
+This container can initialize with environment variables from a file. If you prefer specifying your default password inside a file rather then inside your docker-compose file. This way the password is also hidden from docker and the command **docker inspect**.
+
+The environment variable JENKINS_ENV_FILE tells the entryscript where to find the environment variables.
+
+How do you get the file inside the container?
+
+* Use the command **docker cp** in order to copy the file inside an already initialized container.
+* Extend the container with a new Dockerfile. Example can be found here: [Example-Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/extension/Dockerfile)
 
 ### Jenkins HTTPS
 
