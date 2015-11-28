@@ -10,5 +10,5 @@
    * [Custom Container Logging](gitbook/gitbook/logging_with_loggly.md)
    * [Backups with rsnapshot](gitbook/gitbook/backups_with_rsnapshot.md)
    * [Backups in Google Storage Buckets](gitbook/gitbook/backups_in_google_storage_buckets.md)
-* References
+* [References](gitbook/references.md)
 
