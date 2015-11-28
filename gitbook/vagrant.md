@@ -8,3 +8,4 @@ $ vagrant ssh
 [vagrant@localhost ~]$ cd /vagrant
 [vagrant@localhost ~]$ docker-compose up
 ~~~~
+
