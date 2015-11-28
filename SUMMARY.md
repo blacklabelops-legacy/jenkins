@@ -6,4 +6,5 @@
    * [Using Vagrant](gitbook/vagrant.md)
    * [Hiding Security Credentials](gitbook/hiding_security_credentials.md)
    * Advanced
+       * More Advanced
 
