@@ -336,33 +336,6 @@ $ docker run \
 > Uses the authentication file auth.json and executed the crontab th°°at uploads archives to the specified cloud bucket. Logs and
 backups are available locally.
 
-> Jenkins will be available on localhost:9200 on the host machine.
-
-Vagrant does not leave any docker artifacts on your beloved desktop and the vagrant image can simply be destroyed and repulled if anything goes wrong. Test my project to your heart's content!
-
-First install:
-
-* [Vagrant](https://www.vagrantup.com/)
-* [Virtualbox](https://www.virtualbox.org/)
-
-
-## Docker-Compose
-
-This project supports docker-compose. The configuration is inside the docker-compose.yml file.
-
-Example:
-
-~~~~
-$ docker-compose up -d
-~~~~
-
-> Starts a detached docker container.
-
-Consult the [docker-compose](https://docs.docker.com/compose/) manual for specifics.
-
-> This will enable the administrative account for user jenkins with password swordfish. Note:
-This only works when the users are adminsitrated by the servlet container (see security setup).
-
 ## References
 
 * [Jenkins Homepage](http://jenkins-ci.org/)
