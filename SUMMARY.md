@@ -8,4 +8,5 @@
 * [Advanced](gitbook/advanced.md)
    * [Hiding Security Credentials](gitbook/hide_security_credentials.md)
    * [Custom Container Logging](gitbook/gitbook/logging_with_loggly.md)
+   * Backups with rsnapshot
 
