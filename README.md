@@ -64,15 +64,3 @@ Container has the following features:
 
 * Docker Latest
 * Docker-Compose Latest
-
-## Configuration
-
-
-## References
-
-* [Jenkins Homepage](http://jenkins-ci.org/)
-* [Docker Homepage](https://www.docker.com/)
-* [Docker Compose](https://docs.docker.com/compose/)
-* [Docker Userguide](https://docs.docker.com/userguide/)
-* [Official CentOS Container](https://registry.hub.docker.com/_/centos/)
-* [Oracle Java8](https://java.com/de/download/)
