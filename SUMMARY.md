@@ -7,5 +7,5 @@
    * [Using Vagrant](gitbook/gitbook/use_vagrant.md)
 * [Advanced](gitbook/advanced.md)
    * [Hiding Security Credentials](gitbook/hide_security_credentials.md)
-   * Logging with Loggly
+   * [Logging with Loggly](gitbook/gitbook/logging_with_loggly.md)
 
