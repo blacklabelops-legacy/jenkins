@@ -1,4 +1,4 @@
-# Project Usage
+# Using Bash Scripts
 
 This container includes all the required scripts for container management. Simply clone the project and enter the described commands in your project directory.
 
