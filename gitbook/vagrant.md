@@ -9,3 +9,6 @@ $ vagrant ssh
 [vagrant@localhost ~]$ docker-compose up
 ~~~~
 
+## References
+
+* [Vagrant Homepage](http://vagrantup.com/)
