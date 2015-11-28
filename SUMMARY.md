@@ -1,6 +1,6 @@
 # Summary
 
 * [Introduction](README.md)
-   * Project Usage
+   * [Project Usage](gitbook/project_usage.md)
    * [Vagrant](gitbook/vagrant.md)
 
