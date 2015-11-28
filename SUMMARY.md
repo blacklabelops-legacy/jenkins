@@ -2,5 +2,5 @@
 
 * [Introduction](README.md)
    * Instant Usage
-   * Vagrant
+   * [Vagrant](gitbook/vagrant.md)
 
