@@ -7,5 +7,5 @@
    * [Using Bash Scripts](gitbook/gitbook/use_bash_scripts.md)
    * [Using Vagrant](gitbook/gitbook/use_vagrant.md)
 * Advanced
-   * Hiding Security Credentials
+   * [Hiding Security Credentials](gitbook/hide_security_credentials.md)
 
