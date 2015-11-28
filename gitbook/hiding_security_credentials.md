@@ -11,8 +11,14 @@ The environment variable JENKINS_ENV_FILE tells the entryscript where to find th
 Example:
 
 ~~~~~
-
+$ docker run --name jenkins \
+	-e "JENKINS_ENV_FILE=/home/jenkins/envs/myenvs.env" \
+	-v $(pwd)/myenvs.env:/home/jenkins/envs/myenvs.env \
+	-p 8080:8080 \
+	blacklabelops/jenkins
 ~~~~
+
+> Mounts the local environment variable file myenvs.env inside the container. (file must have access rights for userid:groupid 1000:1000)
 
 How do you get the file inside the container?
 
