@@ -1,7 +1,6 @@
 # Summary
 
 * [Introduction](README.md)
-   * [Using Vagrant](gitbook/vagrant.md)
    * [Hiding Security Credentials](gitbook/hiding_security_credentials.md)
 * [Manual](gitbook/manual.md)
    * [Environment Variables](gitbook/gitbook/env_variables.md)
