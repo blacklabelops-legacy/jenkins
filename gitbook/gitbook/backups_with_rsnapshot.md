@@ -1,0 +1,2 @@
+# Backups with rsnapshot
+
