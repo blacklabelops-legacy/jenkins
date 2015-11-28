@@ -1,5 +1,5 @@
 # Summary
 
-* Instant Usage
+* [Introduction](README.md)
 * Jenkins Image
 
