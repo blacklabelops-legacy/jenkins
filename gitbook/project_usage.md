@@ -1,10 +1,8 @@
-## Project Usage
+# Project Usage
 
 This container includes all the required scripts for container management. Simply clone the project and enter the described commands in your project directory.
 
-This project can be used from the command line, by bash scripts and the Docker-Compose tool. It's recommended to use the scripts for container management.
-
-#### Run Recommended
+## Run Recommended
 
 ~~~~
 $ ./scripts/run.sh
@@ -12,7 +10,7 @@ $ ./scripts/run.sh
 
 > This will run the container with the configuration scripts/container.cfg
 
-#### Run Docker-Composite
+## Run Docker-Composite
 
 ~~~~
 $ docker-compose up -d
@@ -20,7 +18,7 @@ $ docker-compose up -d
 
 > This will run the container detached with the configuration docker-composite.yml
 
-#### Run Command Line
+## Run Command Line
 
 ~~~~
 $ docker run -d -p 8090:8080 --name="jenkins" blacklabelops/jenkins
@@ -28,7 +26,7 @@ $ docker run -d -p 8090:8080 --name="jenkins" blacklabelops/jenkins
 
 > This will run the jenkins on default settings and port 8090
 
-#### Build Recommended
+## Build Recommended
 
 ~~~~
 $ ./scripts/build.sh
@@ -36,7 +34,7 @@ $ ./scripts/build.sh
 
 > This will build the container from scratch with all required parameters.
 
-#### Build Docker-Composite
+## Build Docker-Composite
 
 ~~~~
 docker-compose build
@@ -44,7 +42,7 @@ docker-compose build
 
 > This will build the container according to the docker-composite.yml file.
 
-#### Build Docker Command Line
+## Build Docker Command Line
 
 ~~~~
 docker build -t="blacklabelops/jenkins" .
