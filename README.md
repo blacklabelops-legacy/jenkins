@@ -12,7 +12,7 @@ Build Slaves can be found here: [blacklabelops/swarm](https://github.com/blackla
 
 How-To run this container inside the Google Container Engine (GCE): [blacklabelops/gce-jenkins](https://github.com/blacklabelops/gce-jenkins)
 
-### Instant Usage
+## Instant Usage
 
 ~~~~
 $ docker run -d -p 8090:8080 --name jenkins blacklabelops/jenkins
@@ -64,3 +64,9 @@ Container has the following features:
 
 * Docker Latest
 * Docker-Compose Latest
+
+## Manual
+
+The detailed manual moved here:
+
+* [Gitbook blacklabelops/jenkins](https://www.gitbook.com/book/blacklabelops/jenkins)
