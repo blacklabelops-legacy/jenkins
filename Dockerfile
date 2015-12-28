@@ -1,4 +1,4 @@
-FROM blacklabelops/java-jdk-8:8.60.27
+FROM blacklabelops/java-jdk-8
 MAINTAINER Steffen Bleul <sbl@blacklabelops.com>
 
 # env variables for the console or child containers to override
@@ -30,10 +30,10 @@ RUN export CONTAINER_USER=jenkins && \
     zip && \
     yum clean all && rm -rf /var/cache/yum/* && \
     # Install jenkins
-    export JENKINS_VERSION=1.625.3 && \
+    export JENKINS_VERSION=latest && \
     mkdir -p /usr/bin/jenkins && \
     wget --directory-prefix=/usr/bin/jenkins \
-         http://mirrors.jenkins-ci.org/war-stable/${JENKINS_VERSION}/jenkins.war && \
+         http://mirrors.jenkins-ci.org/war/${JENKINS_VERSION}/jenkins.war && \
     chown -R $CONTAINER_USER:$CONTAINER_GROUP /usr/bin/jenkins && \
     chmod ug+x /usr/bin/jenkins/jenkins.war && \
     # Jenkins directory
