@@ -1,0 +1,2 @@
+# Running inside Google Cloud
+
