@@ -28,8 +28,12 @@ How do you get the file inside the container?
 
 ## Example Extension Dockerfile
 
+~~~~
 {% include "git+https://github.com/blacklabelops/jenkins.git/extension/Dockerfile" %}
+~~~~
 
 ## Example Environment File
 
+~~~~
 {% include "git+https://github.com/blacklabelops/jenkins.git/extension/jenkins-master-security.env" %}
+~~~~
