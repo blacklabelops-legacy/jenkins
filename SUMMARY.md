@@ -1,7 +1,7 @@
 # Summary
 
 * [Introduction](README.md)
-   * [Getting Jenkins Docker Ready](getting_jenkins_docker_ready.md)
+   * [Getting Jenkins Cloud Ready](getting_jenkins_docker_ready.md)
 * [Manual](gitbook/manual.md)
    * [Environment Variables](gitbook/gitbook/env_variables.md)
    * [Using Bash Scripts](gitbook/gitbook/use_bash_scripts.md)
