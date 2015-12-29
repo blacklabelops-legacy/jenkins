@@ -25,3 +25,11 @@ How do you get the file inside the container?
 * Use the command **docker cp** in order to copy the file inside an already initialized container.
 * Extend the container with a new Dockerfile. Example can be found here: [Example-Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/extension/Dockerfile)
 * Put the file inside a data-container and mount it with the **--volumes-from** directive.
+
+## Example Extension Dockerfile
+
+{% include "git+https://github.com/blacklabelops/jenkins/blob/master/extension/Dockerfile" %}
+
+## Example Environment File
+
+{% include "git+https://github.com/blacklabelops/jenkins/blob/master/extension/jenkins-master-security.env" %}
