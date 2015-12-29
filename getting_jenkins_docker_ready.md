@@ -1,4 +1,4 @@
-# Getting Jenkins Docker Ready
+# Getting Jenkins Cloud Ready
 
 Jenkins is a continuous integration tool for software development. You can define jobs, integration and deployment and schedule their execution. It's one of the most important tools in software development. The developer does not have to wait for a feedback but will be informed with detailed infos on how his new feature has fared inside the environments.
 
