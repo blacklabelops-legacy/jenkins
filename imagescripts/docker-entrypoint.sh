@@ -215,6 +215,12 @@ if [ -n "${LOG_FILE}" ]; then
   log_parameter=" --logfile="${LOG_FILE}
 fi
 
+unset JENKINS_ADMIN_USER
+unset JENKINS_ADMIN_PASSWORD
+unset JENKINS_KEYSTORE_PASSWORD
+unset SMTP_USER_NAME
+unset SMTP_USER_PASS
+
 if [ "$1" = 'jenkins' ]; then
   /usr/bin/java -Dfile.encoding=UTF-8 ${java_vm_parameters} -jar /usr/bin/jenkins/jenkins.war ${jenkins_parameters}${log_parameter}
 fi
