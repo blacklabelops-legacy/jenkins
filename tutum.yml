@@ -40,12 +40,12 @@ jenkins:
 slave:
   image: 'blacklabelops/swarm-jdk8:latest'
   environment:
-    - JAVA_VM_PARAMETERS=
+    - SWARM_VM_PARAMETERS=
     # Do not change this, this setting is configured in accordance with docker linking
-    - 'JENKINS_MASTER_URL=https://jenkins:8080/'
+    - 'SWARM_JENKINS_MASTER_URL=https://jenkins:8080/'
     # Must be same as above for the master
-    - 'JENKINS_PASSWORD=**your.server.password.here**'
-    - JENKINS_USER=admin
+    - 'SWARM_JENKINS_PASSWORD=**your.server.password.here**'
+    - SWARM_JENKINS_USER=admin
     - SWARM_CLIENT_EXECUTORS=4
     - SWARM_CLIENT_LABELS=java
     # See Swarm client documentation
