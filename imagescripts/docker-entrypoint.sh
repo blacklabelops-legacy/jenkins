@@ -8,8 +8,8 @@
 
 set -e
 
-if [ -n "${DELAYED_START}" ]; then
-  sleep ${DELAYED_START}
+if [ -n "${JENKINS_DELAYED_START}" ]; then
+  sleep ${JENKINS_DELAYED_START}
 fi
 
 if [ -n "${JENKINS_ENV_FILE}" ]; then
@@ -222,7 +222,7 @@ unset SMTP_USER_NAME
 unset SMTP_USER_PASS
 
 if [ "$1" = 'jenkins' ]; then
-  /usr/bin/java -Dfile.encoding=UTF-8 ${java_vm_parameters} -jar /usr/bin/jenkins/jenkins.war ${jenkins_parameters}${log_parameter}
+  /usr/bin/java -Dfile.encoding=UTF-8 ${java_vm_parameters} -jar /usr/bin/jenkins/jenkins.war ${jenkins_parameters}${log_parameter} "$@"
 fi
 
 exec "$@"
