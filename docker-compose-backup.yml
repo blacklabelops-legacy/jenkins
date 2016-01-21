@@ -47,7 +47,7 @@ rsnapshot:
     - jenkins_data
   environment:
     - 'BACKUP_DIRECTORIES=/jenkins/ jenkins/'
-    - 'DELAYED_START=20'
+    - 'JENKINS_DELAYED_START=20'
     - 'SYSLOGGER=true'
     - 'SYSLOGGER_TAG=rsnapshot'
 # Syslog container for cron logs

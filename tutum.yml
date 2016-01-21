@@ -24,7 +24,7 @@ jenkins:
     # Jenkins port for accepting swarm slave connections
     - JENKINS_SLAVEPORT=50000
     # Jenkins log file. Not necessary, because Jenkins logs to Docker.
-    - LOG_FILE=
+    - JENKINS_LOG_FILE=
     # Jenkins Mail Setup
     - SMTP_CHARSET=
     - SMTP_HOST=
