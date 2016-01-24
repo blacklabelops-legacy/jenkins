@@ -1,4 +1,4 @@
-FROM blacklabelops/java-jdk-8
+FROM blacklabelops/java-jdk-8:8.66.17
 MAINTAINER Steffen Bleul <sbl@blacklabelops.com>
 
 # env variables for the console or child containers to override
@@ -14,7 +14,7 @@ ENV JAVA_VM_PARAMETERS=-Xmx512m \
  JENKINS_ENV_FILE= \
  JENKINS_HOME=/jenkins \
  JENKINS_DELAYED_START= \
- JENKINS_VERSION=latest \
+ JENKINS_VERSION=1.645 \
  JENKINS_RELEASE=war
 
 RUN export CONTAINER_USER=jenkins && \
