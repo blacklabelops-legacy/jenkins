@@ -1,16 +1,20 @@
-[![Circle CI](https://circleci.com/gh/blacklabelops/jenkins/tree/master.svg?style=shield)](https://circleci.com/gh/blacklabelops/jenkins/tree/master) [![Docker Repository on Quay](https://quay.io/repository/blacklabelops/jenkins/status "Docker Repository on Quay")](https://quay.io/repository/blacklabelops/jenkins)
+# Jenkins Docker Container
 
-[![Deploy to Tutum](https://s.tutum.co/deploy-to-tutum.svg)](https://dashboard.tutum.co/stack/deploy/)
+[![Circle CI](https://circleci.com/gh/blacklabelops/jenkins/tree/master.svg?style=shield)](https://circleci.com/gh/blacklabelops/jenkins/tree/master) [![Docker Repository on Quay](https://quay.io/repository/blacklabelops/jenkins/status "Docker Repository on Quay")](https://quay.io/repository/blacklabelops/jenkins) [![Docker Stars](https://img.shields.io/docker/stars/blacklabelops/jenkins.svg)](https://hub.docker.com/r/blacklabelops/jenkins/) [![Docker Pulls](https://img.shields.io/docker/pulls/blacklabelops/jenkins.svg)](https://hub.docker.com/r/blacklabelops/jenkins/)
 
-Docker container with Jenkins Continuous Integration and Delivery Server.
+Docker Image with Jenkins Continuous Integration and Delivery Server.
+
+## Release: blacklabelops/jenkins:latest
 
 Leave a message and ask questions on Hipchat: [blacklabelops/hipchat](https://www.hipchat.com/geogBFvEM)
 
 Build Slaves can be found here: [blacklabelops/swarm](https://github.com/blacklabelops/jenkins-swarm)
 
-How-To run this container inside the Google Container Engine (GCE): [blacklabelops/gce-jenkins](https://github.com/blacklabelops/gce-jenkins)
-
 ## Instant Usage
+
+[![Deploy to Tutum](https://s.tutum.co/deploy-to-tutum.svg)](https://dashboard.tutum.co/stack/deploy/)
+
+## Make It Short
 
 ~~~~
 $ docker run -d -p 8090:8080 --name jenkins blacklabelops/jenkins
@@ -40,28 +44,18 @@ $ docker-compose scale slave=3
 
 ## Features
 
-Container has the following features:
-
 * Install latest Jenkins.
-* Enable security, install plugins, set swarm port with docker envs.
+* Enable security, install plugins, set swarm port with environment-variables.
 * On-Demand https.
 * Set the Jenkins version number.
 * Container writes data to Docker volume.
-* Scripts for backup of Jenkins data.
-* Scripts for restore of Jenkins data.
 * Supports the Docker-Compose tool.
 * Includes several convenient cli wrapper scripts around docker.
 
 ## What's Included
 
-* Jenkins Latest
-* CentOS 7.1.503
+* Jenkins
 * Java 8
-
-## Works with
-
-* Docker Latest
-* Docker-Compose Latest
 
 ## Manual
 
