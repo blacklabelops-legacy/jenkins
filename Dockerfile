@@ -1,4 +1,4 @@
-FROM blacklabelops/java-jdk-8
+FROM blacklabelops/java-jdk-8:8.60.27
 MAINTAINER Steffen Bleul <sbl@blacklabelops.com>
 
 # env variables for the console or child containers to override
