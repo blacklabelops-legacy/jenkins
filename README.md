@@ -4,6 +4,14 @@
 
 Docker Image with Jenkins Continuous Integration and Delivery Server.
 
+New: Minimized Alpine Version! [blacklabelops/jenkins:alpine](https://github.com/blacklabelops/jenkins/tree/alpine)
+
+See the difference!
+
+CentOS Image: [![](https://badge.imagelayers.io/blacklabelops/jenkins:latest.svg)](https://imagelayers.io/?images=blacklabelops/jenkins:latest 'blacklabelops/jenkins:latest')
+
+Alpine Image: [![](https://badge.imagelayers.io/blacklabelops/jenkins:alpine.svg)](https://imagelayers.io/?images=blacklabelops/jenkins:alpine 'blacklabelops/jenkins:alpine ')
+
 ## Release: blacklabelops/jenkins:latest
 
 Leave a message and ask questions on Hipchat: [blacklabelops/hipchat](https://www.hipchat.com/geogBFvEM)
