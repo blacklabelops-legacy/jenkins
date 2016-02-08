@@ -1,4 +1,4 @@
-FROM blacklabelops/java-jdk-8:8.60.27
+FROM alpine
 MAINTAINER Steffen Bleul <sbl@blacklabelops.com>
 
 # env variables for the console or child containers to override
@@ -14,23 +14,25 @@ ENV JAVA_VM_PARAMETERS=-Xmx512m \
  JENKINS_ENV_FILE= \
  JENKINS_HOME=/jenkins \
  JENKINS_DELAYED_START= \
- JENKINS_VERSION=latest \
- JENKINS_RELEASE=war
+ JENKINS_VERSION=1.642.1 \
+ JENKINS_RELEASE=war-stable
 
 RUN export CONTAINER_USER=jenkins && \
     export CONTAINER_UID=1000 && \
     export CONTAINER_GROUP=jenkins && \
     export CONTAINER_GID=1000 && \
     # Add user
-    /usr/sbin/groupadd --gid $CONTAINER_GID jenkins && \
-    /usr/sbin/useradd --uid $CONTAINER_UID --gid $CONTAINER_GID --create-home --shell /bin/bash jenkins && \
+    addgroup -g $CONTAINER_GID jenkins && \
+    adduser -u $CONTAINER_UID -G jenkins -h /home/jenkins -s /bin/bash -S jenkins && \
     # Install software
-    yum install -y \
+    apk add --update \
     git \
     unzip \
     wget \
-    zip && \
-    yum clean all && rm -rf /var/cache/yum/* && \
+    zip \
+    bash \
+    openjdk7-jre && \
+    rm -rf /var/cache/apk/* && \
     # Install jenkins
     mkdir -p /usr/bin/jenkins && \
     wget --directory-prefix=/usr/bin/jenkins \
