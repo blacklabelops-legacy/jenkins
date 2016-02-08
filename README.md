@@ -4,7 +4,7 @@
 
 Docker Image with Jenkins Continuous Integration and Delivery Server.
 
-## Release: blacklabelops/jenkins:latest
+## Release: blacklabelops/jenkins:alpine
 
 Leave a message and ask questions on Hipchat: [blacklabelops/hipchat](https://www.hipchat.com/geogBFvEM)
 

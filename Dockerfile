@@ -1,4 +1,4 @@
-FROM alpine
+FROM blacklabelops/java-jdk-8:alpine
 MAINTAINER Steffen Bleul <sbl@blacklabelops.com>
 
 # env variables for the console or child containers to override
@@ -14,8 +14,8 @@ ENV JAVA_VM_PARAMETERS=-Xmx512m \
  JENKINS_ENV_FILE= \
  JENKINS_HOME=/jenkins \
  JENKINS_DELAYED_START= \
- JENKINS_VERSION=1.642.1 \
- JENKINS_RELEASE=war-stable
+ JENKINS_VERSION=latest \
+ JENKINS_RELEASE=war
 
 RUN export CONTAINER_USER=jenkins && \
     export CONTAINER_UID=1000 && \
@@ -25,13 +25,11 @@ RUN export CONTAINER_USER=jenkins && \
     addgroup -g $CONTAINER_GID jenkins && \
     adduser -u $CONTAINER_UID -G jenkins -h /home/jenkins -s /bin/bash -S jenkins && \
     # Install software
+    apk upgrade --update && \
     apk add --update \
     git \
-    unzip \
     wget \
-    zip \
-    bash \
-    openjdk7-jre && \
+    bash && \
     rm -rf /var/cache/apk/* && \
     # Install jenkins
     mkdir -p /usr/bin/jenkins && \
@@ -41,7 +39,9 @@ RUN export CONTAINER_USER=jenkins && \
     chmod ug+x /usr/bin/jenkins/jenkins.war && \
     # Jenkins directory
     mkdir -p ${JENKINS_HOME} && \
-    chown -R $CONTAINER_USER:$CONTAINER_GROUP ${JENKINS_HOME}
+    chown -R $CONTAINER_USER:$CONTAINER_GROUP ${JENKINS_HOME} && \
+    # Remove obsolete packages
+    apk del wget
 
 WORKDIR /jenkins
 VOLUME ["/jenkins"]
