@@ -1,22 +1,17 @@
-# Jenkins Docker Container
+# Dockerized Jenkins
 
 [![Circle CI](https://circleci.com/gh/blacklabelops/jenkins/tree/master.svg?style=shield)](https://circleci.com/gh/blacklabelops/jenkins/tree/master) [![Docker Repository on Quay](https://quay.io/repository/blacklabelops/jenkins/status "Docker Repository on Quay")](https://quay.io/repository/blacklabelops/jenkins) [![Docker Stars](https://img.shields.io/docker/stars/blacklabelops/jenkins.svg)](https://hub.docker.com/r/blacklabelops/jenkins/) [![Docker Pulls](https://img.shields.io/docker/pulls/blacklabelops/jenkins.svg)](https://hub.docker.com/r/blacklabelops/jenkins/)
 
-Docker Image with Jenkins Continuous Integration and Delivery Server.
+## Supported tags and respective Dockerfile links
 
-New: Minimized Alpine Version! [blacklabelops/jenkins:alpine](https://github.com/blacklabelops/jenkins/tree/alpine)
+| Distribution | Version      | Tag          | Dockerfile | Size |
+|--------------|--------------|--------------|------------|------|
+| CentOS | latest | latest | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/Dockerfile) | [![blacklabelops/jenkins:latest](https://badge.imagelayers.io/blacklabelops/jenkins:latest.svg)](https://imagelayers.io/?images=blacklabelops/jenkins:latest 'blacklabelops/jenkins:latest') |
+| Alpine | latest | alpine | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/alpine/Dockerfile) | [![blacklabelops/jenkins:alpine](https://badge.imagelayers.io/blacklabelops/jenkins:alpine.svg)](https://imagelayers.io/?images=blacklabelops/jenkins:alpine 'blacklabelops/jenkins:alpine') |
+| CentOS | 1.647 | 1.647 |  [Dockerfile](https://github.com/blacklabelops/jenkins/blob/1.647/Dockerfile) | [![blacklabelops/jenkins:1.647](https://badge.imagelayers.io/blacklabelops/jenkins:1.647.svg)](https://imagelayers.io/?images=blacklabelops/jenkins:1.647 'blacklabelops/jenkins:1.647') |
+| CentOS | stable 1.642.1 | 1.642.1 |  [Dockerfile](https://github.com/blacklabelops/jenkins/blob/1.642.1/Dockerfile) | [![blacklabelops/jenkins:1.642.1](https://badge.imagelayers.io/blacklabelops/jenkins:1.642.1.svg)](https://imagelayers.io/?images=blacklabelops/jenkins:1.642.1 'blacklabelops/jenkins:1.642.1') |
 
-See the difference!
-
-CentOS Image: [![](https://badge.imagelayers.io/blacklabelops/jenkins:latest.svg)](https://imagelayers.io/?images=blacklabelops/jenkins:latest 'blacklabelops/jenkins:latest')
-
-Alpine Image: [![](https://badge.imagelayers.io/blacklabelops/jenkins:alpine.svg)](https://imagelayers.io/?images=blacklabelops/jenkins:alpine 'blacklabelops/jenkins:alpine ')
-
-## Release: blacklabelops/jenkins:latest
-
-Leave a message and ask questions on Hipchat: [blacklabelops/hipchat](https://www.hipchat.com/geogBFvEM)
-
-Build Slaves can be found here: [blacklabelops/swarm](https://github.com/blacklabelops/jenkins-swarm)
+> Older tags remain but are not supported/rebuild.
 
 ## Instant Usage
 
@@ -64,6 +59,14 @@ $ docker-compose scale slave=3
 
 * Jenkins
 * Java 8
+
+## Support & Feature Requests
+
+Leave a message and ask questions on Hipchat: [blacklabelops/hipchat](https://www.hipchat.com/geogBFvEM)
+
+## Build Slaves
+
+Build Slaves can be found here: [blacklabelops/swarm](https://github.com/blacklabelops/jenkins-swarm)
 
 ## Manual
 
