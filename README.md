@@ -12,6 +12,8 @@
 | Alpine | latest | alpine | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/DockerfileAlpine) | [![blacklabelops/jenkins:alpine](https://badge.imagelayers.io/blacklabelops/jenkins:alpine.svg)](https://imagelayers.io/?images=blacklabelops/jenkins:alpine 'blacklabelops/jenkins:alpine') |
 | Alpine | 1.647 | alpine.1.647 | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/DockerfileAlpine) | [![blacklabelops/jenkins:alpine.1.647](https://badge.imagelayers.io/blacklabelops/jenkins:alpine.1.647.svg)](https://imagelayers.io/?images=blacklabelops/jenkins:alpine.1.647 'blacklabelops/jenkins:alpine.1.647') |
 | Alpine | stable 1.642.1 | alpine.1.642.1 | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/DockerfileAlpine) | [![blacklabelops/jenkins:alpine.1.642.1](https://badge.imagelayers.io/blacklabelops/jenkins:alpine.1.642.1.svg)](https://imagelayers.io/?images=blacklabelops/jenkins:alpine.1.642.1 'blacklabelops/jenkins:alpine.1.642.1') |
+| Alpine | release candidate | rc | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/DockerfileAlpine) | [![blacklabelops/jenkins:rc](https://badge.imagelayers.io/blacklabelops/jenkins:rc.svg)](https://imagelayers.io/?images=blacklabelops/jenkins:rc 'blacklabelops/jenkins:rc') |
+| Alpine | stable release candidate | stable-rc | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/DockerfileAlpine) | [![blacklabelops/jenkins:alpine.stable-rc](https://badge.imagelayers.io/blacklabelops/jenkins:stable-rc.svg)](https://imagelayers.io/?images=blacklabelops/jenkins:stable-rc 'blacklabelops/jenkins:stable-rc') |
 
 > Older tags remain but are not supported/rebuild.
 
