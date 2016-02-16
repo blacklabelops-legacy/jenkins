@@ -8,6 +8,7 @@
    * [Using Bash Scripts](gitbook/gitbook/manual/use_bash_scripts.md)
    * [Using Vagrant](gitbook/gitbook/manual/use_vagrant.md)
    * [How To Extend This Image](gitbook/manual/extend_image.md)
+   * [Persist Data In Docker Volumes](gitbook/docker_volumes.md)
 * [Advanced](gitbook/advanced.md)
    * [Running Inside Google Container Engine](gitbook/advanced/running_inside_google_cloud.md)
    * [Hiding Security Credentials](gitbook/advanced/hide_security_credentials.md)
