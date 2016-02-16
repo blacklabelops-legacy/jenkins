@@ -1,4 +1,4 @@
-# Backups in Google Storage Buckets
+# Backups In Google Storage Buckets
 
 You can periodically create backups and upload them to your [Google Storage Bucket](https://cloud.google.com/storage/).
 

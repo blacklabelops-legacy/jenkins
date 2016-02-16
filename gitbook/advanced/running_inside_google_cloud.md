@@ -1,4 +1,4 @@
-# Running inside Google Container Engine
+# Running Inside Google Container Engine
 
 The following tutorial will show you how to use this container inside the Google Container Engine (GCE).
 
