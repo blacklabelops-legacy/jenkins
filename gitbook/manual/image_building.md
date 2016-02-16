@@ -65,8 +65,8 @@ jenkins:
     context: ../../
     dockerfile: Dockerfile
     args:
-      JENKINS_VERSION: war-stable
-      JENKINS_RELEASE: latest
+      JENKINS_VERSION: latest
+      JENKINS_RELEASE: war-stable
 ~~~~
 
 > Adjust JENKINS_VERSION and JENKINS_RELEASE for your personal needs.
