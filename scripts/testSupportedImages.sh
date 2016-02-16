@@ -26,5 +26,5 @@ testImage $TEST_JENKINS_STABLE_VERSION 8110
 testImage alpine 8120
 testImage alpine.$TEST_JENKINS_VERSION 8130
 testImage alpine.$TEST_JENKINS_STABLE_VERSION 8140
-testImage war-rc 8150
-testImage war-stable-rc 8160
+testImage rc 8150
+testImage stable-rc 8160
