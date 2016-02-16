@@ -9,10 +9,14 @@ dependencies:
   override:
     - docker version
     - docker info
-    - docker build -t="blacklabelops/jenkins" .
+    - docker build -t blacklabelops/jenkins .
+    - docker build -t blacklabelops/jenkins:alpine -f DockerfileAlpine .
 
 test:
   override:
     - docker run -d -p 8090:8080 --name="jenkins_jenkins_1" blacklabelops/jenkins
     - sleep 10
     - curl --retry 10 --retry-delay 5 -v http://localhost:8090
+    - docker run -d -p 8100:8080 --name="jenkins_jenkins_1" blacklabelops/jenkins:alpine
+    - sleep 10
+    - curl --retry 10 --retry-delay 5 -v http://localhost:8100
