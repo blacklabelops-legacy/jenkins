@@ -1,21 +1,25 @@
 FROM blacklabelops/java-jdk-8:8.60.27
 MAINTAINER Steffen Bleul <sbl@blacklabelops.com>
 
+# Build time arguments
+#Values: latest or version number
+ARG JENKINS_VERSION=latest
+#Values: war or war-stable
+ARG JENKINS_RELEASE=war
+
 # env variables for the console or child containers to override
 ENV JAVA_VM_PARAMETERS=-Xmx512m \
- JENKINS_MASTER_EXECUTORS= \
- JENKINS_SLAVEPORT=50000 \
- JENKINS_ADMIN_USER= \
- JENKINS_ADMIN_PASSWORD= \
- JENKINS_PLUGINS=swarm \
- JENKINS_PARAMETERS= \
- JENKINS_KEYSTORE_PASSWORD= \
- JENKINS_CERTIFICATE_DNAME= \
- JENKINS_ENV_FILE= \
- JENKINS_HOME=/jenkins \
- JENKINS_DELAYED_START= \
- JENKINS_VERSION=latest \
- JENKINS_RELEASE=war
+    JENKINS_MASTER_EXECUTORS= \
+    JENKINS_SLAVEPORT=50000 \
+    JENKINS_ADMIN_USER= \
+    JENKINS_ADMIN_PASSWORD= \
+    JENKINS_PLUGINS=swarm \
+    JENKINS_PARAMETERS= \
+    JENKINS_KEYSTORE_PASSWORD= \
+    JENKINS_CERTIFICATE_DNAME= \
+    JENKINS_ENV_FILE= \
+    JENKINS_HOME=/jenkins \
+    JENKINS_DELAYED_START=
 
 RUN export CONTAINER_USER=jenkins && \
     export CONTAINER_UID=1000 && \

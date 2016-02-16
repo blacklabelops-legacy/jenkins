@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  # Jenkins Master
+  jenkins:
+    build:
+      context: ../../
+      dockerfile: Dockerfile
+      args:
+        JENKINS_VERSION: war-stable
+        JENKINS_RELEASE: latest
