@@ -6,6 +6,9 @@ MAINTAINER Steffen Bleul <sbl@blacklabelops.com>
 ARG JENKINS_VERSION=latest
 #Values: war or war-stable
 ARG JENKINS_RELEASE=war
+#Permissions, set the linux user id and group id
+ARG CONTAINER_UID=1000
+ARG CONTAINER_GID=1000
 
 # env variables for the console or child containers to override
 ENV JAVA_VM_PARAMETERS=-Xmx512m \
@@ -22,9 +25,7 @@ ENV JAVA_VM_PARAMETERS=-Xmx512m \
     JENKINS_DELAYED_START=
 
 RUN export CONTAINER_USER=jenkins && \
-    export CONTAINER_UID=1000 && \
     export CONTAINER_GROUP=jenkins && \
-    export CONTAINER_GID=1000 && \
     # Add user
     /usr/sbin/groupadd --gid $CONTAINER_GID jenkins && \
     /usr/sbin/useradd --uid $CONTAINER_UID --gid $CONTAINER_GID --create-home --shell /bin/bash jenkins && \

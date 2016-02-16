@@ -4,6 +4,7 @@
    * [Getting Jenkins Cloud Ready](getting_jenkins_docker_ready.md)
 * [Manual](gitbook/manual.md)
    * [Building The Image](gitbook/manual/image_building.md)
+   * [Container Permissions](gitbook/manual/container_permissions.md)
    * [Environment Variables](gitbook/manual/env_variables.md)
    * [Using Bash Scripts](gitbook/manual/use_bash_scripts.md)
    * [Using Vagrant](gitbook/manual/use_vagrant.md)
