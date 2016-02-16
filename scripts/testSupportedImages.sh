@@ -17,6 +17,7 @@ function testImage() {
   docker run -d -p $port:8080 --name=$tagname blacklabelops/jenkins:$tagname
   sleep 10
   curl --retry 10 --retry-delay 5 -v http://localhost:$port
+  docker stop $tagname
 }
 
 testImage latest 8090
