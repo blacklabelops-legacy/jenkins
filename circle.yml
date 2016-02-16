@@ -9,8 +9,7 @@ dependencies:
   override:
     - docker version
     - docker info
-    - docker build -t blacklabelops/jenkins .
-    - docker build -t blacklabelops/jenkins:alpine -f DockerfileAlpine .
+    - scripts/buildSupportedImages.sh
 
 test:
   override:
