@@ -1,0 +1,15 @@
+version: '2'
+
+services:
+  # Jenkins Master
+  jenkins:
+    image: blacklabelops/jenkins
+    container_name: jenkins
+    ports:
+     - "8080:8080"
+    volumes:
+      - jenkinsdata:/jenkins
+
+volumes:
+  jenkinsdata:
+    external: false

@@ -25,3 +25,35 @@ $ docker run -it --rm -v jenkins_data:/jenkins:ro blacklabelops/jenkins bash
 ~~~~
 
 > Note: We access the volume in read-only mode because we have another process working on the data!
+
+## Using Docker Compose
+
+A minimal Docker-Compose file for using volumes can be found in file `docker-compose.yml` inside the repository directory [examples/build](https://github.com/blacklabelops/jenkins/tree/master/examples/volumes).
+
+The file looks like this:
+
+~~~~
+version: '2'
+
+services:
+  # Jenkins Master
+  jenkins:
+    image: blacklabelops/jenkins
+    container_name: jenkins
+    ports:
+     - "8080:8080"
+    volumes:
+      - jenkinsdata:/jenkins
+
+volumes:
+  jenkinsdata:
+    external: false
+~~~~
+
+> Adjust JENKINS_VERSION and JENKINS_RELEASE for your personal needs.
+
+Just start up docker-compose, volumes will be managed on-the-fly:
+
+~~~~
+$ docker-compose up -d
+~~~~
