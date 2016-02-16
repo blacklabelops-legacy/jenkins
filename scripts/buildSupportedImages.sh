@@ -16,7 +16,7 @@ function buildImage() {
   local version=$2
   local tagname=$3
   local dockerfile=$4
-  docker build -t blacklabelops/jenkins:$tagname --build-arg JENKINS_RELEASE=$release --build-arg JENKINS_VERSION=$version -f $dockerfile .
+  docker build --no-cache -t blacklabelops/jenkins:$tagname --build-arg JENKINS_RELEASE=$release --build-arg JENKINS_VERSION=$version -f $dockerfile .
 }
 
 buildImage war $BUILD_JENKINS_VERSION latest Dockerfile
