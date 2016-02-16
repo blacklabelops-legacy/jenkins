@@ -1,4 +1,4 @@
-FROM blacklabelops/centos.jdk8
+FROM blacklabelops/java:centos.jdk8
 MAINTAINER Steffen Bleul <sbl@blacklabelops.com>
 
 # Build time arguments
