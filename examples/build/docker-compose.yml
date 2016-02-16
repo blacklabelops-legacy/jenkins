@@ -9,3 +9,6 @@ services:
       args:
         JENKINS_VERSION: latest
         JENKINS_RELEASE: war-stable
+    container_name: jenkins
+    ports:
+     - "8090:8080"
