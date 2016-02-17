@@ -9,7 +9,7 @@ dependencies:
   override:
     - docker version
     - docker info
-    - source scripts/release.cfg
+    - scripts/release.sh
     - scripts/buildImage.sh war $JENKINS_VERSION latest Dockerfile
     - scripts/buildImage.sh war $JENKINS_VERSION $JENKINS_VERSION Dockerfile
     - scripts/buildImage.sh war-stable $JENKINS_STABLE_VERSION $JENKINS_STABLE_VERSION Dockerfile

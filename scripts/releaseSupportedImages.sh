@@ -6,7 +6,7 @@ set -o errexit    # abort script at first error
 readonly CUR_DIR=$(cd $(dirname ${BASH_SOURCE:-$0}); pwd)
 
 printf '%b\n' ":: Reading release config...."
-source $CUR_DIR/release.cfg
+source $CUR_DIR/release.sh
 
 readonly PUSH_REPOSITORY=$1
 readonly PUSH_JENKINS_VERSION=$JENKINS_VERSION
