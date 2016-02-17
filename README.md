@@ -16,6 +16,7 @@
 | Alpine | stable release candidate | stable-rc | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/DockerfileAlpine) | [![blacklabelops/jenkins:alpine.stable-rc](https://badge.imagelayers.io/blacklabelops/jenkins:stable-rc.svg)](https://imagelayers.io/?images=blacklabelops/jenkins:stable-rc 'blacklabelops/jenkins:stable-rc') |
 
 > Older tags remain but are not supported/rebuild.
+> Note: Imagelayers.io badges are broken because Dockerhub does not support Docker 1.9 Dockerfiles. (e.g. ARG directive)
 
 ## Instant Usage
 
