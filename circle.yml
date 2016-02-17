@@ -9,17 +9,23 @@ dependencies:
   override:
     - docker version
     - docker info
-    - export TEST_JENKINS_VERSION=1.647
-    - export TEST_JENKINS_STABLE_VERSION=1.642.1
-    - scripts/buildSupportedImages.sh
+    - source scripts/release.cfg
+    - scripts/buildImage.sh war $JENKINS_VERSION latest Dockerfile
+    - scripts/buildImage.sh war $JENKINS_VERSION $JENKINS_VERSION Dockerfile
+    - scripts/buildImage.sh war-stable $JENKINS_STABLE_VERSION $JENKINS_STABLE_VERSION Dockerfile
+    - scripts/buildImage.sh war $JENKINS_VERSION alpine DockerfileAlpine
+    - scripts/buildImage.sh war $JENKINS_VERSION alpine.$JENKINS_VERSION DockerfileAlpine
+    - scripts/buildImage.sh war-stable $JENKINS_STABLE_VERSION alpine.$JENKINS_STABLE_VERSION DockerfileAlpine
+    - scripts/buildImage.sh war-rc latest rc DockerfileAlpine
+    - scripts/buildImage.sh war-stable-rc latest stable-rc DockerfileAlpine
 
 test:
   override:
     - scripts/testImage.sh latest 8090
-    - scripts/testImage.sh $TEST_JENKINS_VERSION 8100
-    - scripts/testImage.sh $TEST_JENKINS_STABLE_VERSION 8110
+    - scripts/testImage.sh $JENKINS_VERSION 8100
+    - scripts/testImage.sh $JENKINS_STABLE_VERSION 8110
     - scripts/testImage.sh alpine 8120
-    - scripts/testImage.sh alpine.$TEST_JENKINS_VERSION 8130
-    - scripts/testImage.sh alpine.$TEST_JENKINS_STABLE_VERSION 8140
+    - scripts/testImage.sh alpine.$JENKINS_VERSION 8130
+    - scripts/testImage.sh alpine.$JENKINS_STABLE_VERSION 8140
     - scripts/testImage.sh rc 8150
     - scripts/testImage.sh stable-rc 8160
