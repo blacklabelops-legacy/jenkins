@@ -9,6 +9,8 @@ dependencies:
   override:
     - docker version
     - docker info
+    - export TEST_JENKINS_VERSION=1.647
+    - export TEST_JENKINS_STABLE_VERSION=1.642.1
     - scripts/buildSupportedImages.sh
 
 test:
