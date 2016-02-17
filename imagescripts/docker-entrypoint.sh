@@ -205,16 +205,16 @@ _EOF_
 
   log_parameter=""
 
-  if [ -n "${LOG_FILE}" ]; then
-    log_dir=$(dirname ${LOG_FILE})
-    log_file=$(basename ${LOG_FILE})
+  if [ -n "${JENKINS_LOG_FILE}" ]; then
+    log_dir=$(dirname ${JENKINS_LOG_FILE})
+    log_file=$(basename ${JENKINS_LOG_FILE})
     if [ ! -d "${log_dir}" ]; then
       mkdir -p ${log_dir}
     fi
-    if [ ! -f "${LOG_FILE}" ]; then
-      touch ${LOG_FILE}
+    if [ ! -f "${JENKINS_LOG_FILE}" ]; then
+      touch ${JENKINS_LOG_FILE}
     fi
-    log_parameter=" --logfile="${LOG_FILE}
+    log_parameter=" --logfile="${JENKINS_LOG_FILE}
   fi
 
   unset JENKINS_ADMIN_USER
