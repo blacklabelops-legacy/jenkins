@@ -4,7 +4,7 @@
    * [Getting Jenkins Cloud Ready](getting_jenkins_docker_ready.md)
 * [Manual](gitbook/manual.md)
    * [Building The Image](gitbook/manual/image_building.md)
-   * [Persist in Docker Volumes](gitbook/persist_in_docker_volumes.md)
+   * [Persist In Docker Volumes](gitbook/persist_in_docker_volumes.md)
    * [Container Permissions](gitbook/manual/container_permissions.md)
    * [Environment Variables](gitbook/manual/env_variables.md)
    * [Using Bash Scripts](gitbook/manual/use_bash_scripts.md)
