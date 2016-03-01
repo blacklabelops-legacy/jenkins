@@ -11,11 +11,11 @@
    * [Using Vagrant](gitbook/manual/use_vagrant.md)
    * [How To Extend This Image](gitbook/manual/extend_image.md)
 * [Advanced](gitbook/advanced.md)
+   * [NGINX Reverse Proxy](gitbook/nginx_reverse_proxy.md)
    * [Running Inside Google Container Engine](gitbook/advanced/running_inside_google_cloud.md)
    * [Hiding Security Credentials](gitbook/advanced/hide_security_credentials.md)
    * [Custom Container Logging](gitbook/advanced/logging_with_loggly.md)
    * [Backups With Rsnapshot](gitbook/advanced/backups_with_rsnapshot.md)
    * [Backups In Google Storage Buckets](gitbook/advanced/backups_in_google_storage_buckets.md)
-   * [NGINX Reverse Proxy](gitbook/nginx_reverse_proxy.md)
 * [References](gitbook/references.md)
 
