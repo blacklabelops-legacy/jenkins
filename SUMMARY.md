@@ -16,6 +16,6 @@
    * [Custom Container Logging](gitbook/advanced/logging_with_loggly.md)
    * [Backups With Rsnapshot](gitbook/advanced/backups_with_rsnapshot.md)
    * [Backups In Google Storage Buckets](gitbook/advanced/backups_in_google_storage_buckets.md)
-   * NGINX Reverse Proxy
+   * [NGINX Reverse Proxy](gitbook/nginx_reverse_proxy.md)
 * [References](gitbook/references.md)
 
