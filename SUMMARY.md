@@ -10,7 +10,7 @@
    * [Using Vagrant](gitbook/manual/use_vagrant.md)
    * [How To Extend This Image](gitbook/manual/extend_image.md)
    * [Persist Data In Docker Volumes](gitbook/manual/docker_volumes.md)
-   * Persist in Docker Volumes
+   * [Persist in Docker Volumes](gitbook/persist_in_docker_volumes.md)
 * [Advanced](gitbook/advanced.md)
    * [Running Inside Google Container Engine](gitbook/advanced/running_inside_google_cloud.md)
    * [Hiding Security Credentials](gitbook/advanced/hide_security_credentials.md)
