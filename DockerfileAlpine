@@ -45,8 +45,9 @@ RUN export CONTAINER_USER=jenkins && \
     # Jenkins directory
     mkdir -p ${JENKINS_HOME} && \
     chown -R $CONTAINER_USER:$CONTAINER_GROUP ${JENKINS_HOME} && \
-    # Remove obsolete packages
-    apk del wget
+    # Remove obsolete packages and cleanup
+    apk del wget && \
+    rm -rf /var/cache/apk/* && rm -rf /var/log/* && rm -rf /tmp/*
 
 WORKDIR /jenkins
 VOLUME ["/jenkins"]

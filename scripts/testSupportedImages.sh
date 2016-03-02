@@ -19,3 +19,5 @@ source $CUR_DIR/testImage.sh alpine.$TEST_JENKINS_VERSION 8130
 source $CUR_DIR/testImage.sh alpine.$TEST_JENKINS_STABLE_VERSION 8140
 source $CUR_DIR/testImage.sh rc 8150
 source $CUR_DIR/testImage.sh stable-rc 8160
+source $CUR_DIR/testImage.sh preview-2.0 8170
+source $CUR_DIR/testImage.sh centos.preview-2.0 8180

@@ -35,3 +35,5 @@ pushImage alpine.$PUSH_JENKINS_VERSION $PUSH_REPOSITORY
 pushImage alpine.$PUSH_JENKINS_STABLE_VERSION $PUSH_REPOSITORY
 pushImage rc $PUSH_REPOSITORY
 pushImage stable-rc $PUSH_REPOSITORY
+pushImage preview-2.0 $PUSH_REPOSITORY
+pushImage centos.preview-2.0 $PUSH_REPOSITORY

@@ -21,6 +21,8 @@ dependencies:
     - scripts/buildImage.sh war-stable $JENKINS_STABLE_VERSION alpine.$JENKINS_STABLE_VERSION DockerfileAlpine
     - scripts/buildImage.sh war-rc latest rc DockerfileAlpine
     - scripts/buildImage.sh war-stable-rc latest stable-rc DockerfileAlpine
+    - scripts/buildImage.sh war-rc 2.0 preview-2.0 DockerfileAlpine
+    - scripts/buildImage.sh war-rc 2.0 centos.preview-2.0 Dockerfile
 
 test:
   override:
@@ -32,3 +34,5 @@ test:
     - scripts/testImage.sh alpine.$JENKINS_STABLE_VERSION 8140
     - scripts/testImage.sh rc 8150
     - scripts/testImage.sh stable-rc 8160
+    - scripts/testImage.sh preview-2.0 8170
+    - scripts/testImage.sh centos.preview-2.0 8180
