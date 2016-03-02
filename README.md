@@ -30,10 +30,6 @@ This is a preview version, do not use in production and wait for the official re
 
 > Note: Imagelayers.io badges are broken because Dockerhub does not support Docker 1.9 Dockerfiles. (e.g. ARG directive)
 
-## Instant Usage
-
-[![Deploy to Tutum](https://s.tutum.co/deploy-to-tutum.svg)](https://stackfiles.io/registry/563e68648ba74c01008d72de)
-
 ## Make It Short
 
 ~~~~
@@ -83,7 +79,7 @@ Leave a message and ask questions on Hipchat: [blacklabelops/hipchat](https://ww
 
 ## Build Slaves
 
-Build Slaves can be found here: [blacklabelops/swarm](https://github.com/blacklabelops/jenkins-swarm)
+Build Slaves can be found here: [blacklabelops/swarm](https://github.com/blacklabelops/swarm)
 
 ## Manual
 
