@@ -6,8 +6,8 @@ machine:
     - docker
 
   environment:
-    JENKINS_VERSION: '1.651'
-    JENKINS_STABLE_VERSION: '1.642.2'
+    JENKINS_VERSION: '1.653'
+    JENKINS_STABLE_VERSION: '1.642.3'
 
 dependencies:
   override:

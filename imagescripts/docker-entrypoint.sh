@@ -8,7 +8,7 @@
 
 set -e
 
-if [ "$1" = 'jenkins' ]; then
+if [ "$1" = 'jenkins' ] || [ "${1:0:1}" = '-' ]; then
 
   if [ -n "${JENKINS_DELAYED_START}" ]; then
     sleep ${JENKINS_DELAYED_START}
