@@ -7,7 +7,7 @@ machine:
 
   environment:
     JENKINS_VERSION: '1.655'
-    JENKINS_STABLE_VERSION: '1.642.3'
+    JENKINS_STABLE_VERSION: '1.642.4'
 
 dependencies:
   override:
