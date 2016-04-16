@@ -2,6 +2,11 @@
 
 set -o errexit    # abort script at first error
 
+function testPrintVersion() {
+  local tagname=$1
+  docker run --rm blacklabelops/jenkins:$tagname --version
+}
+
 function testImage() {
   local tagname=$1
   local port=$2
@@ -22,4 +27,5 @@ function testImage() {
   docker stop $tagname
 }
 
+testPrintVersion $1
 testImage $1 $2

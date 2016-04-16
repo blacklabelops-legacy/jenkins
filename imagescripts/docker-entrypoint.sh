@@ -225,10 +225,9 @@ _EOF_
 
   # Start jenkins
   exec /usr/bin/java -Dfile.encoding=UTF-8 ${java_vm_parameters} -jar /usr/bin/jenkins/jenkins.war ${jenkins_parameters}${log_parameter}
-fi
-if [[ "$1" == '--'* ]]; then
+elif [[ "$1" == '--'* ]]; then
   # Run Jenkins with passed parameters.
   exec /usr/bin/java -Dfile.encoding=UTF-8 ${java_vm_parameters} -jar /usr/bin/jenkins/jenkins.war "$@"
+else
+  exec "$@"
 fi
-
-exec "$@"
