@@ -2,27 +2,16 @@ FROM blacklabelops/java:jdk8
 MAINTAINER Steffen Bleul <sbl@blacklabelops.com>
 
 # Build time arguments
-#Values: latest or version number
+# Values: latest or version number
 ARG JENKINS_VERSION=latest
-#Values: war or war-stable
+# Values: war or war-stable
 ARG JENKINS_RELEASE=war
-#Permissions, set the linux user id and group id
+# Permissions, set the linux user id and group id
 ARG CONTAINER_UID=1000
 ARG CONTAINER_GID=1000
 
-# env variables for the console or child containers to override
-ENV JAVA_VM_PARAMETERS=-Xmx512m \
-    JENKINS_MASTER_EXECUTORS= \
-    JENKINS_SLAVEPORT=50000 \
-    JENKINS_ADMIN_USER= \
-    JENKINS_ADMIN_PASSWORD= \
-    JENKINS_PLUGINS=swarm \
-    JENKINS_PARAMETERS= \
-    JENKINS_KEYSTORE_PASSWORD= \
-    JENKINS_CERTIFICATE_DNAME= \
-    JENKINS_ENV_FILE= \
-    JENKINS_HOME=/jenkins \
-    JENKINS_DELAYED_START=
+# Container Environment Variables
+ENV JENKINS_HOME=/jenkins
 
 RUN export CONTAINER_USER=jenkins && \
     export CONTAINER_GROUP=jenkins && \
@@ -30,11 +19,10 @@ RUN export CONTAINER_USER=jenkins && \
     addgroup -g $CONTAINER_GID jenkins && \
     adduser -u $CONTAINER_UID -G jenkins -h /home/jenkins -s /bin/bash -S jenkins && \
     # Install software
-    apk upgrade --update && \
     apk add --update \
-    git \
-    wget \
-    bash && \
+      git \
+      wget \
+      bash && \
     rm -rf /var/cache/apk/* && \
     # Install jenkins
     mkdir -p /usr/bin/jenkins && \
@@ -47,7 +35,27 @@ RUN export CONTAINER_USER=jenkins && \
     chown -R $CONTAINER_USER:$CONTAINER_GROUP ${JENKINS_HOME} && \
     # Remove obsolete packages and cleanup
     apk del wget && \
-    rm -rf /var/cache/apk/* && rm -rf /var/log/* && rm -rf /tmp/*
+    rm -rf /var/cache/apk/* && rm -rf /var/log/* && rm -rf /tmp/* && \
+    # Install Tini Zombie Reaper And Signal Forwarder
+    export TINI_VERSION=0.9.0 && \
+    export TINI_SHA=fa23d1e20732501c3bb8eeeca423c89ac80ed452 && \
+    curl -fsSL https://github.com/krallin/tini/releases/download/v${TINI_VERSION}/tini-static -o /bin/tini && \
+    chmod +x /bin/tini
+    # && \
+    # echo "$TINI_SHA /bin/tini" | sha1sum -c -
+
+# Entrypoint Environment Variables
+ENV JAVA_VM_PARAMETERS=-Xmx512m \
+    JENKINS_MASTER_EXECUTORS= \
+    JENKINS_SLAVEPORT=50000 \
+    JENKINS_ADMIN_USER= \
+    JENKINS_ADMIN_PASSWORD= \
+    JENKINS_PLUGINS=swarm \
+    JENKINS_PARAMETERS= \
+    JENKINS_KEYSTORE_PASSWORD= \
+    JENKINS_CERTIFICATE_DNAME= \
+    JENKINS_ENV_FILE= \
+    JENKINS_DELAYED_START=
 
 WORKDIR /jenkins
 VOLUME ["/jenkins"]
@@ -55,5 +63,5 @@ EXPOSE 8080 50000
 
 USER jenkins
 COPY imagescripts/docker-entrypoint.sh /home/jenkins/docker-entrypoint.sh
-ENTRYPOINT ["/home/jenkins/docker-entrypoint.sh"]
+ENTRYPOINT ["/bin/tini","--","/home/jenkins/docker-entrypoint.sh"]
 CMD ["jenkins"]

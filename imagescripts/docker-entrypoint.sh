@@ -224,7 +224,7 @@ _EOF_
   unset SMTP_USER_PASS
 
   # Start jenkins
-  /usr/bin/java -Dfile.encoding=UTF-8 ${java_vm_parameters} -jar /usr/bin/jenkins/jenkins.war ${jenkins_parameters}${log_parameter} "$@"
+  exec /usr/bin/java -Dfile.encoding=UTF-8 ${java_vm_parameters} -jar /usr/bin/jenkins/jenkins.war ${jenkins_parameters}${log_parameter} "$@"
 fi
 
 exec "$@"
