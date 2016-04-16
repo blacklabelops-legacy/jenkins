@@ -8,7 +8,7 @@
 
 set -e
 
-if [ "$1" = 'jenkins' ] || [ "${1:0:1}" = '-' ]; then
+if [ "$1" = 'jenkins' ]; then
 
   if [ -n "${JENKINS_DELAYED_START}" ]; then
     sleep ${JENKINS_DELAYED_START}
@@ -224,7 +224,11 @@ _EOF_
   unset SMTP_USER_PASS
 
   # Start jenkins
-  exec /usr/bin/java -Dfile.encoding=UTF-8 ${java_vm_parameters} -jar /usr/bin/jenkins/jenkins.war ${jenkins_parameters}${log_parameter} "$@"
+  exec /usr/bin/java -Dfile.encoding=UTF-8 ${java_vm_parameters} -jar /usr/bin/jenkins/jenkins.war ${jenkins_parameters}${log_parameter}
+fi
+if [[ "$1" == '--'* ]]; then
+  # Run Jenkins with passed parameters.
+  exec /usr/bin/java -Dfile.encoding=UTF-8 ${java_vm_parameters} -jar /usr/bin/jenkins/jenkins.war "$@"
 fi
 
 exec "$@"

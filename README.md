@@ -58,6 +58,37 @@ $ docker-compose scale slave=3
 
 > Starts three java JDK-8 slaves.
 
+## Passing Slave Parameters
+
+You can run the Jenkins solely with command line parameters!
+
+Example:
+
+~~~~
+$ docker run \
+     -d -p 8090:8080 \
+     --name jenkins \
+	   blacklabelops/jenkins --debug=9
+~~~~
+
+> Staring Jenkins with custom debug level.
+
+Example list parameters:
+
+~~~~
+$ docker run --rm blacklabelops/jenkins --help
+~~~~
+
+> Lists jenkins-swarm plugin parameters.
+
+Example printing Jenkins version:
+
+~~~~
+$ docker run --rm blacklabelops/jenkins --version
+~~~~
+
+> Prints the image's Jenkins version.
+
 ## Features
 
 * Install latest Jenkins.
