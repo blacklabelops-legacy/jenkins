@@ -4,12 +4,10 @@
 
 ## Jenkins 2.0
 
-> Note: Jenkins 2.0 is not compatible with some of the documented features here. The documentation and docker-compose examples are written for Jenkins 1.656 and 1.651.1 LTS. Please bear this in mind!
-
 What I have found so far:
 
-* Jenkins Swarm Plugin in currently not available for Jenkins 2.0.
 * Jenkins 2.0 has a installation routine. You need to start the container, then grab the installation password from the logs.
+* Admin username and password cannot be preconfigured by environment variables anymore. This is done inside the new installation routine.
 
 ## Supported tags and respective Dockerfile links
 
