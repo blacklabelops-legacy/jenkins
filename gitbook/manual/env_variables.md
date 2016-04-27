@@ -79,15 +79,7 @@ $ docker run --name jenkins \
 
 ## Jenkins Administrator Address
 
-Setting the Administrators EMail Address. Has the form:
-"Administrator Name <mail@example.com>"
-
-~~~~
-$ docker run --name jenkins \
-  -e "JENKINS_ADMIN_EMAIL=Blacklabelops <blacklabelops@itbleul.de>" \
-  -p 8090:8080 \
-  blacklabelops/jenkins
-~~~~
+> Feature has been removed in version 2.0!
 
 ## Jenkins Mail SMTP
 
