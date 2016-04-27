@@ -2,16 +2,14 @@
 
 [![Circle CI](https://circleci.com/gh/blacklabelops/jenkins/tree/master.svg?style=shield)](https://circleci.com/gh/blacklabelops/jenkins/tree/master) [![Docker Stars](https://img.shields.io/docker/stars/blacklabelops/jenkins.svg)](https://hub.docker.com/r/blacklabelops/jenkins/) [![Docker Pulls](https://img.shields.io/docker/pulls/blacklabelops/jenkins.svg)](https://hub.docker.com/r/blacklabelops/jenkins/)
 
-## Jenkins 2.0 Preview
+## Jenkins 2.0
 
-This is a preview version, do not use in production and wait for the official release!
+> Note: Jenkins 2.0 is not compatible with some of the documented features here. The documentation and docker-compose examples are written for Jenkins 1.656 and 1.651.1 LTS. Please bear this in mind!
 
-| Distribution | Version      | Tag          | Dockerfile | Size |
-|--------------|--------------|--------------|------------|------|
-| Alpine | Preview 2.0 | preview-2.0 | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/DockerfileAlpine) | [![blacklabelops/jenkins:preview-2.0](https://badge.imagelayers.io/blacklabelops/jenkins:preview-2.0.svg)](https://imagelayers.io/?images=blacklabelops/jenkins:preview-2.0 'blacklabelops/jenkins:preview-2.0') |
-| Centos | Preview 2.0 | centos.preview-2.0 | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/Dockerfile) | [![blacklabelops/jenkins:centos.preview-2.0](https://badge.imagelayers.io/blacklabelops/jenkins:centos.preview-2.0.svg)](https://imagelayers.io/?images=blacklabelops/jenkins:centos.preview-2.0 'blacklabelops/jenkins:centos.preview-2.0') |
+What I have found so far:
 
-> Note: Seems like 2.0 really is fully downwards compatible and image features are still working! Build args for version 2.0: JENKINS_RELEASE=war-rc and JENKINS_VERSION=2.0
+* Jenkins Swarm Plugin in currently not available for Jenkins 2.0.
+* Jenkins 2.0 has a installation routine. You need to start the container, then grab the installation password from the logs.
 
 ## Supported tags and respective Dockerfile links
 
