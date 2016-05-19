@@ -6,7 +6,7 @@ machine:
     - docker
 
   environment:
-    JENKINS_VERSION: '2.3'
+    JENKINS_VERSION: '2.5'
     JENKINS_STABLE_VERSION: '1.651.2'
 
 dependencies:
