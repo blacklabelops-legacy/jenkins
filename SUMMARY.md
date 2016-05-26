@@ -10,6 +10,7 @@
    * [Using Bash Scripts](gitbook/manual/use_bash_scripts.md)
    * [Using Vagrant](gitbook/manual/use_vagrant.md)
    * [How To Extend This Image](gitbook/manual/extend_image.md)
+   * Jenkins Command Line Interface
 * [Advanced](gitbook/advanced.md)
    * [NGINX Reverse Proxy](gitbook/nginx_reverse_proxy.md)
    * [Running Inside Google Container Engine](gitbook/advanced/running_inside_google_cloud.md)
