@@ -13,12 +13,12 @@ dependencies:
   override:
     - docker version
     - docker info
-    - scripts/buildImage.sh war $JENKINS_VERSION latest Dockerfile
-    - scripts/buildImage.sh war $JENKINS_VERSION $JENKINS_VERSION Dockerfile
-    - scripts/buildImage.sh war-stable $JENKINS_STABLE_VERSION $JENKINS_STABLE_VERSION Dockerfile
-    - scripts/buildImage.sh war $JENKINS_VERSION alpine DockerfileAlpine
-    - scripts/buildImage.sh war $JENKINS_VERSION alpine.$JENKINS_VERSION DockerfileAlpine
-    - scripts/buildImage.sh war-stable $JENKINS_STABLE_VERSION alpine.$JENKINS_STABLE_VERSION DockerfileAlpine
+    - scripts/buildImage.sh war $JENKINS_VERSION latest Dockerfile $JENKINS_VERSION
+    - scripts/buildImage.sh war $JENKINS_VERSION $JENKINS_VERSION Dockerfile $JENKINS_VERSION
+    - scripts/buildImage.sh war-stable $JENKINS_STABLE_VERSION $JENKINS_STABLE_VERSION Dockerfile $JENKINS_STABLE_VERSION
+    - scripts/buildImage.sh war $JENKINS_VERSION alpine DockerfileAlpine $JENKINS_VERSION
+    - scripts/buildImage.sh war $JENKINS_VERSION alpine.$JENKINS_VERSION DockerfileAlpine $JENKINS_VERSION
+    - scripts/buildImage.sh war-stable $JENKINS_STABLE_VERSION alpine.$JENKINS_STABLE_VERSION DockerfileAlpine $JENKINS_STABLE_VERSION
     - scripts/buildImage.sh war-rc latest rc DockerfileAlpine
     - scripts/buildImage.sh war-stable-rc latest stable-rc DockerfileAlpine
     - scripts/buildImage.sh war-rc 2.0 preview-2.0 DockerfileAlpine

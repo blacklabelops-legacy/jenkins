@@ -7,7 +7,8 @@ function buildImage() {
   local version=$2
   local tagname=$3
   local dockerfile=$4
-  docker build --no-cache -t blacklabelops/jenkins:$tagname --build-arg JENKINS_RELEASE=$release --build-arg JENKINS_VERSION=$version -f $dockerfile .
+  local cliversion=$5
+  docker build --no-cache -t blacklabelops/jenkins:$tagname --build-arg JENKINS_RELEASE=$release --build-arg JENKINS_VERSION=$version --build-arg JENKINS_CLI_VERSION=$cliversion -f $dockerfile .
 }
 
-buildImage $1 $2 $3 $4
+buildImage $1 $2 $3 $4 $5
