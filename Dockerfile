@@ -4,6 +4,7 @@ MAINTAINER Steffen Bleul <sbl@blacklabelops.com>
 # Build time arguments
 # Values: latest or version number
 ARG JENKINS_VERSION=latest
+ARG JENKINS_CLI_VERSION=2.6
 #Values: war or war-stable
 ARG JENKINS_RELEASE=war
 #Permissions, set the linux user id and group id
@@ -20,7 +21,9 @@ ENV JAVA_VM_PARAMETERS=-Xmx512m \
     JENKINS_CERTIFICATE_DNAME= \
     JENKINS_ENV_FILE= \
     JENKINS_HOME=/jenkins \
-    JENKINS_DELAYED_START=
+    JENKINS_DELAYED_START= \
+    JENKINS_CLI_URL=http://localhost:8080 \
+    JENKINS_CLI_SSH=
 
 RUN export CONTAINER_USER=jenkins && \
     export CONTAINER_GROUP=jenkins && \
@@ -36,10 +39,16 @@ RUN export CONTAINER_USER=jenkins && \
     yum clean all && rm -rf /var/cache/yum/* && \
     # Install jenkins
     mkdir -p /usr/bin/jenkins && \
-    wget --directory-prefix=/usr/bin/jenkins \
-         http://mirrors.jenkins-ci.org/${JENKINS_RELEASE}/${JENKINS_VERSION}/jenkins.war && \
-    chown -R $CONTAINER_USER:$CONTAINER_GROUP /usr/bin/jenkins && \
-    chmod ug+x /usr/bin/jenkins/jenkins.war && \
+    wget --quiet --directory-prefix=/usr/bin/jenkins \
+        http://mirrors.jenkins-ci.org/${JENKINS_RELEASE}/${JENKINS_VERSION}/jenkins.war && \
+    touch /usr/bin/jenkins-cli && \
+    touch /usr/bin/cli && \
+    # Install Jenkins cli
+    wget --quiet --directory-prefix=/usr/bin/jenkins \
+        http://repo.jenkins-ci.org/public/org/jenkins-ci/main/cli/${JENKINS_CLI_VERSION}/cli-${JENKINS_CLI_VERSION}-jar-with-dependencies.jar && \
+    mv /usr/bin/jenkins/cli-${JENKINS_CLI_VERSION}-jar-with-dependencies.jar /usr/bin/jenkins/cli.jar && \
+    chown -R $CONTAINER_USER:$CONTAINER_GROUP /usr/bin/jenkins /usr/bin/jenkins-cli /usr/bin/cli && \
+    chmod ug+x /usr/bin/jenkins/jenkins.war /usr/bin/jenkins/cli.jar /usr/bin/jenkins-cli /usr/bin/cli && \
     # Jenkins directory
     mkdir -p ${JENKINS_HOME} && \
     chown -R $CONTAINER_USER:$CONTAINER_GROUP ${JENKINS_HOME} && \
