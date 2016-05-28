@@ -12,5 +12,5 @@ node {
   stage 'Test Images'
   parallel(
     "image-centos": { load './buildscripts/centosTestImages.groovy' },
-    "image-centos": { load './buildscripts/alpineTestImages.groovy' })
+    "image-alpine": { load './buildscripts/alpineTestImages.groovy' })
 }
