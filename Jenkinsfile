@@ -6,7 +6,11 @@
 node('docker') {
   checkout scm
   stage 'Build Images'
-  sh './scripts/release.sh && ./scripts/buildSupportedCentosImages.sh'
-  stage 'Test Images'
-  sh './scripts/release.sh && ./scripts/testSupportedCentosImages.sh'
+  parallel(
+    "image-centos": { load './buildscripts/centosBuildImages.groovy' },
+    "image-alpine": { load './buildscripts/alpineBuildImages.groovy' })
+  //stage 'Test Images'
+  //parallel(
+  //  "image-centos": { sh './scripts/release.sh && ./scripts/testSupportedCentosImages.sh' },
+  //  "image-centos": { sh './scripts/release.sh && ./scripts/testSupportedAlpineImages.sh' })
 }
