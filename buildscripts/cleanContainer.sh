@@ -7,4 +7,4 @@ function cleanContainer() {
   docker rm -f -v $container;true
 }
 
-cleanImage $1
+cleanContainer $1
