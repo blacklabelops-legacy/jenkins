@@ -1,9 +1,9 @@
 node('docker') {
     checkout scm
-    sh './scripts/release.sh && ./scripts/cleanCentosontainers.sh'
+    sh './buildscripts/release.sh && ./buildscripts/cleanCentosontainers.sh'
     try {
-      sh './scripts/release.sh && ./scripts/testSupportedCentosImages.sh'
+      sh './buildscripts/release.sh && ./buildscripts/testSupportedCentosImages.sh'
     } finally {
-      sh './scripts/release.sh && ./scripts/cleanCentosontainers.sh'
+      sh './buildscripts/release.sh && ./buildscripts/cleanCentosontainers.sh'
     }
 }
