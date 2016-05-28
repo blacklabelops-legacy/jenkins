@@ -7,10 +7,10 @@ node {
   checkout scm
   stage 'Build Images'
   parallel(
-    "image-centos": { load './buildscripts/centosBuildImages.groovy' })
-    //"image-alpine": { load './buildscripts/alpineBuildImages.groovy' })
-  //stage 'Test Images'
+    "image-centos": { load './buildscripts/centosBuildImages.groovy' },
+    "image-alpine": { load './buildscripts/alpineBuildImages.groovy' })
+  stage 'Test Images'
   parallel(
-    "image-centos": { load './buildscripts/centosTestImages.groovy' })
-  //  "image-centos": { sh './scripts/release.sh && ./scripts/testSupportedAlpineImages.sh' })
+    "image-centos": { load './buildscripts/centosTestImages.groovy' },
+    "image-centos": { load './buildscripts/alpineTestImages.groovy' })
 }
