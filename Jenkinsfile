@@ -5,6 +5,8 @@
 **/
 node('docker') {
   checkout scm
-  stage 'Build & Test Images'
-  sh './scripts/release.sh && ./scripts/buildSupportedImages.sh'
+  stage 'Build Images'
+  sh './scripts/release.sh && ./scripts/buildSupportedCentosImages.sh'
+  stage 'Test Images'
+  sh './scripts/release.sh && ./scripts/testSupportedCentosImages.sh'
 }

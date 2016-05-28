@@ -1,6 +1,6 @@
 # Dockerized Jenkins
 
-[![Circle CI](https://circleci.com/gh/blacklabelops/jenkins/tree/master.svg?style=shield)](https://circleci.com/gh/blacklabelops/jenkins/tree/master) [![Docker Stars](https://img.shields.io/docker/stars/blacklabelops/jenkins.svg)](https://hub.docker.com/r/blacklabelops/jenkins/) [![Docker Pulls](https://img.shields.io/docker/pulls/blacklabelops/jenkins.svg)](https://hub.docker.com/r/blacklabelops/jenkins/)
+[![Docker Stars](https://img.shields.io/docker/stars/blacklabelops/jenkins.svg)](https://hub.docker.com/r/blacklabelops/jenkins/) [![Docker Pulls](https://img.shields.io/docker/pulls/blacklabelops/jenkins.svg)](https://hub.docker.com/r/blacklabelops/jenkins/)
 
 ## Jenkins 2.0
 
@@ -11,16 +11,16 @@ What I have found so far:
 
 ## Supported tags and respective Dockerfile links
 
-| Distribution | Version      | Tag          | Dockerfile | Size |
-|--------------|--------------|--------------|------------|------|
-| CentOS | latest | latest | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/Dockerfile) | [![blacklabelops/jenkins:latest](https://badge.imagelayers.io/blacklabelops/jenkins:latest.svg)](https://imagelayers.io/?images=blacklabelops/jenkins:latest 'blacklabelops/jenkins:latest') |
-| CentOS | 2.6 | 2.6 |  [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/Dockerfile) | [![blacklabelops/jenkins:2.6](https://badge.imagelayers.io/blacklabelops/jenkins:2.6.svg)](https://imagelayers.io/?images=blacklabelops/jenkins:2.6 'blacklabelops/jenkins:2.6') |
-| CentOS | stable 1.651.2 | 1.651.2 |  [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/Dockerfile) | [![blacklabelops/jenkins:1.651.2](https://badge.imagelayers.io/blacklabelops/jenkins:1.651.1.svg)](https://imagelayers.io/?images=blacklabelops/jenkins:1.651.2 'blacklabelops/jenkins:1.651.2') |
-| Alpine | latest | alpine | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/DockerfileAlpine) | [![blacklabelops/jenkins:alpine](https://badge.imagelayers.io/blacklabelops/jenkins:alpine.svg)](https://imagelayers.io/?images=blacklabelops/jenkins:alpine 'blacklabelops/jenkins:alpine') |
-| Alpine | 2.6 | alpine.2.6 | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/DockerfileAlpine) | [![blacklabelops/jenkins:alpine.2.6](https://badge.imagelayers.io/blacklabelops/jenkins:alpine.2.6.svg)](https://imagelayers.io/?images=blacklabelops/jenkins:alpine.2.6 'blacklabelops/jenkins:alpine.2.6') |
-| Alpine | stable 1.651.2 | alpine.1.651.2 | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/DockerfileAlpine) | [![blacklabelops/jenkins:alpine.1.651.2](https://badge.imagelayers.io/blacklabelops/jenkins:alpine.1.651.2.svg)](https://imagelayers.io/?images=blacklabelops/jenkins:alpine.1.651.2 'blacklabelops/jenkins:alpine.1.651.2') |
-| Alpine | release candidate | rc | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/DockerfileAlpine) | [![blacklabelops/jenkins:rc](https://badge.imagelayers.io/blacklabelops/jenkins:rc.svg)](https://imagelayers.io/?images=blacklabelops/jenkins:rc 'blacklabelops/jenkins:rc') |
-| Alpine | stable release candidate | stable-rc | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/DockerfileAlpine) | [![blacklabelops/jenkins:alpine.stable-rc](https://badge.imagelayers.io/blacklabelops/jenkins:stable-rc.svg)](https://imagelayers.io/?images=blacklabelops/jenkins:stable-rc 'blacklabelops/jenkins:stable-rc') |
+| Distribution | Version      | Tag          | Dockerfile |
+|--------------|--------------|--------------|------------|
+| CentOS | latest | latest | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/Dockerfile) |
+| CentOS | 2.6 | 2.6 |  [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/Dockerfile) |
+| CentOS | stable 1.651.2 | 1.651.2 |  [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/Dockerfile) |
+| Alpine | latest | alpine | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/DockerfileAlpine) |
+| Alpine | 2.6 | alpine.2.6 | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/DockerfileAlpine) |
+| Alpine | stable 1.651.2 | alpine.1.651.2 | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/DockerfileAlpine) |
+| Alpine | release candidate | rc | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/DockerfileAlpine) |
+| Alpine | stable release candidate | stable-rc | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/DockerfileAlpine) |
 
 > Older tags remain but are not supported/rebuild.
 
