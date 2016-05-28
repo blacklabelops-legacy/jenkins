@@ -29,12 +29,14 @@ RUN export CONTAINER_USER=jenkins && \
     mkdir -p /usr/bin/jenkins && \
     wget --directory-prefix=/usr/bin/jenkins \
          http://mirrors.jenkins-ci.org/${JENKINS_RELEASE}/${JENKINS_VERSION}/jenkins.war && \
+    echo 'Calculated checksum: '$(sha1sum /usr/bin/jenkins/jenkins.war) && \
     touch /usr/bin/jenkins-cli && \
     touch /usr/bin/cli && \
     # Install Jenkins cli
     wget --directory-prefix=/usr/bin/jenkins \
         http://repo.jenkins-ci.org/public/org/jenkins-ci/main/cli/${JENKINS_CLI_VERSION}/cli-${JENKINS_CLI_VERSION}-jar-with-dependencies.jar && \
     mv /usr/bin/jenkins/cli-${JENKINS_CLI_VERSION}-jar-with-dependencies.jar /usr/bin/jenkins/cli.jar && \
+    echo 'Calculated checksum: '$(sha1sum /usr/bin/jenkins/cli.jar) && \
     # Jenkins permissions
     chown -R $CONTAINER_USER:$CONTAINER_GROUP /usr/bin/jenkins /usr/bin/jenkins-cli /usr/bin/cli && \
     chmod ug+x /usr/bin/jenkins/jenkins.war /usr/bin/jenkins/cli.jar /usr/bin/jenkins-cli /usr/bin/cli && \
@@ -48,9 +50,8 @@ RUN export CONTAINER_USER=jenkins && \
     export TINI_VERSION=0.9.0 && \
     export TINI_SHA=fa23d1e20732501c3bb8eeeca423c89ac80ed452 && \
     curl -fsSL https://github.com/krallin/tini/releases/download/v${TINI_VERSION}/tini-static -o /bin/tini && \
-    chmod +x /bin/tini
-    # && \
-    # echo "$TINI_SHA /bin/tini" | sha1sum -c -
+    echo 'Calculated checksum: '$(sha1sum /bin/tini) && \
+    chmod +x /bin/tini && echo "$TINI_SHA  /bin/tini" | sha1sum -c -
 
 # Entrypoint Environment Variables
 ENV JAVA_VM_PARAMETERS=-Xmx512m \
