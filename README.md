@@ -14,17 +14,15 @@ What I have found so far:
 | Distribution | Version      | Tag          | Dockerfile |
 |--------------|--------------|--------------|------------|
 | CentOS | latest | latest | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/Dockerfile) |
-| CentOS | 2.18 | 2.18 |  [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/Dockerfile) |
-| CentOS | stable 2.7.2 | 2.7.2 |  [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/Dockerfile) |
+| CentOS | 2.21 | 2.21 |  [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/Dockerfile) |
+| CentOS | stable 2.7.4 | 2.7.4 |  [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/Dockerfile) |
 | Alpine | latest | alpine | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/DockerfileAlpine) |
-| Alpine | 2.18 | alpine.2.18 | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/DockerfileAlpine) |
-| Alpine | stable 2.7.2 | alpine.2.7.2 | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/DockerfileAlpine) |
+| Alpine | 2.21 | alpine.2.21 | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/DockerfileAlpine) |
+| Alpine | stable 2.7.4 | alpine.2.7.4 | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/DockerfileAlpine) |
 | Alpine | release candidate | rc | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/DockerfileAlpine) |
 | Alpine | stable release candidate | stable-rc | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/DockerfileAlpine) |
 
 > Older tags remain but are not supported/rebuild.
-
-> Note: Imagelayers.io badges are broken because Dockerhub does not support Docker 1.9 Dockerfiles. (e.g. ARG directive)
 
 ## Make It Short
 
