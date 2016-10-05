@@ -54,6 +54,20 @@ RUN export CONTAINER_USER=jenkins && \
     # Jenkins directory
     mkdir -p ${JENKINS_HOME} && \
     chown -R $CONTAINER_USER:$CONTAINER_GROUP ${JENKINS_HOME} && \
+    # Adding letsencrypt-ca to truststore
+    export KEYSTORE=$JAVA_HOME/jre/lib/security/cacerts && \
+    wget -P /tmp/ https://letsencrypt.org/certs/letsencryptauthorityx1.der && \
+    wget -P /tmp/ https://letsencrypt.org/certs/letsencryptauthorityx2.der && \
+    wget -P /tmp/ https://letsencrypt.org/certs/lets-encrypt-x1-cross-signed.der && \
+    wget -P /tmp/ https://letsencrypt.org/certs/lets-encrypt-x2-cross-signed.der && \
+    wget -P /tmp/ https://letsencrypt.org/certs/lets-encrypt-x3-cross-signed.der && \
+    wget -P /tmp/ https://letsencrypt.org/certs/lets-encrypt-x4-cross-signed.der && \
+    keytool -trustcacerts -keystore $KEYSTORE -storepass changeit -noprompt -importcert -alias isrgrootx1 -file /tmp/letsencryptauthorityx1.der && \
+    keytool -trustcacerts -keystore $KEYSTORE -storepass changeit -noprompt -importcert -alias isrgrootx2 -file /tmp/letsencryptauthorityx2.der && \
+    keytool -trustcacerts -keystore $KEYSTORE -storepass changeit -noprompt -importcert -alias letsencryptauthorityx1 -file /tmp/lets-encrypt-x1-cross-signed.der && \
+    keytool -trustcacerts -keystore $KEYSTORE -storepass changeit -noprompt -importcert -alias letsencryptauthorityx2 -file /tmp/lets-encrypt-x2-cross-signed.der && \
+    keytool -trustcacerts -keystore $KEYSTORE -storepass changeit -noprompt -importcert -alias letsencryptauthorityx3 -file /tmp/lets-encrypt-x3-cross-signed.der && \
+    keytool -trustcacerts -keystore $KEYSTORE -storepass changeit -noprompt -importcert -alias letsencryptauthorityx4 -file /tmp/lets-encrypt-x4-cross-signed.der && \
     # Install Tini Zombie Reaper And Signal Forwarder
     export TINI_VERSION=0.9.0 && \
     export TINI_SHA=fa23d1e20732501c3bb8eeeca423c89ac80ed452 && \
