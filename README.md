@@ -14,10 +14,10 @@ What I have found so far:
 | Distribution | Version      | Tag          | Dockerfile |
 |--------------|--------------|--------------|------------|
 | CentOS | latest | latest | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/Dockerfile) |
-| CentOS | 2.24 | 2.24 |  [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/Dockerfile) |
+| CentOS | 2.26 | 2.26 |  [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/Dockerfile) |
 | CentOS | stable 2.19.1 | 2.19.1 |  [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/Dockerfile) |
 | Alpine | latest | alpine | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/DockerfileAlpine) |
-| Alpine | 2.24 | alpine.2.24 | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/DockerfileAlpine) |
+| Alpine | 2.26 | alpine.2.26 | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/DockerfileAlpine) |
 | Alpine | stable 2.19.1 | alpine.2.19.1 | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/DockerfileAlpine) |
 | Alpine | release candidate | rc | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/DockerfileAlpine) |
 | Alpine | stable release candidate | stable-rc | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/DockerfileAlpine) |
