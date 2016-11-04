@@ -3,5 +3,5 @@
 #------------------
 # CONTAINER VARIABLES
 #------------------
-export JENKINS_VERSION=2.26
-export JENKINS_STABLE_VERSION=2.19.1
+export JENKINS_VERSION=2.28
+export JENKINS_STABLE_VERSION=2.19.2
