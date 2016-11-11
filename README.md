@@ -7,10 +7,10 @@
 | Distribution | Version      | Tag          | Dockerfile |
 |--------------|--------------|--------------|------------|
 | CentOS | latest | latest | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/Dockerfile) |
-| CentOS | 2.28 | 2.28 |  [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/Dockerfile) |
+| CentOS | 2.30 | 2.30 |  [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/Dockerfile) |
 | CentOS | stable 2.19.2 | 2.19.2 |  [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/Dockerfile) |
 | Alpine | latest | alpine | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/DockerfileAlpine) |
-| Alpine | 2.28 | alpine.2.28 | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/DockerfileAlpine) |
+| Alpine | 2.30 | alpine.2.30 | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/DockerfileAlpine) |
 | Alpine | stable 2.19.2 | alpine.2.19.2 | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/DockerfileAlpine) |
 | Alpine | release candidate | rc | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/DockerfileAlpine) |
 | Alpine | stable release candidate | stable-rc | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/DockerfileAlpine) |
@@ -20,10 +20,10 @@
 ## Make It Short
 
 ~~~~
-$ docker run -d -p 8090:8080 --name jenkins blacklabelops/jenkins
+$ docker run -d -p 80:8080 --name jenkins blacklabelops/jenkins
 ~~~~
 
-> This will pull the container and start the latest jenkins on port 8090
+> You will have to restart the server to activate installed plugins!
 
 Recommended: Docker-Compose! Just curl the files and modify the environment-variables inside
 the .env-files.

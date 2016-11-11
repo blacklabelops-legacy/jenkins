@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 #
 # A helper script for ENTRYPOINT.
 #
@@ -76,12 +76,17 @@ _EOF_
   def defined_slaveport = ${JENKINS_SLAVEPORT}
 
   if (current_slaveport!=defined_slaveport) {
-  instance.setSlaveAgentPort(defined_slaveport)
-  logger.info("Slaveport set to " + defined_slaveport)
-  instance.save()
-  instance.doSafeRestart()
+    instance.setSlaveAgentPort(defined_slaveport)
+    logger.info("Slaveport set to " + defined_slaveport)
+    instance.save()
   }
 _EOF_
+  fi
+
+  DEFAULT_PLUGINS="docker-workflow ant build-timeout credentials-binding email-ext github-organization-folder gradle workflow-aggregator ssh-slaves subversion timestamper ws-cleanup"
+
+  if [ ! -n "${JENKINS_DEFAULT_PLUGINS}" ]; then
+    JENKINS_PLUGINS=$JENKINS_PLUGINS" "$DEFAULT_PLUGINS
   fi
 
   if [ -n "${JENKINS_PLUGINS}" ]; then
@@ -103,7 +108,6 @@ _EOF_
     def instance = Jenkins.getInstance()
     def pm = instance.getPluginManager()
     def uc = instance.getUpdateCenter()
-    uc.updateAllSites()
 
     plugins.each {
       logger.info("Checking " + it)
@@ -116,16 +120,15 @@ _EOF_
         def plugin = uc.getPlugin(it)
         if (plugin) {
           logger.info("Installing " + it)
-        	plugin.deploy()
+        	plugin.install()
           installed = true
         }
       }
     }
 
     if (installed) {
-      logger.info("Plugins installed, initializing a restart!")
+      logger.info("Plugins installed, you need to restart!")
       instance.save()
-      instance.doSafeRestart()
     }
 _EOF_
   fi
@@ -191,6 +194,27 @@ _EOF_
 _EOF_
   fi
 
+  if [ -n "${JENKINS_ADMIN_USER}" ] && [ -n "${JENKINS_ADMIN_PASSWORD}" ]; then
+    if [ ! -d "${JENKINS_HOME}/init.groovy.d" ]; then
+      mkdir ${JENKINS_HOME}/init.groovy.d
+    fi
+    cat > ${JENKINS_HOME}/init.groovy.d/initAdmin.groovy <<_EOF_
+import jenkins.model.*
+import hudson.security.*
+def instance = Jenkins.getInstance()
+def hudsonRealm = new HudsonPrivateSecurityRealm(false)
+def users = hudsonRealm.getAllUsers()
+if (!users || users.empty) {
+  hudsonRealm.createAccount("${JENKINS_ADMIN_USER}", "${JENKINS_ADMIN_PASSWORD}")
+  instance.setSecurityRealm(hudsonRealm)
+  def strategy = new GlobalMatrixAuthorizationStrategy()
+  strategy.add(Jenkins.ADMINISTER, "${JENKINS_ADMIN_USER}")
+  instance.setAuthorizationStrategy(strategy)
+}
+instance.save()
+_EOF_
+  fi
+
   if [ -n "${JENKINS_KEYSTORE_PASSWORD}" ] && [ -n "${JENKINS_CERTIFICATE_DNAME}" ]; then
     if [ ! -f "${JENKINS_HOME}/jenkins_keystore.jks" ]; then
       ${JAVA_HOME}/bin/keytool -genkey -alias jenkins_master -keyalg RSA -keystore ${JENKINS_HOME}/jenkins_keystore.jks -storepass ${JENKINS_KEYSTORE_PASSWORD} -keypass ${JENKINS_KEYSTORE_PASSWORD} --dname "${JENKINS_CERTIFICATE_DNAME}"
@@ -219,10 +243,10 @@ _EOF_
   unset SMTP_USER_PASS
 
   # Start jenkins
-  exec /usr/bin/java -Dfile.encoding=UTF-8 ${java_vm_parameters} -jar /usr/bin/jenkins/jenkins.war ${jenkins_parameters}${log_parameter}
+  exec /usr/bin/java -Dfile.encoding=UTF-8 -Djenkins.install.runSetupWizard=false ${java_vm_parameters} -jar /usr/bin/jenkins/jenkins.war ${jenkins_parameters}${log_parameter}
 elif [[ "$1" == '--'* ]]; then
   # Run Jenkins with passed parameters.
-  exec /usr/bin/java -Dfile.encoding=UTF-8 ${java_vm_parameters} -jar /usr/bin/jenkins/jenkins.war "$@"
+  exec /usr/bin/java -Dfile.encoding=UTF-8 -Djenkins.install.runSetupWizard=false ${java_vm_parameters} -jar /usr/bin/jenkins/jenkins.war "$@"
 else
   exec "$@"
 fi
