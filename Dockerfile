@@ -4,7 +4,7 @@ MAINTAINER Steffen Bleul <sbl@blacklabelops.com>
 # Build time arguments
 # Values: latest or version number
 ARG JENKINS_VERSION=latest
-ARG JENKINS_CLI_VERSION=2.19.2
+ARG JENKINS_CLI_VERSION=2.19.3
 #Values: war or war-stable
 ARG JENKINS_RELEASE=war
 #Permissions, set the linux user id and group id
