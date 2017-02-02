@@ -83,7 +83,7 @@ _EOF_
 _EOF_
   fi
 
-  DEFAULT_PLUGINS="docker-workflow ant build-timeout credentials-binding email-ext github-organization-folder gradle workflow-aggregator ssh-slaves subversion timestamper ws-cleanup"
+  DEFAULT_PLUGINS="matrix-auth ant build-timeout credentials-binding email-ext gradle workflow-aggregator ssh-slaves subversion timestamper ws-cleanup swarm"
 
   if [ ! -n "${JENKINS_DEFAULT_PLUGINS}" ]; then
     JENKINS_PLUGINS=$JENKINS_PLUGINS" "$DEFAULT_PLUGINS
@@ -120,15 +120,20 @@ _EOF_
         def plugin = uc.getPlugin(it)
         if (plugin) {
           logger.info("Installing " + it)
-        	plugin.install()
+        	def installFuture = plugin.deploy()
+          while(!installFuture.isDone()) {
+            logger.info("Waiting for plugin install: " + it)
+            sleep(3000)
+          }
           installed = true
         }
       }
     }
 
     if (installed) {
-      logger.info("Plugins installed, you need to restart!")
+      logger.info("Plugins installed, initializing a restart!")
       instance.save()
+      instance.restart()
     }
 _EOF_
   fi
@@ -198,20 +203,23 @@ _EOF_
     if [ ! -d "${JENKINS_HOME}/init.groovy.d" ]; then
       mkdir ${JENKINS_HOME}/init.groovy.d
     fi
-    cat > ${JENKINS_HOME}/init.groovy.d/initAdmin.groovy <<_EOF_
+    cat > ${JENKINS_HOME}/init.groovy.d/xinitAdmin.groovy <<_EOF_
 import jenkins.model.*
 import hudson.security.*
 def instance = Jenkins.getInstance()
-def hudsonRealm = new HudsonPrivateSecurityRealm(false)
-def users = hudsonRealm.getAllUsers()
-if (!users || users.empty) {
-  hudsonRealm.createAccount("${JENKINS_ADMIN_USER}", "${JENKINS_ADMIN_PASSWORD}")
-  instance.setSecurityRealm(hudsonRealm)
-  def strategy = new GlobalMatrixAuthorizationStrategy()
-  strategy.add(Jenkins.ADMINISTER, "${JENKINS_ADMIN_USER}")
-  instance.setAuthorizationStrategy(strategy)
+def pm = instance.getPluginManager()
+if (pm.getPlugin("matrix-auth")) {
+  def hudsonRealm = new HudsonPrivateSecurityRealm(false)
+  def users = hudsonRealm.getAllUsers()
+  if (!users || users.empty) {
+    hudsonRealm.createAccount("${JENKINS_ADMIN_USER}", "${JENKINS_ADMIN_PASSWORD}")
+    instance.setSecurityRealm(hudsonRealm)
+    def strategy = new GlobalMatrixAuthorizationStrategy()
+    strategy.add(Jenkins.ADMINISTER, "${JENKINS_ADMIN_USER}")
+    instance.setAuthorizationStrategy(strategy)
+  }
+  instance.save()
 }
-instance.save()
 _EOF_
   fi
 
