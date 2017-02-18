@@ -11,8 +11,8 @@ source $CUR_DIR/release.sh
 readonly TEST_JENKINS_VERSION=$JENKINS_VERSION
 readonly TEST_JENKINS_STABLE_VERSION=$JENKINS_STABLE_VERSION
 
-source $CUR_DIR/testImage.sh alpine 8120
-source $CUR_DIR/testImage.sh alpine.$TEST_JENKINS_VERSION 8130
-source $CUR_DIR/testImage.sh alpine.$TEST_JENKINS_STABLE_VERSION 8140
+source $CUR_DIR/testImage.sh latest 8120
+source $CUR_DIR/testImage.sh $TEST_JENKINS_VERSION 8130
+source $CUR_DIR/testImage.sh $TEST_JENKINS_STABLE_VERSION 8140
 source $CUR_DIR/testImage.sh rc 8150
 source $CUR_DIR/testImage.sh stable-rc 8160

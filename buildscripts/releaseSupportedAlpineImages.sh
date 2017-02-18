@@ -27,8 +27,8 @@ function pushImage() {
   docker push $repository/blacklabelops/jenkins:$tagname
 }
 
-pushImage alpine $PUSH_REPOSITORY
-pushImage alpine.$PUSH_JENKINS_VERSION $PUSH_REPOSITORY
-pushImage alpine.$PUSH_JENKINS_STABLE_VERSION $PUSH_REPOSITORY
+pushImage latest $PUSH_REPOSITORY
+pushImage $PUSH_JENKINS_VERSION $PUSH_REPOSITORY
+pushImage $PUSH_JENKINS_STABLE_VERSION $PUSH_REPOSITORY
 pushImage rc $PUSH_REPOSITORY
 pushImage stable-rc $PUSH_REPOSITORY

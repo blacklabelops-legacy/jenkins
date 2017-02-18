@@ -9,9 +9,9 @@ function buildImage() {
   local dockerfile=$4
   local cliversion=$5
   if [[ -z "${cliversion// }" ]]; then
-    docker build --no-cache -t blacklabelops/jenkins:$tagname --build-arg JENKINS_RELEASE=$release --build-arg JENKINS_VERSION=$version -f $dockerfile .
+    docker build --squash --no-cache -t blacklabelops/jenkins:$tagname --build-arg JENKINS_RELEASE=$release --build-arg JENKINS_VERSION=$version -f $dockerfile .
   else
-    docker build --no-cache -t blacklabelops/jenkins:$tagname --build-arg JENKINS_RELEASE=$release --build-arg JENKINS_VERSION=$version --build-arg JENKINS_CLI_VERSION=$cliversion -f $dockerfile .
+    docker build --squash --no-cache -t blacklabelops/jenkins:$tagname --build-arg JENKINS_RELEASE=$release --build-arg JENKINS_VERSION=$version --build-arg JENKINS_CLI_VERSION=$cliversion -f $dockerfile .
   fi
 }
 
