@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 #
 # A helper script for ENTRYPOINT.
 #
@@ -11,27 +11,28 @@ set -o errexit
 readonly CUR_DIR=$(cd $(dirname ${BASH_SOURCE:-$0}); pwd)
 
 source $CUR_DIR/clicreation.sh
+source $CUR_DIR/initsecuritysettings.sh
+
+if [ -n "${JENKINS_DELAYED_START}" ]; then
+  sleep ${JENKINS_DELAYED_START}
+fi
+
+if [ -n "${JENKINS_ENV_FILE}" ]; then
+  source ${JENKINS_ENV_FILE}
+fi
+
+java_vm_parameters=${JAVA_VM_PARAMETERS}
+jenkins_parameters=""
+
+if [ "${JENKINS_PRODUCTION_SETTINGS}" = 'true' ]; then
+  java_vm_parameters="-Xms4096m -Xmx4096m -XX:NewSize=2048m -XX:MaxNewSize=2048m -XX:ParallelGCThreads=4 -XX:ConcGCThreads=4 -Dhudson.slaves.ChannelPinger.pingInterval=-1 -Dhudson.security.ExtendedReadPermission=true -Dgroovy.use.classvalue=true"
+fi
+
+if [ -n "${JENKINS_PARAMETERS}" ]; then
+  jenkins_parameters=${JENKINS_PARAMETERS}
+fi
 
 if [ "$1" = 'jenkins' ]; then
-
-  if [ -n "${JENKINS_DELAYED_START}" ]; then
-    sleep ${JENKINS_DELAYED_START}
-  fi
-
-  if [ -n "${JENKINS_ENV_FILE}" ]; then
-    source ${JENKINS_ENV_FILE}
-  fi
-
-  java_vm_parameters=""
-  jenkins_parameters=""
-
-  if [ -n "${JAVA_VM_PARAMETERS}" ]; then
-    java_vm_parameters=${JAVA_VM_PARAMETERS}
-  fi
-
-  if [ -n "${JENKINS_PARAMETERS}" ]; then
-    jenkins_parameters=${JENKINS_PARAMETERS}
-  fi
 
   source $CUR_DIR/initexecutors.sh
   source $CUR_DIR/initslaveport.sh
