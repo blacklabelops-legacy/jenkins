@@ -1,61 +1,62 @@
-FROM blacklabelops/java:centos.jdk8
-MAINTAINER Steffen Bleul <sbl@blacklabelops.com>
+FROM blacklabelops/java:server-jre.8
 
 # Build time arguments
 # Values: latest or version number
 ARG JENKINS_VERSION=latest
+ARG JENKINS_HASH=
+# Cli installation details
 ARG JENKINS_CLI_VERSION=2.32.2
-#Values: war or war-stable
+ARG JENKINS_CLI_HASH=
+# Values: war or war-stable
 ARG JENKINS_RELEASE=war
-#Permissions, set the linux user id and group id
+# Permissions, set the linux user id and group id
 ARG CONTAINER_UID=1000
 ARG CONTAINER_GID=1000
+# Image Build Date By Buildsystem
+ARG BUILD_DATE=undefined
 
-# env variables for the console or child containers to override
-ENV JAVA_VM_PARAMETERS=-Xmx512m \
-    JENKINS_MASTER_EXECUTORS= \
-    JENKINS_SLAVEPORT=50000 \
-    JENKINS_PLUGINS= \
-    JENKINS_PARAMETERS= \
-    JENKINS_KEYSTORE_PASSWORD= \
-    JENKINS_CERTIFICATE_DNAME= \
-    JENKINS_ENV_FILE= \
-    JENKINS_HOME=/jenkins \
-    JENKINS_DELAYED_START= \
-    JENKINS_CLI_URL=http://localhost:8080 \
-    JENKINS_CLI_SSH=
+# Container Environment Variables
+ENV JENKINS_HOME=/jenkins \
+    BLACKLABELOPS_JENKINS_HOME=/opt/jenkins \
+    CONTAINER_USER=jenkins \
+    CONTAINER_GROUP=jenkins
 
-RUN export CONTAINER_USER=jenkins && \
-    export CONTAINER_GROUP=jenkins && \
-    # Add user
-    /usr/sbin/groupadd --gid $CONTAINER_GID jenkins && \
-    /usr/sbin/useradd --uid $CONTAINER_UID --gid $CONTAINER_GID --create-home --shell /bin/bash jenkins && \
-    # Install software
-    yum install -y \
+# Add User
+RUN addgroup -g $CONTAINER_GID jenkins && \
+    adduser -u $CONTAINER_UID -G jenkins -h /opt/jenkins -s /bin/bash -S jenkins
+
+# Install Jenkins
+RUN apk add --update \
       git \
-      unzip \
-      wget \
-      zip && \
-    yum clean all && rm -rf /var/cache/yum/* && \
-    # Install jenkins
+      wget && \
     mkdir -p /usr/bin/jenkins && \
-    wget --quiet --directory-prefix=/usr/bin/jenkins \
-        http://mirrors.jenkins-ci.org/${JENKINS_RELEASE}/${JENKINS_VERSION}/jenkins.war && \
-    echo 'Calculated checksum: '$(sha1sum /usr/bin/jenkins/jenkins.war) && \
-    touch /usr/bin/jenkins-cli && \
-    touch /usr/bin/cli && \
+    wget --directory-prefix=/usr/bin/jenkins \
+         http://mirrors.jenkins-ci.org/${JENKINS_RELEASE}/${JENKINS_VERSION}/jenkins.war && \
+    JENKINS_HASH=$(sha1sum /usr/bin/jenkins/jenkins.war) && \
+    echo 'Calculated checksum: '$JENKINS_HASH && \
     # Install Jenkins cli
-    wget --quiet --directory-prefix=/usr/bin/jenkins \
+    wget --directory-prefix=/usr/bin/jenkins \
         http://repo.jenkins-ci.org/public/org/jenkins-ci/main/cli/${JENKINS_CLI_VERSION}/cli-${JENKINS_CLI_VERSION}-jar-with-dependencies.jar && \
     mv /usr/bin/jenkins/cli-${JENKINS_CLI_VERSION}-jar-with-dependencies.jar /usr/bin/jenkins/cli.jar && \
-    echo 'Calculated checksum: '$(sha1sum /usr/bin/jenkins/cli.jar) && \
-    chown -R $CONTAINER_USER:$CONTAINER_GROUP /usr/bin/jenkins /usr/bin/jenkins-cli /usr/bin/cli && \
-    chmod ug+x /usr/bin/jenkins/jenkins.war /usr/bin/jenkins/cli.jar /usr/bin/jenkins-cli /usr/bin/cli && \
-    # Jenkins directory
+    JENKINS_CLI_HASH=$(sha1sum /usr/bin/jenkins/cli.jar) && \
+    echo 'Calculated checksum: '$JENKINS_CLI_HASH && \
+    # Jenkins Permissions
+    chown -R $CONTAINER_USER:$CONTAINER_GROUP /usr/bin/jenkins && \
+    chmod ug+x /usr/bin/jenkins/jenkins.war && \
+    # Jenkins Directory
     mkdir -p ${JENKINS_HOME} && \
-    chown -R $CONTAINER_USER:$CONTAINER_GROUP ${JENKINS_HOME} && \
-    # Adding letsencrypt-ca to truststore
-    export KEYSTORE=$JAVA_HOME/jre/lib/security/cacerts && \
+    mkdir -p ${BLACKLABELOPS_JENKINS_HOME} && \
+    chown -R $CONTAINER_USER:$CONTAINER_GROUP ${JENKINS_HOME} ${BLACKLABELOPS_JENKINS_HOME}
+
+# Install Jenkins cli
+RUN touch /usr/bin/jenkins-cli && \
+    touch /usr/bin/cli && \
+    # Jenkins Permissions
+    chown -R $CONTAINER_USER:$CONTAINER_GROUP /usr/bin/jenkins-cli /usr/bin/cli && \
+    chmod ug+x /usr/bin/jenkins/cli.jar /usr/bin/jenkins-cli /usr/bin/cli
+
+# Adding Letsencrypt-CA To Truststore
+RUN export KEYSTORE=$JAVA_HOME/jre/lib/security/cacerts && \
     wget -P /tmp/ https://letsencrypt.org/certs/letsencryptauthorityx1.der && \
     wget -P /tmp/ https://letsencrypt.org/certs/letsencryptauthorityx2.der && \
     wget -P /tmp/ https://letsencrypt.org/certs/lets-encrypt-x1-cross-signed.der && \
@@ -67,20 +68,40 @@ RUN export CONTAINER_USER=jenkins && \
     keytool -trustcacerts -keystore $KEYSTORE -storepass changeit -noprompt -importcert -alias letsencryptauthorityx1 -file /tmp/lets-encrypt-x1-cross-signed.der && \
     keytool -trustcacerts -keystore $KEYSTORE -storepass changeit -noprompt -importcert -alias letsencryptauthorityx2 -file /tmp/lets-encrypt-x2-cross-signed.der && \
     keytool -trustcacerts -keystore $KEYSTORE -storepass changeit -noprompt -importcert -alias letsencryptauthorityx3 -file /tmp/lets-encrypt-x3-cross-signed.der && \
-    keytool -trustcacerts -keystore $KEYSTORE -storepass changeit -noprompt -importcert -alias letsencryptauthorityx4 -file /tmp/lets-encrypt-x4-cross-signed.der && \
-    # Install Tini Zombie Reaper And Signal Forwarder
-    export TINI_VERSION=0.9.0 && \
-    export TINI_SHA=fa23d1e20732501c3bb8eeeca423c89ac80ed452 && \
-    curl -fsSL https://github.com/krallin/tini/releases/download/v${TINI_VERSION}/tini-static -o /bin/tini && \
-    echo 'Calculated checksum: '$(sha1sum /bin/tini) && \
-    chmod +x /bin/tini && \
-    echo "$TINI_SHA /bin/tini" | sha1sum -c -
+    keytool -trustcacerts -keystore $KEYSTORE -storepass changeit -noprompt -importcert -alias letsencryptauthorityx4 -file /tmp/lets-encrypt-x4-cross-signed.der
 
-WORKDIR /jenkins
-VOLUME ["/jenkins"]
+# Cleanup
+RUN apk del wget && \
+    rm -rf /var/cache/apk/* && rm -rf /var/log/* && rm -rf /tmp/*
+
+# Image Metadata
+LABEL com.blacklabelops.application.jenkins.version=$JENKINS_VERSION-$JENKINS_RELEASE \
+      com.blacklabelops.application.jenkins.hash=$JENKINS_HASH \
+      com.blacklabelops.application.jenkins.hashtype=sha1sum \
+      com.blacklabelops.application.jenkins.userid=$CONTAINER_UID \
+      com.blacklabelops.application.jenkins.groupid=$CONTAINER_GID \
+      com.blacklabelops.application.jenkinscli.version=$JENKINS_CLI_VERSION \
+      com.blacklabelops.application.jenkinscli.hash=$JENKINS_CLI_HASH \
+      com.blacklabelops.application.jenkinscli.hashtype=sha1sum \
+      com.blacklabelops.image.builddate.jenkins=${BUILD_DATE}
+
+# Entrypoint Environment Variables
+ENV JAVA_VM_PARAMETERS=-Xmx512m \
+    JENKINS_MASTER_EXECUTORS= \
+    JENKINS_SLAVEPORT=50000 \
+    JENKINS_PLUGINS= \
+    JENKINS_PARAMETERS= \
+    JENKINS_KEYSTORE_PASSWORD= \
+    JENKINS_CERTIFICATE_DNAME= \
+    JENKINS_ENV_FILE= \
+    JENKINS_DELAYED_START= \
+    JENKINS_CLI_URL=http://localhost:8080 \
+    JENKINS_CLI_SSH=
+
+WORKDIR ${JENKINS_HOME}
+VOLUME ["${JENKINS_HOME}"]
 EXPOSE 8080 50000
-
+COPY imagescripts/ ${BLACKLABELOPS_JENKINS_HOME}
 USER jenkins
-COPY imagescripts/docker-entrypoint.sh /home/jenkins/docker-entrypoint.sh
-ENTRYPOINT ["/bin/tini","--","/home/jenkins/docker-entrypoint.sh"]
+ENTRYPOINT ["/sbin/tini","--","/opt/jenkins/docker-entrypoint.sh"]
 CMD ["jenkins"]
