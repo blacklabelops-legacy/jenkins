@@ -17,7 +17,7 @@ function testImage() {
       { echo "Exit status of curl: $?"
         echo "Retrying ..."
       } 1>&2
-      if [ "$iteration" = '30' ]; then
+      if [ "$iteration" = '60' ]; then
         break
       else
         ((iteration=iteration+1))
