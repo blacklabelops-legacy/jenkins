@@ -11,7 +11,7 @@ function testImage() {
   local tagname=$1
   local port=$2
   local iteration=0
-  docker run -d -p $port:8080 --name=$tagname blacklabelops/jenkins:$tagname
+  docker run -d -p $port:8080 --name=jenkins.$tagname blacklabelops/jenkins:$tagname
   while ! curl -v http://localhost:$port
   do
       { echo "Exit status of curl: $?"
