@@ -5,7 +5,7 @@ FROM blacklabelops/java:server-jre.8
 ARG JENKINS_VERSION=latest
 ARG JENKINS_HASH=
 # Cli installation details
-ARG JENKINS_CLI_VERSION=2.73.2
+ARG JENKINS_CLI_VERSION=2.73.3
 ARG JENKINS_CLI_HASH=
 # Values: war or war-stable
 ARG JENKINS_RELEASE=war
