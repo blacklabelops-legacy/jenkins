@@ -6,8 +6,8 @@
 
 | Distribution | Version      | Tag          | Dockerfile |
 |--------------|--------------|--------------|------------|
-| Alpine | 2.93 | latest, 2.93 | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/Dockerfile) |
-| Alpine | stable 2.89.1 | 2.89.1 | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/Dockerfile) |
+| Alpine | 2.98 | latest, 2.98 | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/Dockerfile) |
+| Alpine | stable 2.89.2 | 2.89.2 | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/Dockerfile) |
 | Alpine | release candidate | rc | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/Dockerfile) |
 | Alpine | stable release candidate | stable-rc | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/Dockerfile) |
 
