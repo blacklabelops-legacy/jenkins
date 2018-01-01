@@ -68,12 +68,13 @@ LABEL com.blacklabelops.application.jenkins.version=$JENKINS_VERSION-$JENKINS_RE
       com.blacklabelops.application.jenkins.hashtype=sha1sum \
       com.blacklabelops.application.jenkins.userid=$CONTAINER_UID \
       com.blacklabelops.application.jenkins.groupid=$CONTAINER_GID \
-      com.blacklabelops.application.jenkinscli.version=JENKINS_CLI_VERSION \
+      com.blacklabelops.application.jenkinscli.version=$JENKINS_CLI_VERSION \
       com.blacklabelops.application.jenkinscli.hash=$JENKINS_CLI_HASH \
       com.blacklabelops.application.jenkinscli.hashtype=sha1sum
 
 # Entrypoint Environment Variables
 ENV JAVA_VM_PARAMETERS=-Xmx512m \
+    JENKINS_PRODUCTION_SETTINGS=false \
     JENKINS_MASTER_EXECUTORS= \
     JENKINS_SLAVEPORT=50000 \
     JENKINS_PLUGINS= \
@@ -90,6 +91,6 @@ VOLUME ["${JENKINS_HOME}"]
 EXPOSE 8080 50000
 
 USER jenkins
-COPY imagescripts/docker-entrypoint.sh /home/jenkins/docker-entrypoint.sh
+COPY imagescripts/ /home/jenkins
 ENTRYPOINT ["/sbin/tini","--","/home/jenkins/docker-entrypoint.sh"]
 CMD ["jenkins"]
