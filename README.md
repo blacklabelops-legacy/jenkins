@@ -6,12 +6,20 @@
 
 | Distribution | Version      | Tag          | Dockerfile |
 |--------------|--------------|--------------|------------|
-| Alpine | 2.103 | latest, 2.103 | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/Dockerfile) |
+| Alpine | 2.105 | latest, 2.105 | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/Dockerfile) |
 | Alpine | stable 2.89.3 | 2.89.3 | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/Dockerfile) |
 | Alpine | release candidate | rc | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/Dockerfile) |
 | Alpine | stable release candidate | stable-rc | [Dockerfile](https://github.com/blacklabelops/jenkins/blob/master/Dockerfile) |
 
 > Older tags remain but are not supported/rebuild.
+
+# Support & Feature Requests
+
+Leave a message and ask questions on Hipchat: [blacklabelops/hipchat](http://support.blacklabelops.com)
+
+Maybe no one has ever told you, but munich developers run on beer! If you like my work, share a beer!
+
+[![BeerMe](https://raw.githubusercontent.com/ikkez/Beer-Donation-Button/gh-pages/img/beer_donation_button_single.png)](https://www.paypal.me/donateblacklabelops)
 
 # Make It Short
 
@@ -49,10 +57,6 @@ $ docker run --rm blacklabelops/jenkins --version
 ~~~~
 
 > Prints the image's Jenkins version.
-
-# Support & Feature Requests
-
-Leave a message and ask questions on Hipchat: [blacklabelops/hipchat](http://support.blacklabelops.com/)
 
 # Build Slaves
 
