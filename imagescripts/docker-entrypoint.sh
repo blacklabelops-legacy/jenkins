@@ -32,7 +32,9 @@ if [ -n "${JENKINS_PARAMETERS}" ]; then
   jenkins_parameters=${JENKINS_PARAMETERS}
 fi
 
-if [ "$1" = 'jenkins' ]; then
+
+
+if [ "$1" = 'jenkins' ] || [[ "$1" == '--'* ]] ; then
 
   source $CUR_DIR/initexecutors.sh
   source $CUR_DIR/initslaveport.sh
@@ -67,11 +69,11 @@ if [ "$1" = 'jenkins' ]; then
   unset SMTP_USER_NAME
   unset SMTP_USER_PASS
 
-  # Start jenkins
-  exec /usr/bin/java -Dfile.encoding=UTF-8 -Djenkins.install.runSetupWizard=false ${java_vm_parameters} -jar /usr/bin/jenkins/jenkins.war ${jenkins_parameters}${log_parameter}
-elif [[ "$1" == '--'* ]]; then
-  # Run Jenkins with passed parameters.
-  exec /usr/bin/java -Dfile.encoding=UTF-8 -Djenkins.install.runSetupWizard=false ${java_vm_parameters} -jar /usr/bin/jenkins/jenkins.war "$@"
+  if [ "$1" = 'jenkins' ] ; then
+    exec /usr/bin/java -Dfile.encoding=UTF-8 -Djenkins.install.runSetupWizard=false ${java_vm_parameters} -jar /usr/bin/jenkins/jenkins.war ${jenkins_parameters}${log_parameter}
+  else
+    exec /usr/bin/java -Dfile.encoding=UTF-8 -Djenkins.install.runSetupWizard=false ${java_vm_parameters} -jar /usr/bin/jenkins/jenkins.war ${jenkins_parameters}${log_parameter} "$@"
+  fi
 else
   exec "$@"
 fi
