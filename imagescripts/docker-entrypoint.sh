@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 #
 # A helper script for ENTRYPOINT.
 #
@@ -7,6 +7,8 @@
 # his own process.
 
 set -o errexit
+
+[[ ${DEBUG} == true ]] && set -x
 
 readonly CUR_DIR=$(cd $(dirname ${BASH_SOURCE:-$0}); pwd)
 
